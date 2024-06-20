@@ -1,4 +1,5 @@
-﻿using JarvisAuth.Core.Messages;
+﻿using JarvisAuth.API.Controllers.Base;
+using JarvisAuth.Core.Messages;
 using JarvisAuth.Core.Responses.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
@@ -9,7 +10,7 @@ namespace JarvisAuth.API.Controllers
     [ApiController]
     [Route("api/health")]
     [Produces("application/json")]
-    public class HealthController(HealthCheckService healthCheckService) : Controller
+    public class HealthController(HealthCheckService healthCheckService) : BaseController
     {
         [HttpGet]
         [SwaggerOperation(Summary = "Checks the status and integrity of the API's resources and services")]
