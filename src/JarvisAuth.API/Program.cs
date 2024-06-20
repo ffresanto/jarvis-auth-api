@@ -1,13 +1,14 @@
 using HealthChecks.UI.Client;
 using JarvisAuth.API.Configurations;
+using JarvisAuth.API.Handlers;
 using JarvisAuth.Infrastructure.Configurations.Contexts;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.ConfigureSwagger();
 builder.Services.AddSqliteDbContextAndHealthCheck(builder.Configuration);
 
