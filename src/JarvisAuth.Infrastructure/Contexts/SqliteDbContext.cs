@@ -1,5 +1,5 @@
 ﻿using JarvisAuth.Domain.models;
-using JarvisAuth.Infrastructure.Mappings.TypesMapper;
+using JarvisAuth.Infrastructure.Mappings.TypesMapping;
 using Microsoft.EntityFrameworkCore;
 
 namespace JarvisAuth.Infrastructure.Contexts
