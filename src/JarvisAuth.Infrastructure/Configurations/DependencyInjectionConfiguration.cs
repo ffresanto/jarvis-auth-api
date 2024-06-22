@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace JarvisAuth.Infrastructure.Configurations
 {
-    public static class DependencyInjection
+    public static class DependencyInjectionConfiguration
     {
         public static IServiceCollection RepositoriesDependencies(this IServiceCollection services)
         {

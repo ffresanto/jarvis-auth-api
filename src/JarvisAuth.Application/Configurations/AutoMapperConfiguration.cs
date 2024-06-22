@@ -4,9 +4,9 @@ using JarvisAuth.Domain.models;
 
 namespace JarvisAuth.Application.Configurations
 {
-    public class AutoMapperProfile : Profile
+    public class AutoMapperConfiguration : Profile
     {
-        public AutoMapperProfile()
+        public AutoMapperConfiguration()
         {
             CreateMap<GenderType, GetGenderTypeResponse>();
             CreateMap<DocumentType, GetDocumentTypeResponse>(); 
