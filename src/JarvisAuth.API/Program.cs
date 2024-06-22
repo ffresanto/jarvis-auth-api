@@ -4,6 +4,7 @@ using JarvisAuth.API.Handlers;
 using JarvisAuth.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using JarvisAuth.Infrastructure.Configurations;
+using JarvisAuth.Application.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionStringSqlite = builder.Configuration.GetConnectionString("Sqlite");
@@ -13,7 +14,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddSqliteDbContext(connectionStringSqlite);
 builder.Services.AddSqliteHealthCheck(connectionStringSqlite);
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 builder.Services.RepositoriesDependencies();
+builder.Services.ServicesDependencies();
 builder.Services.ConfigureSwagger();
 
 var app = builder.Build();

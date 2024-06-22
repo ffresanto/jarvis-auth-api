@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\JarvisAuth.Application\JarvisAuth.Application.csproj" />
     <ProjectReference Include="..\JarvisAuth.Core\JarvisAuth.Core.csproj" />
     <ProjectReference Include="..\JarvisAuth.Infrastructure\JarvisAuth.Infrastructure.csproj" />
   </ItemGroup>
