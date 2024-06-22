@@ -7,14 +7,14 @@ namespace JarvisAuth.Infrastructure.Repositories
 {
     public class TypesRepository(SqliteDbContext context) : ITypesRepository
     {
-        public async Task<List<DocumentType>> GetDocumentsTypes()
+        public async Task<List<DocumentType>> GetDocumentTypes()
         {
-            return await context.DocumentsTypes.ToListAsync();
+            return await context.DocumentTypes.ToListAsync();
         }
 
-        public async Task<List<GenderType>> GetGendersTypes()
+        public async Task<List<GenderType>> GetGenderTypes()
         {
-            return await context.GendersTypes.ToListAsync();
+            return await context.GenderTypes.ToListAsync();
         }
 
         public void Dispose()

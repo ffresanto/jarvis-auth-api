@@ -10,13 +10,13 @@ namespace JarvisAuth.Infrastructure.Contexts
         {
         }
 
-        public DbSet<GenderType> GendersTypes { get; set; }
-        public DbSet<DocumentType> DocumentsTypes { get; set; }
+        public DbSet<GenderType> GenderTypes { get; set; }
+        public DbSet<DocumentType> DocumentTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new GendersTypesMapping());
-            modelBuilder.ApplyConfiguration(new DocumentsTypesMapping());
+            modelBuilder.ApplyConfiguration(new GenderTypesMapping());
+            modelBuilder.ApplyConfiguration(new DocumentTypesMapping());
         }
     }
 

@@ -5,7 +5,7 @@ namespace JarvisAuth.Domain.Interfaces.Services
 {
     public interface ITypeService
     {
-        public Task<Response<GetGendersTypesResponse>> GetGendersTypes();
-        public Task<Response<GetDocumentsTypesResponse>> GetDocumentsTypes();
+        public Task<Response<List<GetGenderTypeResponse>>> GetGendersTypes();
+        public Task<Response<List<GetDocumentTypeResponse>>> GetDocumentsTypes();
     }
 }

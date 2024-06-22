@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace JarvisAuth.Infrastructure.Mappings.TypesMapper
 {
-    public class GendersTypesMapping : IEntityTypeConfiguration<GenderType>
+    public class GenderTypesMapping : IEntityTypeConfiguration<GenderType>
     {
         public void Configure(EntityTypeBuilder<GenderType> builder)
         {

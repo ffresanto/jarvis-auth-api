@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace JarvisAuth.Infrastructure.Mappings.TypesMapper
 {
-    public class DocumentsTypesMapping : IEntityTypeConfiguration<DocumentType>
+    public class DocumentTypesMapping : IEntityTypeConfiguration<DocumentType>
     {
         public void Configure(EntityTypeBuilder<DocumentType> builder)
         {

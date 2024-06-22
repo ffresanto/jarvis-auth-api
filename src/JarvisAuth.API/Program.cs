@@ -14,6 +14,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddSqliteDbContext(connectionStringSqlite);
 builder.Services.AddSqliteHealthCheck(connectionStringSqlite);
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 builder.Services.RepositoriesDependencies();
 builder.Services.ServicesDependencies();
 builder.Services.ConfigureSwagger();

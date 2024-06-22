@@ -2,7 +2,7 @@
 
 namespace JarvisAuth.Core.Responses.Types
 {
-    public class GetDocumentsTypesResponse
+    public class GetGenderTypeResponse
     {
         [JsonProperty("id")]
         public int Id { get; set; }

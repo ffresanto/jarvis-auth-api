@@ -5,7 +5,7 @@ namespace JarvisAuth.Domain.Interfaces.Repositories
 {
     public interface ITypesRepository : IRepository
     {
-        public Task<List<GenderType>> GetGendersTypes();
-        public Task<List<DocumentType>> GetDocumentsTypes();
+        public Task<List<GenderType>> GetGenderTypes();
+        public Task<List<DocumentType>> GetDocumentTypes();
     }
 }
