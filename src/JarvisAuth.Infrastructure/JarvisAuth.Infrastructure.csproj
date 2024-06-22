@@ -12,4 +12,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.6" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\JarvisAuth.Domain\JarvisAuth.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
