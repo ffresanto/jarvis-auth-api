@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace JarvisAuth.Core.Responses.Types
+namespace JarvisAuth.Core.Responses.Jarvis
 {
     public class GetDocumentTypeResponse
     {

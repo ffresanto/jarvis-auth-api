@@ -1,20 +1,20 @@
 ﻿using AutoMapper;
+using JarvisAuth.Application.Security;
 using JarvisAuth.Core.Messages;
-using JarvisAuth.Core.Requests.System;
+using JarvisAuth.Core.Requests.Jarvis;
+using JarvisAuth.Core.Responses.Jarvis;
 using JarvisAuth.Core.Responses.Shared;
-using JarvisAuth.Core.Responses.System;
-using JarvisAuth.Core.Responses.Types;
 using JarvisAuth.Domain.Entities;
 using JarvisAuth.Domain.Interfaces.Repositories;
 using JarvisAuth.Domain.Interfaces.Services;
 
 namespace JarvisAuth.Application.Services
 {
-    public class SystemService(ISystemRepository systemRepository, IMapper mapper) : ISystemService
+    public class JarvisService(IJarvisRepository jarvisRepository, IMapper mapper) : IJarvisService
     {
-        public async Task<Response<PostCreateUserSystemResponse>> PostCreateUserSystem(PostCreateUserSystemRequest request)
+        public async Task<Response<PostCreateUserJarvisResponse>> PostCreateUserJarvis(PostCreateUserJarvisRequest request)
         {
-            var response = new Response<PostCreateUserSystemResponse>();
+            var response = new Response<PostCreateUserJarvisResponse>();
             var validate = request.Validate(request);
 
             if (validate.Count > 0)
@@ -24,15 +24,22 @@ namespace JarvisAuth.Application.Services
                 return response;
             }
 
-            var userSystem = mapper.Map<UserSystem>(request);
+            var emailExists = await jarvisRepository.EmailExistsAsync(request.Email);
 
-            //userSystem.Password = BCrypt.Net.BCrypt.HashPassword(request.Password);
+            if (emailExists)
+            {
+                response.Errors.Add("Email already exists");
+                response.StatusCode = 409;
+                return response;
+            }
 
-            //var  isPasswordValid = BCrypt.Net.BCrypt.Verify(request.Password, userSystem.Password);
+            var userJarvis = mapper.Map<UserJarvis>(request);
 
-            await systemRepository.CreateUserSystem(userSystem);
+            userJarvis.Password = EncryptionSecurity.EncryptPassword(userJarvis.Password);
 
-            var save = await systemRepository.SaveChangesAsync();
+            await jarvisRepository.CreateUserJarvis(userJarvis);
+
+            var save = await jarvisRepository.SaveChangesAsync();
 
             if (!save)
             {
@@ -41,7 +48,7 @@ namespace JarvisAuth.Application.Services
                 return response;
             }
 
-            response.Data = new PostCreateUserSystemResponse { UserId = userSystem.Id };
+            response.Data = new PostCreateUserJarvisResponse { UserId = userJarvis.Id };
 
             return response;
         }
@@ -50,7 +57,7 @@ namespace JarvisAuth.Application.Services
         {
             var response = new Response<List<GetGenderTypeResponse>>();
 
-            var data = await systemRepository.GetGenderTypes();
+            var data = await jarvisRepository.GetGenderTypes();
 
             if (data == null)
             {
@@ -68,7 +75,7 @@ namespace JarvisAuth.Application.Services
         {
             var response = new Response<List<GetDocumentTypeResponse>>();
 
-            var data = await systemRepository.GetDocumentTypes();
+            var data = await jarvisRepository.GetDocumentTypes();
 
             if (data == null)
             {

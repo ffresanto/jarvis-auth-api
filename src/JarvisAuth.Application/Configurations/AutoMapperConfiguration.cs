@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using JarvisAuth.Core.Requests.System;
-using JarvisAuth.Core.Responses.Types;
+using JarvisAuth.Core.Requests.Jarvis;
+using JarvisAuth.Core.Responses.Jarvis;
 using JarvisAuth.Domain.Entities;
 using JarvisAuth.Domain.models;
 
@@ -12,7 +12,7 @@ namespace JarvisAuth.Application.Configurations
         {
             CreateMap<GenderType, GetGenderTypeResponse>();
             CreateMap<DocumentType, GetDocumentTypeResponse>();
-            CreateMap<PostCreateUserSystemRequest, UserSystem>();
+            CreateMap<PostCreateUserJarvisRequest, UserJarvis>();
         }
     }
 }

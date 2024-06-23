@@ -3,13 +3,13 @@ using JarvisAuth.Domain.models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace JarvisAuth.Infrastructure.Mappings.SystemMapping
+namespace JarvisAuth.Infrastructure.Mappings.JarvisMapping
 {
-    public class UserSystemMapping : IEntityTypeConfiguration<UserSystem>
+    public class UserJarvisMapping : IEntityTypeConfiguration<UserJarvis>
     {
-        public void Configure(EntityTypeBuilder<UserSystem> builder)
+        public void Configure(EntityTypeBuilder<UserJarvis> builder)
         {
-            builder.ToTable("users_system");
+            builder.ToTable("users_jarvis");
 
             builder.HasKey(u => u.Id);
 
@@ -52,8 +52,8 @@ namespace JarvisAuth.Infrastructure.Mappings.SystemMapping
                 .HasColumnName("update_at")
                 .IsRequired();
 
-            builder.Property(u => u.UserSystemRoleId)
-                .HasColumnName("user_system_role_id")
+            builder.Property(u => u.UserJarvisRoleId)
+                .HasColumnName("user_jarvis_role_id")
                 .HasDefaultValue(1)
                 .IsRequired();
 

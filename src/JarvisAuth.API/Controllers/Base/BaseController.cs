@@ -20,6 +20,9 @@ namespace JarvisAuth.API.Controllers.Base
                     case 404:
                         errorResponse.Message = GlobalMessages.OPERATION_REQUEST_NOT_FOUND;
                         break;
+                    case 409:
+                        errorResponse.Message = GlobalMessages.OPERATION_REQUEST_CONFLICT;
+                        break;
                     default:
                         errorResponse.Message = GlobalMessages.OPERATION_FAILED;
                         break;
