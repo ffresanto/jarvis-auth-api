@@ -15,6 +15,14 @@ namespace JarvisAuth.Application.Services
         public async Task<Response<PostCreateUserSystemResponse>> PostCreateUserSystem(PostCreateUserSystemRequest request)
         {
             var response = new Response<PostCreateUserSystemResponse>();
+            var validate = request.Validate(request);
+
+            if (validate.Count > 0)
+            {
+                response.Errors = validate;
+                response.StatusCode = 422;
+                return response;
+            }
 
             var obj = mapper.Map<UserSystem>(request);
 

@@ -17,7 +17,7 @@ namespace JarvisAuth.API.Controllers
         [HttpPost("create-user-system")]
         [SwaggerOperation(Summary = "Test")]
         [SwaggerResponse(200, GlobalMessages.OPERATION_SUCESSS, typeof(Response<string>))]
-        [SwaggerResponse(404, GlobalMessages.OPERATION_REQUEST_NOT_FOUND, typeof(Response<string>))]
+        [SwaggerResponse(422, GlobalMessages.OPERATION_VALIDATIONS_ERROS, typeof(Response<string>))]
         [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION, typeof(Response<string>))]
         public async Task<ActionResult> PostCreateUserSystem(PostCreateUserSystemRequest request)
         {
