@@ -1,7 +1,10 @@
-﻿namespace JarvisAuth.Core.Responses.System
+﻿using Newtonsoft.Json;
+
+namespace JarvisAuth.Core.Responses.System
 {
     public class PostCreateUserSystemResponse
     {
-        public Guid Id { get; set; }
+        [JsonProperty("userId")]
+        public Guid UserId { get; set; }
     }
 }

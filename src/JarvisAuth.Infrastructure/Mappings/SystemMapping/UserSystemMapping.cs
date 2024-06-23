@@ -25,6 +25,10 @@ namespace JarvisAuth.Infrastructure.Mappings.SystemMapping
                 .HasColumnName("password")
                 .IsRequired();
 
+            builder.Property(u => u.Email)
+                .HasColumnName("email")
+                .IsRequired();
+
             builder.Property(u => u.ContactNumber)
                 .HasColumnName("contact_number");
 

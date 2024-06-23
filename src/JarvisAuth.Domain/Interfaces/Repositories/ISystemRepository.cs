@@ -4,7 +4,7 @@ using JarvisAuth.Domain.models;
 
 namespace JarvisAuth.Domain.Interfaces.Repositories
 {
-    public interface ISystemRepository
+    public interface ISystemRepository : IRepository
     {
         public Task CreateUserSystem(UserSystem userSystem);
         public Task<List<GenderType>> GetGenderTypes();

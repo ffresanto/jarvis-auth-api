@@ -10,7 +10,7 @@ using JarvisAuth.Domain.Interfaces.Services;
 
 namespace JarvisAuth.Application.Services
 {
-    public class SystemService( ISystemRepository systemRepository,  IMapper mapper) : ISystemService
+    public class SystemService(ISystemRepository systemRepository, IMapper mapper) : ISystemService
     {
         public async Task<Response<PostCreateUserSystemResponse>> PostCreateUserSystem(PostCreateUserSystemRequest request)
         {
@@ -24,7 +24,24 @@ namespace JarvisAuth.Application.Services
                 return response;
             }
 
-            var obj = mapper.Map<UserSystem>(request);
+            var userSystem = mapper.Map<UserSystem>(request);
+
+            //userSystem.Password = BCrypt.Net.BCrypt.HashPassword(request.Password);
+
+            //var  isPasswordValid = BCrypt.Net.BCrypt.Verify(request.Password, userSystem.Password);
+
+            await systemRepository.CreateUserSystem(userSystem);
+
+            var save = await systemRepository.SaveChangesAsync();
+
+            if (!save)
+            {
+                response.Errors.Add("A failure occurred while saving the user");
+                response.StatusCode = 500;
+                return response;
+            }
+
+            response.Data = new PostCreateUserSystemResponse { UserId = userSystem.Id };
 
             return response;
         }

@@ -15,7 +15,7 @@ namespace JarvisAuth.API.Controllers
     public class SystemController(ISystemService typeService) : BaseController
     {
         [HttpPost("create-user-system")]
-        [SwaggerOperation(Summary = "Test")]
+        [SwaggerOperation(Summary = "The route creates a user for the Jarvis Auth.")]
         [SwaggerResponse(200, GlobalMessages.OPERATION_SUCESSS, typeof(Response<string>))]
         [SwaggerResponse(422, GlobalMessages.OPERATION_VALIDATIONS_ERROS, typeof(Response<string>))]
         [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION, typeof(Response<string>))]
