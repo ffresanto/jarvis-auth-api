@@ -17,6 +17,7 @@ namespace JarvisAuth.API.Controllers
         [HttpPost("users/create")]
         [SwaggerOperation(Summary = "The route creates a user for the Jarvis Auth.")]
         [SwaggerResponse(200, GlobalMessages.OPERATION_SUCESSS, typeof(Response<string>))]
+        [SwaggerResponse(409, GlobalMessages.OPERATION_REQUEST_CONFLICT, typeof(Response<string>))]
         [SwaggerResponse(422, GlobalMessages.OPERATION_VALIDATIONS_ERROS, typeof(Response<string>))]
         [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION, typeof(Response<string>))]
         public async Task<ActionResult> PostCreateUserJarvis(PostCreateUserJarvisRequest request)

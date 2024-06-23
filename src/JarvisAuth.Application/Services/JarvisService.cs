@@ -24,6 +24,15 @@ namespace JarvisAuth.Application.Services
                 return response;
             }
 
+            var emailExists = await jarvisRepository.EmailExistsAsync(request.Email);
+
+            if (emailExists)
+            {
+                response.Errors.Add("Email already exists");
+                response.StatusCode = 409;
+                return response;
+            }
+
             var userJarvis = mapper.Map<UserJarvis>(request);
 
             userJarvis.Password = EncryptionSecurity.EncryptPassword(userJarvis.Password);

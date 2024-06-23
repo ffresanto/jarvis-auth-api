@@ -8,6 +8,7 @@
         public const string OPERATION_SUCESSS = "Operation completed successfully.";
         public const string OPERATION_FAILED = "Failed to complete the operation.";
         public const string OPERATION_REQUEST_NOT_FOUND = "The requested resource was not found.";
+        public const string OPERATION_REQUEST_CONFLICT = "The resource could not be created due to a conflict with the current state of the system";
 
         #endregion
 
