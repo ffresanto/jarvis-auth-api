@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using JarvisAuth.Application.Security;
 using JarvisAuth.Core.Messages;
 using JarvisAuth.Core.Requests.Jarvis;
 using JarvisAuth.Core.Responses.Jarvis;
@@ -25,9 +26,7 @@ namespace JarvisAuth.Application.Services
 
             var userJarvis = mapper.Map<UserJarvis>(request);
 
-            //userSystem.Password = BCrypt.Net.BCrypt.HashPassword(request.Password);
-
-            //var  isPasswordValid = BCrypt.Net.BCrypt.Verify(request.Password, userSystem.Password);
+            userJarvis.Password = EncryptionSecurity.EncryptPassword(userJarvis.Password);
 
             await jarvisRepository.CreateUserJarvis(userJarvis);
 
