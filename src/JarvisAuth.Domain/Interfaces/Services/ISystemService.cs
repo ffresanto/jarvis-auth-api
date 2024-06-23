@@ -3,7 +3,7 @@ using JarvisAuth.Core.Responses.Types;
 
 namespace JarvisAuth.Domain.Interfaces.Services
 {
-    public interface ITypeService
+    public interface ISystemService
     {
         public Task<Response<List<GetGenderTypeResponse>>> GetGendersTypes();
         public Task<Response<List<GetDocumentTypeResponse>>> GetDocumentsTypes();

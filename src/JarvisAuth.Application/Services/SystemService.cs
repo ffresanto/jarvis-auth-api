@@ -7,13 +7,13 @@ using JarvisAuth.Domain.Interfaces.Services;
 
 namespace JarvisAuth.Application.Services
 {
-    public class TypeService(ITypesRepository typesRepository, IMapper mapper) : ITypeService
+    public class SystemService(ISystemRepository systemRepository, IMapper mapper) : ISystemService
     {
         public async Task<Response<List<GetGenderTypeResponse>>> GetGendersTypes()
         {
             var response = new Response<List<GetGenderTypeResponse>>();
 
-            var data = await typesRepository.GetGenderTypes();
+            var data = await systemRepository.GetGenderTypes();
 
             if (data == null)
             {
@@ -31,7 +31,7 @@ namespace JarvisAuth.Application.Services
         {
             var response = new Response<List<GetDocumentTypeResponse>>();
 
-            var data = await typesRepository.GetDocumentTypes();
+            var data = await systemRepository.GetDocumentTypes();
 
             if (data == null)
             {

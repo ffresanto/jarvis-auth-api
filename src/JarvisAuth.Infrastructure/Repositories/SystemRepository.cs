@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JarvisAuth.Infrastructure.Repositories
 {
-    public class TypesRepository(SqliteDbContext context) : ITypesRepository
+    public class SystemRepository(SqliteDbContext context) : ISystemRepository
     {
         public async Task<List<DocumentType>> GetDocumentTypes()
         {

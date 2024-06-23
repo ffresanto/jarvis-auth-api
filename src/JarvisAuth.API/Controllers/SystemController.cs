@@ -9,11 +9,11 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace JarvisAuth.API.Controllers
 {
     [ApiController]
-    [Route("api/types")]
+    [Route("api/system")]
     [Produces("application/json")]
-    public class TypesController(ITypeService typeService) : BaseController
+    public class SystemController(ISystemService typeService) : BaseController
     {
-        [HttpGet("genders")]
+        [HttpGet("genders-types")]
         [SwaggerOperation(Summary = "Return lista of gender types")]
         [SwaggerResponse(200, GlobalMessages.OPERATION_SUCESSS, typeof(Response<List<GetGenderTypeResponse>>))]
         [SwaggerResponse(404, GlobalMessages.OPERATION_REQUEST_NOT_FOUND, typeof(Response<string>))]
@@ -23,7 +23,7 @@ namespace JarvisAuth.API.Controllers
             return CustomResponse(await typeService.GetGendersTypes());
         }
 
-        [HttpGet("documents")]
+        [HttpGet("documents-types")]
         [SwaggerOperation(Summary = "Return list of document types")]
         [SwaggerResponse(200, GlobalMessages.OPERATION_SUCESSS, typeof(Response<List<GetDocumentTypeResponse>>))]
         [SwaggerResponse(404, GlobalMessages.OPERATION_REQUEST_NOT_FOUND, typeof(Response<string>))]
