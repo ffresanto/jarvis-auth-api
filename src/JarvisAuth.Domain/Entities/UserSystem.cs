@@ -20,6 +20,8 @@ namespace JarvisAuth.Domain.Entities
         {
             CreatedAt = DateTime.UtcNow;
             UpdatedAt = DateTime.UtcNow;
+            Enabled = true;
+            UserSystemRoleId = 1;
         }
     }
 }

@@ -6,8 +6,8 @@ namespace JarvisAuth.Domain.Interfaces.Repositories
 {
     public interface ISystemRepository
     {
+        public Task CreateUserSystem(UserSystem userSystem);
         public Task<List<GenderType>> GetGenderTypes();
         public Task<List<DocumentType>> GetDocumentTypes();
-        public Task CreateUserSystem(UserSystem userSystem);
     }
 }
