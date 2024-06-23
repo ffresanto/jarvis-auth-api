@@ -1,7 +1,6 @@
 ﻿using JarvisAuth.Domain.Entities;
 using JarvisAuth.Domain.models;
-using JarvisAuth.Infrastructure.Mappings.SystemMapping;
-using JarvisAuth.Infrastructure.Mappings.TypesMapping;
+using JarvisAuth.Infrastructure.Mappings.JarvisMapping;
 using Microsoft.EntityFrameworkCore;
 
 namespace JarvisAuth.Infrastructure.Contexts
@@ -14,13 +13,13 @@ namespace JarvisAuth.Infrastructure.Contexts
 
         public DbSet<GenderType> GenderTypes { get; set; }
         public DbSet<DocumentType> DocumentTypes { get; set; }
-        public DbSet<UserSystem> UserSystems { get; set; }
+        public DbSet<UserJarvis> UserJarvis { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new GenderTypesMapping());
             modelBuilder.ApplyConfiguration(new DocumentTypesMapping());
-            modelBuilder.ApplyConfiguration(new UserSystemMapping());
+            modelBuilder.ApplyConfiguration(new UserJarvisMapping());
         }
     }
 

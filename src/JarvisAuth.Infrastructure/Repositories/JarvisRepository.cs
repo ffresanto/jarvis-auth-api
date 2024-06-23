@@ -8,17 +8,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JarvisAuth.Infrastructure.Repositories
 {
-    public class SystemRepository : Repository, ISystemRepository
+    public class JarvisRepository : Repository, IJarvisRepository
     {
         private readonly SqliteDbContext _context;
-        public SystemRepository(SqliteDbContext context) : base(context)
+        public JarvisRepository(SqliteDbContext context) : base(context)
         {
             _context = context;
         }
 
-        public async Task CreateUserSystem(UserSystem userSystem)
+        public async Task CreateUserJarvis(UserJarvis userSystem)
         {
-            await _context.UserSystems.AddAsync(userSystem);
+            await _context.UserJarvis.AddAsync(userSystem);
         }
 
         public async Task<List<DocumentType>> GetDocumentTypes()

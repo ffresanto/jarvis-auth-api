@@ -2,7 +2,7 @@
 
 namespace JarvisAuth.Domain.Entities
 {
-    public class UserSystem : Entity
+    public class UserJarvis : Entity
     {
         public string? Name { get; set; }
         public string? Email { get; set; }
@@ -13,15 +13,15 @@ namespace JarvisAuth.Domain.Entities
         public string? DocumentNumber { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
-        public int UserSystemRoleId { get; set; }
+        public int UserJarvisRoleId { get; set; }
         public bool Enabled { get; set; }
 
-        public UserSystem()
+        public UserJarvis()
         {
             CreatedAt = DateTime.UtcNow;
             UpdatedAt = DateTime.UtcNow;
             Enabled = true;
-            UserSystemRoleId = 1;
+            UserJarvisRoleId = 1;
         }
     }
 }

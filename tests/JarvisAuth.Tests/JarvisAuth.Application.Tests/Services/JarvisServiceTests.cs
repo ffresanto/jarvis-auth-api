@@ -1,24 +1,24 @@
 ﻿using AutoMapper;
 using JarvisAuth.Application.Services;
 using JarvisAuth.Core.Messages;
-using JarvisAuth.Core.Responses.Types;
+using JarvisAuth.Core.Responses.Jarvis;
 using JarvisAuth.Domain.Interfaces.Repositories;
 using JarvisAuth.Domain.models;
 using Moq;
 
 namespace JarvisAuth.Tests.JarvisAuth.Application.Tests.Services
 {
-    public class SystemServiceTests
+    public class JarvisServiceTests
     {
-        private readonly Mock<ISystemRepository> _typesRepositoryMock;
+        private readonly Mock<IJarvisRepository> _typesRepositoryMock;
         private readonly Mock<IMapper> _mapperMock;
-        private readonly SystemService _typeService;
+        private readonly JarvisService _typeService;
 
-        public SystemServiceTests()
+        public JarvisServiceTests()
         {
-            _typesRepositoryMock = new Mock<ISystemRepository>();
+            _typesRepositoryMock = new Mock<IJarvisRepository>();
             _mapperMock = new Mock<IMapper>();
-            _typeService = new SystemService(_typesRepositoryMock.Object, _mapperMock.Object);
+            _typeService = new JarvisService(_typesRepositoryMock.Object, _mapperMock.Object);
         }
 
         [Fact]
