@@ -2,6 +2,7 @@
 {
     public interface IRepository
     {
+        public Task<bool> SaveChangesAsync();
         public void Dispose();
     }
 }
