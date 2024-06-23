@@ -1,5 +1,6 @@
 ﻿using JarvisAuth.API.Controllers.Base;
 using JarvisAuth.Core.Messages;
+using JarvisAuth.Core.Requests.System;
 using JarvisAuth.Core.Responses.Shared;
 using JarvisAuth.Core.Responses.Types;
 using JarvisAuth.Domain.Interfaces.Services;
@@ -9,11 +10,20 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace JarvisAuth.API.Controllers
 {
     [ApiController]
-    [Route("api/types")]
+    [Route("api/system")]
     [Produces("application/json")]
-    public class TypesController(ITypeService typeService) : BaseController
+    public class SystemController(ISystemService typeService) : BaseController
     {
-        [HttpGet("genders")]
+        [HttpPost("create-user-system")]
+        [SwaggerOperation(Summary = "The route creates a user for the Jarvis Auth.")]
+        [SwaggerResponse(200, GlobalMessages.OPERATION_SUCESSS, typeof(Response<string>))]
+        [SwaggerResponse(422, GlobalMessages.OPERATION_VALIDATIONS_ERROS, typeof(Response<string>))]
+        [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION, typeof(Response<string>))]
+        public async Task<ActionResult> PostCreateUserSystem(PostCreateUserSystemRequest request)
+        {
+            return CustomResponse(await typeService.PostCreateUserSystem(request));
+        }
+        [HttpGet("genders-types")]
         [SwaggerOperation(Summary = "Return lista of gender types")]
         [SwaggerResponse(200, GlobalMessages.OPERATION_SUCESSS, typeof(Response<List<GetGenderTypeResponse>>))]
         [SwaggerResponse(404, GlobalMessages.OPERATION_REQUEST_NOT_FOUND, typeof(Response<string>))]
@@ -23,7 +33,7 @@ namespace JarvisAuth.API.Controllers
             return CustomResponse(await typeService.GetGendersTypes());
         }
 
-        [HttpGet("documents")]
+        [HttpGet("documents-types")]
         [SwaggerOperation(Summary = "Return list of document types")]
         [SwaggerResponse(200, GlobalMessages.OPERATION_SUCESSS, typeof(Response<List<GetDocumentTypeResponse>>))]
         [SwaggerResponse(404, GlobalMessages.OPERATION_REQUEST_NOT_FOUND, typeof(Response<string>))]

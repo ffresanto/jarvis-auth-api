@@ -8,17 +8,17 @@ using Moq;
 
 namespace JarvisAuth.Tests.JarvisAuth.Application.Tests.Services
 {
-    public class TypeServiceTests
+    public class SystemServiceTests
     {
-        private readonly Mock<ITypesRepository> _typesRepositoryMock;
+        private readonly Mock<ISystemRepository> _typesRepositoryMock;
         private readonly Mock<IMapper> _mapperMock;
-        private readonly TypeService _typeService;
+        private readonly SystemService _typeService;
 
-        public TypeServiceTests()
+        public SystemServiceTests()
         {
-            _typesRepositoryMock = new Mock<ITypesRepository>();
+            _typesRepositoryMock = new Mock<ISystemRepository>();
             _mapperMock = new Mock<IMapper>();
-            _typeService = new TypeService(_typesRepositoryMock.Object, _mapperMock.Object);
+            _typeService = new SystemService(_typesRepositoryMock.Object, _mapperMock.Object);
         }
 
         [Fact]
