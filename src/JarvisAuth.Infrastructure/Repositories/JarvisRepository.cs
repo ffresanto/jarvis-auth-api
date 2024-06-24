@@ -25,5 +25,10 @@ namespace JarvisAuth.Infrastructure.Repositories
         {
             return await _context.UserJarvis.AnyAsync(u => u.Email == email);
         }
+
+        public async Task<UserJarvis> FindUserByEmail(string email)
+        {
+            return await _context.UserJarvis.FirstOrDefaultAsync(u => u.Email == email);
+        }
     }
 }

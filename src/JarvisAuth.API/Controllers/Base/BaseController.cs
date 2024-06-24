@@ -17,6 +17,12 @@ namespace JarvisAuth.API.Controllers.Base
                     case 422:
                         errorResponse.Message = GlobalMessages.OPERATION_VALIDATIONS_ERROS;
                         break;
+                    case 401:
+                        errorResponse.Message = GlobalMessages.OPERATION_UNAUTHORIZED;
+                        break;
+                    case 403:
+                        errorResponse.Message = GlobalMessages.OPERATION_FORBIDDEN;
+                        break;
                     case 404:
                         errorResponse.Message = GlobalMessages.OPERATION_REQUEST_NOT_FOUND;
                         break;

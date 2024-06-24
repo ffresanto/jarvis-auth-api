@@ -1,4 +1,5 @@
-﻿using JarvisAuth.Core.Validations;
+﻿using JarvisAuth.Core.Messages;
+using JarvisAuth.Core.Validations;
 
 namespace JarvisAuth.Core.Requests.Jarvis
 {
@@ -18,7 +19,7 @@ namespace JarvisAuth.Core.Requests.Jarvis
 
             if (GlobalValidations.IsNullOrEmptyCustom(data.Email)) errors.Add("Email is required.");
 
-            if (!GlobalValidations.IsValidEmail(data.Email)) errors.Add("Invalid email format.");
+            if (!GlobalValidations.IsValidEmail(data.Email)) errors.Add(GlobalMessages.EMAIL_INVALID);
 
             if (GlobalValidations.IsNullOrEmptyCustom(data.Password)) errors.Add("Password is required.");
 
