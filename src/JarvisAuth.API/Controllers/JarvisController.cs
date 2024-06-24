@@ -39,7 +39,7 @@ namespace JarvisAuth.API.Controllers
             return CustomResponse(await jarvisService.PostLogin(request));
         }
 
-        [HttpPost("refresh-token")]
+        [HttpPost("auth/refresh-token")]
         [SwaggerOperation(Summary = "Generate Refresh Token")]
         [SwaggerResponse(200, GlobalMessages.OPERATION_SUCESSS, typeof(Response<PostRefreshTokenResponse>))]
         [SwaggerResponse(403, GlobalMessages.AUTHENTICATION_ERROR, typeof(Response<string>))]
