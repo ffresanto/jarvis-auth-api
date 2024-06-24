@@ -8,8 +8,6 @@ using JarvisAuth.Domain.Entities;
 using JarvisAuth.Domain.Interfaces.Repositories;
 using JarvisAuth.Domain.Interfaces.Services;
 using Microsoft.Extensions.Configuration;
-using System.Data;
-using static JarvisAuth.Application.Security.JwtTokenSecurity;
 
 namespace JarvisAuth.Application.Services
 {
@@ -91,12 +89,50 @@ namespace JarvisAuth.Application.Services
                 return response;
             }
 
-            var jwtToken = new JwtToken(configuration);
+            var jwtToken = new JwtTokenSecurity(configuration);
 
             var accessTokenGenerate = jwtToken.GenerateJwtToken(user);
             var refreshTokenGenerate = jwtToken.GenerateRefreshJwtToken(user);
 
             response.Data = new PostLoginResponse { Token = accessTokenGenerate, RefreshToken = refreshTokenGenerate };
+
+            return response;
+        }
+
+        public async Task<Response<PostRefreshTokenResponse>> PostRefreshToken(PostRefreshTokenRequest request)
+        {
+            var response = new Response<PostRefreshTokenResponse>();
+
+            var jwtToken = new JwtTokenSecurity(configuration);
+
+            var validateAccessToken = jwtToken.ValidateJwtToken(request.Token, false);
+            var validateRefreshToken = jwtToken.ValidateJwtToken(request.RefreshToken, false);
+
+            var accessTokenUserId = validateAccessToken.Claims.FirstOrDefault(c => c.Type == "userId")?.Value;
+            var refreshTokenUserId = validateRefreshToken.Claims.FirstOrDefault(c => c.Type == "userId")?.Value;
+
+            if (accessTokenUserId != refreshTokenUserId)
+            {
+                response.Message = GlobalMessages.TOKEN_REFRESHTOKEN_INVALID;
+                response.StatusCode = 500;
+                return response;
+            }
+
+            var emailUserAccessToken = validateAccessToken.Claims.FirstOrDefault(c => c.Type == "userEmail")?.Value;
+
+            var user = await jarvisRepository.FindUserByEmail(emailUserAccessToken);
+
+            if (user.Enabled == false)
+            {
+                response.Message = GlobalMessages.ACCOUNT_DISABLED;
+                response.StatusCode = 403;
+                return response;
+            }
+
+            var newAccessTokenGenerate = jwtToken.GenerateJwtToken(user);
+            var newRefreshTokenGenerate = jwtToken.GenerateRefreshJwtToken(user);
+
+            response.Data = new PostRefreshTokenResponse { Token = newAccessTokenGenerate, RefreshToken = newRefreshTokenGenerate };
 
             return response;
         }

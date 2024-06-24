@@ -39,5 +39,15 @@ namespace JarvisAuth.API.Controllers
             return CustomResponse(await jarvisService.PostLogin(request));
         }
 
+        [HttpPost("refresh-token")]
+        [SwaggerOperation(Summary = "Generate Refresh Token")]
+        [SwaggerResponse(200, GlobalMessages.OPERATION_SUCESSS, typeof(Response<PostRefreshTokenResponse>))]
+        [SwaggerResponse(403, GlobalMessages.AUTHENTICATION_ERROR, typeof(Response<string>))]
+        [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION, typeof(Response<string>))]
+        public async Task<ActionResult> PostRefreshToken([FromBody] PostRefreshTokenRequest request)
+        {
+            return CustomResponse(await jarvisService.PostRefreshToken(request));
+        }
+
     }
 }

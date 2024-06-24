@@ -8,5 +8,6 @@ namespace JarvisAuth.Domain.Interfaces.Services
     {
         public Task<Response<PostCreateUserJarvisResponse>> PostCreateUserJarvis(PostCreateUserJarvisRequest request);
         public Task<Response<PostLoginResponse>> PostLogin(PostLoginRequest request);
+        public Task<Response<PostRefreshTokenResponse>> PostRefreshToken(PostRefreshTokenRequest request);
     }
 }
