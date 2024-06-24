@@ -6,8 +6,8 @@ namespace JarvisAuth.Domain.Interfaces.Services
 {
     public interface IJarvisService
     {
-        public Task<Response<List<GetGenderTypeResponse>>> GetGendersTypes();
-        public Task<Response<List<GetDocumentTypeResponse>>> GetDocumentsTypes();
         public Task<Response<PostCreateUserJarvisResponse>> PostCreateUserJarvis(PostCreateUserJarvisRequest request);
+        public Task<Response<PostLoginResponse>> PostLogin(PostLoginRequest request);
+        public Task<Response<PostRefreshTokenResponse>> PostRefreshToken(PostRefreshTokenRequest request);
     }
 }

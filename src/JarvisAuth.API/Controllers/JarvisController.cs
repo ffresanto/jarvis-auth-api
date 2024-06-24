@@ -4,6 +4,7 @@ using JarvisAuth.Core.Requests.Jarvis;
 using JarvisAuth.Core.Responses.Jarvis;
 using JarvisAuth.Core.Responses.Shared;
 using JarvisAuth.Domain.Interfaces.Services;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -24,24 +25,29 @@ namespace JarvisAuth.API.Controllers
         {
             return CustomResponse(await jarvisService.PostCreateUserJarvis(request));
         }
-        [HttpGet("types/genders")]
-        [SwaggerOperation(Summary = "Return lista of gender types")]
-        [SwaggerResponse(200, GlobalMessages.OPERATION_SUCESSS, typeof(Response<List<GetGenderTypeResponse>>))]
+
+        [HttpPost("auth/login")]
+        [SwaggerOperation(Summary = "Authenticate using the user login")]
+        [SwaggerResponse(200, GlobalMessages.OPERATION_SUCESSS, typeof(Response<PostLoginResponse>))]
+        [SwaggerResponse(401, GlobalMessages.OPERATION_UNAUTHORIZED, typeof(Response<string>))]
+        [SwaggerResponse(403, GlobalMessages.OPERATION_FORBIDDEN, typeof(Response<string>))]
         [SwaggerResponse(404, GlobalMessages.OPERATION_REQUEST_NOT_FOUND, typeof(Response<string>))]
+        [SwaggerResponse(422, GlobalMessages.OPERATION_VALIDATIONS_ERROS, typeof(Response<string>))]
         [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION, typeof(Response<string>))]
-        public async Task<ActionResult> GetGendersTypes()
+        public async Task<ActionResult> PostLogin([FromBody] PostLoginRequest request)
         {
-            return CustomResponse(await jarvisService.GetGendersTypes());
+            return CustomResponse(await jarvisService.PostLogin(request));
         }
 
-        [HttpGet("types/documents")]
-        [SwaggerOperation(Summary = "Return list of document types")]
-        [SwaggerResponse(200, GlobalMessages.OPERATION_SUCESSS, typeof(Response<List<GetDocumentTypeResponse>>))]
-        [SwaggerResponse(404, GlobalMessages.OPERATION_REQUEST_NOT_FOUND, typeof(Response<string>))]
+        [HttpPost("auth/refresh-token")]
+        [SwaggerOperation(Summary = "Generate Refresh Token")]
+        [SwaggerResponse(200, GlobalMessages.OPERATION_SUCESSS, typeof(Response<PostRefreshTokenResponse>))]
+        [SwaggerResponse(403, GlobalMessages.AUTHENTICATION_ERROR, typeof(Response<string>))]
         [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION, typeof(Response<string>))]
-        public async Task<ActionResult> GetDocumentsTypes()
+        public async Task<ActionResult> PostRefreshToken([FromBody] PostRefreshTokenRequest request)
         {
-            return CustomResponse(await jarvisService.GetDocumentsTypes());
+            return CustomResponse(await jarvisService.PostRefreshToken(request));
         }
+
     }
 }

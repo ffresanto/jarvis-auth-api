@@ -12,12 +12,16 @@ var connectionStringSqlite = builder.Configuration.GetConnectionString("Sqlite")
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
 builder.Services.AddSqliteDbContext(connectionStringSqlite);
 builder.Services.AddSqliteHealthCheck(connectionStringSqlite);
 builder.Services.AddAutoMapper(typeof(AutoMapperConfiguration));
 builder.Services.RepositoriesDependencies();
 builder.Services.ServicesDependencies();
 builder.Services.ConfigureSwagger();
+builder.Services.ConfigureJwtAuthentication(builder.Configuration);
+
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -28,6 +32,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseAuthorization();
 app.UseAuthorization();
 app.MapControllers();
 app.MapHealthChecks("/api/healthz", new HealthCheckOptions { ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse });

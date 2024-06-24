@@ -21,19 +21,14 @@ namespace JarvisAuth.Infrastructure.Repositories
             await _context.UserJarvis.AddAsync(userSystem);
         }
 
-        public async Task<List<DocumentType>> GetDocumentTypes()
-        {
-            return await _context.DocumentTypes.ToListAsync();
-        }
-
-        public async Task<List<GenderType>> GetGenderTypes()
-        {
-            return await _context.GenderTypes.ToListAsync();
-        }
-
         public async Task<bool> EmailExistsAsync(string email)
         {
             return await _context.UserJarvis.AnyAsync(u => u.Email == email);
+        }
+
+        public async Task<UserJarvis> FindUserByEmail(string email)
+        {
+            return await _context.UserJarvis.FirstOrDefaultAsync(u => u.Email == email);
         }
     }
 }

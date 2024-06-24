@@ -7,10 +7,11 @@ using JarvisAuth.Core.Responses.Shared;
 using JarvisAuth.Domain.Entities;
 using JarvisAuth.Domain.Interfaces.Repositories;
 using JarvisAuth.Domain.Interfaces.Services;
+using Microsoft.Extensions.Configuration;
 
 namespace JarvisAuth.Application.Services
 {
-    public class JarvisService(IJarvisRepository jarvisRepository, IMapper mapper) : IJarvisService
+    public class JarvisService(IConfiguration configuration, IJarvisRepository jarvisRepository, IMapper mapper) : IJarvisService
     {
         public async Task<Response<PostCreateUserJarvisResponse>> PostCreateUserJarvis(PostCreateUserJarvisRequest request)
         {
@@ -53,38 +54,85 @@ namespace JarvisAuth.Application.Services
             return response;
         }
 
-        public async Task<Response<List<GetGenderTypeResponse>>> GetGendersTypes()
+        public async Task<Response<PostLoginResponse>> PostLogin(PostLoginRequest request)
         {
-            var response = new Response<List<GetGenderTypeResponse>>();
+            var response = new Response<PostLoginResponse>();
+            var validate = request.Validate(request);
 
-            var data = await jarvisRepository.GetGenderTypes();
+            if (validate.Count > 0)
+            {
+                response.Errors = validate;
+                response.StatusCode = 422;
+                return response;
+            }
 
-            if (data == null)
+            var user = await jarvisRepository.FindUserByEmail(request.Email);
+
+            if (user == null)
             {
                 response.Errors.Add(GlobalMessages.RECORDS_NOT_FOUND_IN_DATABASE);
                 response.StatusCode = 404;
                 return response;
             }
 
-            response.Data = mapper.Map<List<GetGenderTypeResponse>>(data);
+            if (user.Enabled == false)
+            {
+                response.Errors.Add(GlobalMessages.ACCOUNT_DISABLED);
+                response.StatusCode = 403;
+                return response;
+            }
+
+            if (!EncryptionSecurity.VerifyPasswordEncryption(request.Password, user.Password))
+            {
+                response.Errors.Add(GlobalMessages.PASSWORD_INCORRECT);
+                response.StatusCode = 401;
+                return response;
+            }
+
+            var jwtToken = new JwtTokenSecurity(configuration);
+
+            var accessTokenGenerate = jwtToken.GenerateJwtToken(user);
+            var refreshTokenGenerate = jwtToken.GenerateRefreshJwtToken(user);
+
+            response.Data = new PostLoginResponse { Token = accessTokenGenerate, RefreshToken = refreshTokenGenerate };
 
             return response;
         }
 
-        public async Task<Response<List<GetDocumentTypeResponse>>> GetDocumentsTypes()
+        public async Task<Response<PostRefreshTokenResponse>> PostRefreshToken(PostRefreshTokenRequest request)
         {
-            var response = new Response<List<GetDocumentTypeResponse>>();
+            var response = new Response<PostRefreshTokenResponse>();
 
-            var data = await jarvisRepository.GetDocumentTypes();
+            var jwtToken = new JwtTokenSecurity(configuration);
 
-            if (data == null)
+            var validateAccessToken = jwtToken.ValidateJwtToken(request.Token, false);
+            var validateRefreshToken = jwtToken.ValidateJwtToken(request.RefreshToken, false);
+
+            var accessTokenUserId = validateAccessToken.Claims.FirstOrDefault(c => c.Type == "userId")?.Value;
+            var refreshTokenUserId = validateRefreshToken.Claims.FirstOrDefault(c => c.Type == "userId")?.Value;
+
+            if (accessTokenUserId != refreshTokenUserId)
             {
-                response.Errors.Add(GlobalMessages.RECORDS_NOT_FOUND_IN_DATABASE);
-                response.StatusCode = 404;
+                response.Message = GlobalMessages.TOKEN_REFRESHTOKEN_INVALID;
+                response.StatusCode = 500;
                 return response;
             }
 
-            response.Data = mapper.Map<List<GetDocumentTypeResponse>>(data);
+            var emailUserAccessToken = validateAccessToken.Claims.FirstOrDefault(c => c.Type == "userEmail")?.Value;
+
+            var user = await jarvisRepository.FindUserByEmail(emailUserAccessToken);
+
+            if (user.Enabled == false)
+            {
+                response.Message = GlobalMessages.ACCOUNT_DISABLED;
+                response.StatusCode = 403;
+                return response;
+            }
+
+            var newAccessTokenGenerate = jwtToken.GenerateJwtToken(user);
+            var newRefreshTokenGenerate = jwtToken.GenerateRefreshJwtToken(user);
+
+            response.Data = new PostRefreshTokenResponse { Token = newAccessTokenGenerate, RefreshToken = newRefreshTokenGenerate };
 
             return response;
         }
