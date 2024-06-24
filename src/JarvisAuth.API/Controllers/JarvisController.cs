@@ -24,24 +24,5 @@ namespace JarvisAuth.API.Controllers
         {
             return CustomResponse(await jarvisService.PostCreateUserJarvis(request));
         }
-        [HttpGet("types/genders")]
-        [SwaggerOperation(Summary = "Return lista of gender types")]
-        [SwaggerResponse(200, GlobalMessages.OPERATION_SUCESSS, typeof(Response<List<GetGenderTypeResponse>>))]
-        [SwaggerResponse(404, GlobalMessages.OPERATION_REQUEST_NOT_FOUND, typeof(Response<string>))]
-        [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION, typeof(Response<string>))]
-        public async Task<ActionResult> GetGendersTypes()
-        {
-            return CustomResponse(await jarvisService.GetGendersTypes());
-        }
-
-        [HttpGet("types/documents")]
-        [SwaggerOperation(Summary = "Return list of document types")]
-        [SwaggerResponse(200, GlobalMessages.OPERATION_SUCESSS, typeof(Response<List<GetDocumentTypeResponse>>))]
-        [SwaggerResponse(404, GlobalMessages.OPERATION_REQUEST_NOT_FOUND, typeof(Response<string>))]
-        [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION, typeof(Response<string>))]
-        public async Task<ActionResult> GetDocumentsTypes()
-        {
-            return CustomResponse(await jarvisService.GetDocumentsTypes());
-        }
     }
 }

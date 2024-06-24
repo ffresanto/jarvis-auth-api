@@ -7,21 +7,17 @@ namespace JarvisAuth.Domain.Entities
         public string? Name { get; set; }
         public string? Email { get; set; }
         public string? Password { get; set; }
-        public string? ContactNumber { get; set; }
-        public int GenderTypeId { get; set; }
-        public int DocumentTypeId { get; set; }
-        public string? DocumentNumber { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
-        public int UserJarvisRoleId { get; set; }
+        public bool IsAdmin { get; set; }
         public bool Enabled { get; set; }
 
         public UserJarvis()
         {
             CreatedAt = DateTime.UtcNow;
             UpdatedAt = DateTime.UtcNow;
+            IsAdmin = false;
             Enabled = true;
-            UserJarvisRoleId = 1;
         }
     }
 }

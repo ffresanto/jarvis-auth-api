@@ -7,10 +7,6 @@ namespace JarvisAuth.Core.Requests.Jarvis
         public string? Name { get; set; }
         public string? Email { get; set; }
         public string? Password { get; set; }
-        public string? ContactNumber { get; set; }
-        public int GenderTypeId { get; set; }
-        public int DocumentTypeId { get; set; }
-        public string? DocumentNumber { get; set; }
 
         public List<string> Validate(PostCreateUserJarvisRequest data)
         {
@@ -26,15 +22,7 @@ namespace JarvisAuth.Core.Requests.Jarvis
 
             if (GlobalValidations.IsNullOrEmptyCustom(data.Password)) errors.Add("Password is required.");
 
-            if(GlobalValidations.IsNullOrEmptyCustom(data.ContactNumber)) errors.Add("Contact Number is invalid.");
-
             if (data.Password.Length < 6) errors.Add("Password must be at least 6 characters long.");
-
-            if (data.GenderTypeId <= 0) errors.Add("Gender type must be greater than 0.");
-
-            if (data.DocumentTypeId <= 0) errors.Add("Document type must be greater than 0.");
-
-            if (GlobalValidations.IsNullOrEmptyCustom(data.DocumentNumber)) errors.Add("Document Number is required");
 
             return errors;
         }

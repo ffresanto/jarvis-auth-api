@@ -29,21 +29,6 @@ namespace JarvisAuth.Infrastructure.Mappings.JarvisMapping
                 .HasColumnName("email")
                 .IsRequired();
 
-            builder.Property(u => u.ContactNumber)
-                .HasColumnName("contact_number");
-
-            builder.Property(u => u.GenderTypeId)
-                .HasColumnName("gender_type_id")
-                .IsRequired();
-
-            builder.Property(u => u.DocumentTypeId)
-                .HasColumnName("document_type_id")
-                .IsRequired();
-
-            builder.Property(u => u.DocumentNumber)
-                .HasColumnName("number_document")
-                .IsRequired();
-
             builder.Property(u => u.CreatedAt)
                 .HasColumnName("created_at")
                 .IsRequired();
@@ -52,14 +37,14 @@ namespace JarvisAuth.Infrastructure.Mappings.JarvisMapping
                 .HasColumnName("update_at")
                 .IsRequired();
 
-            builder.Property(u => u.UserJarvisRoleId)
-                .HasColumnName("user_jarvis_role_id")
-                .HasDefaultValue(1)
+            builder.Property(u => u.IsAdmin)
+                .HasColumnName("is_admin")
+                .HasConversion<int>()  
                 .IsRequired();
 
             builder.Property(u => u.Enabled)
                 .HasColumnName("enabled")
-                .HasDefaultValue(false)
+                .HasConversion<int>()
                 .IsRequired();
         }
     }

@@ -10,8 +10,6 @@ namespace JarvisAuth.Application.Configurations
     {
         public AutoMapperConfiguration()
         {
-            CreateMap<GenderType, GetGenderTypeResponse>();
-            CreateMap<DocumentType, GetDocumentTypeResponse>();
             CreateMap<PostCreateUserJarvisRequest, UserJarvis>();
         }
     }
