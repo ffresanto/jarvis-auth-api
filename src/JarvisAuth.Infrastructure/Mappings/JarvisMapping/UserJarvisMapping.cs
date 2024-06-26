@@ -1,5 +1,4 @@
 ﻿using JarvisAuth.Domain.Entities;
-using JarvisAuth.Domain.models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -34,7 +33,7 @@ namespace JarvisAuth.Infrastructure.Mappings.JarvisMapping
                 .IsRequired();
 
             builder.Property(u => u.UpdatedAt)
-                .HasColumnName("update_at")
+                .HasColumnName("updated_at")
                 .IsRequired();
 
             builder.Property(u => u.IsAdmin)
