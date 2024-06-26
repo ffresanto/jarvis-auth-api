@@ -1,7 +1,5 @@
 ﻿using JarvisAuth.Domain.Entities;
 using JarvisAuth.Domain.Interfaces.Repositories;
-using JarvisAuth.Domain.Interfaces.Repositories.Base;
-using JarvisAuth.Domain.models;
 using JarvisAuth.Infrastructure.Contexts;
 using JarvisAuth.Infrastructure.Repositories.Base;
 using Microsoft.EntityFrameworkCore;

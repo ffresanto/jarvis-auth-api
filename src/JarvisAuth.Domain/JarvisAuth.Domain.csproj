@@ -10,4 +10,8 @@
     <ProjectReference Include="..\JarvisAuth.Core\JarvisAuth.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>
