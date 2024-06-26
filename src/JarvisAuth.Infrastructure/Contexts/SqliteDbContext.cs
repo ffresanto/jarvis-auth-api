@@ -15,6 +15,7 @@ namespace JarvisAuth.Infrastructure.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UserJarvisMapping());
+            modelBuilder.ApplyConfiguration(new ApplicationMapping());
         }
     }
 
