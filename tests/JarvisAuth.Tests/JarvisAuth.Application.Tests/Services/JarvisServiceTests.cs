@@ -36,7 +36,7 @@ namespace JarvisAuth.Tests.JarvisAuth.Application.Tests.Services
 
             var response = new Response<PostCreateUserJarvisResponse>();
 
-            _jarvisRepositoryMock.Setup(repo => repo.EmailExistsAsync(request.Email)).ReturnsAsync(true);
+            _jarvisRepositoryMock.Setup(repo => repo.UserEmailExists(request.Email)).ReturnsAsync(true);
 
             // Act
             var result = await _jarvisService.PostCreateUserJarvis(request);

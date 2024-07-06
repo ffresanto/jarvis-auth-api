@@ -25,7 +25,7 @@ namespace JarvisAuth.Application.Services
                 return response;
             }
 
-            var emailExists = await jarvisRepository.EmailExistsAsync(request.Email);
+            var emailExists = await jarvisRepository.UserEmailExists(request.Email);
 
             if (emailExists)
             {

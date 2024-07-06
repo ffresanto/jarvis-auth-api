@@ -8,5 +8,12 @@ namespace JarvisAuth.Domain.Entities
         public bool Enabled { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
+
+        public Application()
+        {
+            CreatedAt = DateTime.UtcNow;
+            UpdatedAt = DateTime.UtcNow;
+            Enabled = true;
+        }
     }
 }

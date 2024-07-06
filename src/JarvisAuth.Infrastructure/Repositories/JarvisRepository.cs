@@ -19,7 +19,7 @@ namespace JarvisAuth.Infrastructure.Repositories
             await _context.UserJarvis.AddAsync(userSystem);
         }
 
-        public async Task<bool> EmailExistsAsync(string email)
+        public async Task<bool> UserEmailExists(string email)
         {
             return await _context.UserJarvis.AnyAsync(u => u.Email == email);
         }
