@@ -14,7 +14,7 @@ namespace JarvisAuth.API.Controllers
     {
         [HttpGet]
         [SwaggerOperation(Summary = "Checks the status and integrity of the API's resources and services")]
-        [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION, typeof(Response<string[]>))]
+        [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION_500, typeof(Response<string[]>))]
         public async Task<ActionResult> GetHealthCheck()
         {
             return Ok(await healthCheckService.CheckHealthAsync());

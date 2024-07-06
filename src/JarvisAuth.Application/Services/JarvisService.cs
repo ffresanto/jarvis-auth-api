@@ -25,11 +25,11 @@ namespace JarvisAuth.Application.Services
                 return response;
             }
 
-            var emailExists = await jarvisRepository.EmailExistsAsync(request.Email);
+            var emailExists = await jarvisRepository.UserEmailExists(request.Email);
 
             if (emailExists)
             {
-                response.Errors.Add("Email already exists");
+                response.Errors.Add(GlobalMessages.EMAIL_ALREADY_EXISTS);
                 response.StatusCode = 409;
                 return response;
             }
@@ -44,7 +44,7 @@ namespace JarvisAuth.Application.Services
 
             if (!save)
             {
-                response.Errors.Add("A failure occurred while saving the user");
+                response.Errors.Add(GlobalMessages.DATABASE_SAVE_FAILED);
                 response.StatusCode = 500;
                 return response;
             }
@@ -70,7 +70,7 @@ namespace JarvisAuth.Application.Services
 
             if (user == null)
             {
-                response.Errors.Add(GlobalMessages.RECORDS_NOT_FOUND_IN_DATABASE);
+                response.Errors.Add(GlobalMessages.DATABASE_RECORD_NOT_FOUND);
                 response.StatusCode = 404;
                 return response;
             }
@@ -84,7 +84,7 @@ namespace JarvisAuth.Application.Services
 
             if (!EncryptionSecurity.VerifyPasswordEncryption(request.Password, user.Password))
             {
-                response.Errors.Add(GlobalMessages.PASSWORD_INCORRECT);
+                response.Errors.Add(GlobalMessages.INCORRECT_PASSWORD);
                 response.StatusCode = 401;
                 return response;
             }
@@ -113,7 +113,7 @@ namespace JarvisAuth.Application.Services
 
             if (accessTokenUserId != refreshTokenUserId)
             {
-                response.Message = GlobalMessages.TOKEN_REFRESHTOKEN_INVALID;
+                response.Message = GlobalMessages.INVALID_TOKEN_OR_REFRESH_TOKEN;
                 response.StatusCode = 500;
                 return response;
             }

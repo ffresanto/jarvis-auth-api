@@ -15,22 +15,22 @@ namespace JarvisAuth.API.Controllers.Base
                 switch (errorResponse.StatusCode)
                 {
                     case 422:
-                        errorResponse.Message = GlobalMessages.OPERATION_VALIDATIONS_ERROS;
+                        errorResponse.Message = GlobalMessages.VALIDATION_ERRORS_422;
                         break;
                     case 401:
-                        errorResponse.Message = GlobalMessages.OPERATION_UNAUTHORIZED;
+                        errorResponse.Message = GlobalMessages.UNAUTHORIZED_ACCESS_401;
                         break;
                     case 403:
-                        errorResponse.Message = GlobalMessages.OPERATION_FORBIDDEN;
+                        errorResponse.Message = GlobalMessages.ACCESS_DENIED_403;
                         break;
                     case 404:
-                        errorResponse.Message = GlobalMessages.OPERATION_REQUEST_NOT_FOUND;
+                        errorResponse.Message = GlobalMessages.REQUEST_NOT_FOUND_404;
                         break;
                     case 409:
-                        errorResponse.Message = GlobalMessages.OPERATION_REQUEST_CONFLICT;
+                        errorResponse.Message = GlobalMessages.REQUEST_CONFLICT_409;
                         break;
                     default:
-                        errorResponse.Message = GlobalMessages.OPERATION_FAILED;
+                        errorResponse.Message = GlobalMessages.GLOBAL_EXCEPTION_500;
                         break;
                 }
 

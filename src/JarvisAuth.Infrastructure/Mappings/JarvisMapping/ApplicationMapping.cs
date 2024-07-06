@@ -13,25 +13,25 @@ namespace JarvisAuth.Infrastructure.Mappings.JarvisMapping
             builder.HasKey(u => u.Id);
 
             builder.Property(u => u.Id)
-                .HasColumnName("id")
-                .IsRequired();
+                   .HasColumnName("id")
+                   .IsRequired();
 
             builder.Property(u => u.Name)
-               .HasColumnName("name")
-               .IsRequired();
+                   .HasColumnName("name")
+                   .IsRequired();
 
             builder.Property(u => u.Enabled)
-             .HasColumnName("enabled")
-             .HasConversion<int>()
-             .IsRequired();
+                   .HasColumnName("enabled")
+                   .HasConversion<int>()
+                   .IsRequired();
 
             builder.Property(u => u.CreatedAt)
-                .HasColumnName("created_at")
-                .IsRequired();
+                   .HasColumnName("created_at")
+                   .IsRequired();
 
             builder.Property(u => u.UpdatedAt)
-                .HasColumnName("updated_at")
-                 .IsRequired();
+                   .HasColumnName("updated_at")
+                   .IsRequired();
         }
     }
 }
