@@ -21,7 +21,7 @@ namespace JarvisAuth.API.Handlers
             {
                 StatusCode = 500,
                 Success = false,
-                Message = GlobalMessages.GLOBAL_EXCEPTION,
+                Message = GlobalMessages.GLOBAL_EXCEPTION_500,
                 Data = [],
                 Errors = [exception.Message]
             };

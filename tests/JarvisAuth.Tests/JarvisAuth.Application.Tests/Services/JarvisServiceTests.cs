@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using JarvisAuth.Application.Services;
+using JarvisAuth.Core.Messages;
 using JarvisAuth.Core.Requests.Jarvis;
 using JarvisAuth.Core.Responses.Jarvis;
 using JarvisAuth.Core.Responses.Shared;
@@ -18,6 +19,7 @@ namespace JarvisAuth.Tests.JarvisAuth.Application.Tests.Services
 
         public JarvisServiceTests()
         {
+            _configurationMock = new Mock<IConfiguration>();
             _jarvisRepositoryMock = new Mock<IJarvisRepository>();
             _mapperMock = new Mock<IMapper>();
             _jarvisService = new JarvisService(_configurationMock.Object, _jarvisRepositoryMock.Object, _mapperMock.Object);
@@ -43,9 +45,8 @@ namespace JarvisAuth.Tests.JarvisAuth.Application.Tests.Services
 
             // Assert
             Assert.NotNull(result.Errors);
-            Assert.Contains("Email already exists", result.Errors);
+            Assert.Contains(GlobalMessages.EMAIL_ALREADY_EXISTS, result.Errors);
             Assert.Equal(409, result.StatusCode);
         }
-
     }
 }

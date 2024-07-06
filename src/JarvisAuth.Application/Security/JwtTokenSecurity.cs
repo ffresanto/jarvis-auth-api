@@ -76,11 +76,11 @@ namespace JarvisAuth.Application.Security
                 claims = new JwtSecurityTokenHandler().ValidateToken(token, tokenValidationParameters, out SecurityToken securityToken);
 
                 if (!(securityToken is JwtSecurityToken jwtSecurityToken) || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
-                    throw new SecurityTokenException(GlobalMessages.TOKEN_REFRESHTOKEN_INVALID);
+                    throw new SecurityTokenException(GlobalMessages.INVALID_TOKEN_OR_REFRESH_TOKEN);
             }
             catch (Exception)
             {
-                throw new SecurityTokenException(GlobalMessages.TOKEN_REFRESHTOKEN_INVALID);
+                throw new SecurityTokenException(GlobalMessages.INVALID_TOKEN_OR_REFRESH_TOKEN);
             }
 
             return claims;

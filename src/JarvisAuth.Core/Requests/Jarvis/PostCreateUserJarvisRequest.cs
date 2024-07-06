@@ -13,17 +13,17 @@ namespace JarvisAuth.Core.Requests.Jarvis
         {
             var errors = new List<string>();
 
-            if (GlobalValidations.IsNullOrEmptyCustom(data.Name)) errors.Add("Name is required.");
+            if (GlobalValidations.IsNullOrEmptyCustom(data.Name)) errors.Add(GlobalMessages.NAME_REQUIRED);
 
-            if (data.Name.Length < 2 || data.Name.Length > 100) errors.Add("Name must be between 2 and 100 characters.");
+            if (data.Name.Length < 2 || data.Name.Length > 100) errors.Add(GlobalMessages.NAME_LENGTH_2_TO_100);
 
-            if (GlobalValidations.IsNullOrEmptyCustom(data.Email)) errors.Add("Email is required.");
+            if (GlobalValidations.IsNullOrEmptyCustom(data.Email)) errors.Add(GlobalMessages.EMAIL_REQUIRED);
 
-            if (!GlobalValidations.IsValidEmail(data.Email)) errors.Add(GlobalMessages.EMAIL_INVALID);
+            if (!GlobalValidations.IsValidEmail(data.Email)) errors.Add(GlobalMessages.INVALID_EMAIL);
 
-            if (GlobalValidations.IsNullOrEmptyCustom(data.Password)) errors.Add("Password is required.");
+            if (GlobalValidations.IsNullOrEmptyCustom(data.Password)) errors.Add(GlobalMessages.PASSWORD_REQUIRED);
 
-            if (data.Password.Length < 6) errors.Add("Password must be at least 6 characters long.");
+            if (data.Password.Length < 6) errors.Add(GlobalMessages.PASSWORD_MIN_LENGTH_6);
 
             return errors;
         }

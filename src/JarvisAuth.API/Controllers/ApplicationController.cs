@@ -19,10 +19,10 @@ namespace JarvisAuth.API.Controllers
 
         [HttpPost("create")]
         [SwaggerOperation(Summary = "The route creates a application for the Jarvis Auth.")]
-        [SwaggerResponse(200, GlobalMessages.OPERATION_SUCESSS, typeof(Response<PostCreateApplicationResponse>))]
-        [SwaggerResponse(409, GlobalMessages.OPERATION_REQUEST_CONFLICT, typeof(Response<string>))]
-        [SwaggerResponse(422, GlobalMessages.OPERATION_VALIDATIONS_ERROS, typeof(Response<string>))]
-        [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION, typeof(Response<string>))]
+        [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<PostCreateApplicationResponse>))]
+        [SwaggerResponse(409, GlobalMessages.REQUEST_CONFLICT_409, typeof(Response<string>))]
+        [SwaggerResponse(422, GlobalMessages.VALIDATION_ERRORS_422, typeof(Response<string>))]
+        [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION_500, typeof(Response<string>))]
         public async Task<ActionResult> PostCreateUserJarvis(PostCreateApplicationRequest request)
         {
             return CustomResponse(await applicationService.CreateApplication(request));

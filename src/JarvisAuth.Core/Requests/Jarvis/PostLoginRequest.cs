@@ -17,13 +17,13 @@ namespace JarvisAuth.Core.Requests.Jarvis
         {
             var errors = new List<string>();
 
-            if (GlobalValidations.IsNullOrEmptyCustom(data.Email)) errors.Add("It is mandatory to inform the email of the user.");
+            if (GlobalValidations.IsNullOrEmptyCustom(data.Email)) errors.Add(GlobalMessages.MANDATORY_EMAIL);
 
-            if (GlobalValidations.IsNullOrEmptyCustom(data.Password)) errors.Add("It is mandatory to inform the user's password.");
+            if (GlobalValidations.IsNullOrEmptyCustom(data.Password)) errors.Add(GlobalMessages.MANDATORY_PASSWORD);
 
             if (!GlobalValidations.IsNullOrEmptyCustom(data.Email))
             {
-                if (!GlobalValidations.IsValidEmail(data.Email)) errors.Add(GlobalMessages.EMAIL_INVALID);
+                if (!GlobalValidations.IsValidEmail(data.Email)) errors.Add(GlobalMessages.INVALID_EMAIL);
             }
 
             return errors;

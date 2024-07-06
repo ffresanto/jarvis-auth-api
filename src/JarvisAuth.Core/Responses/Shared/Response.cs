@@ -24,7 +24,7 @@ namespace JarvisAuth.Core.Responses.Shared
         {
             StatusCode = 200;
             Success = true;
-            Message = GlobalMessages.OPERATION_SUCESSS;
+            Message = GlobalMessages.OPERATION_SUCCESS_200;
         }
     }
 }

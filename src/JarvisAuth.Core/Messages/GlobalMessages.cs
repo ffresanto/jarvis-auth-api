@@ -1,39 +1,49 @@
-﻿namespace JarvisAuth.Core.Messages
+﻿using System.Data;
+
+namespace JarvisAuth.Core.Messages
 {
     public static class GlobalMessages
     {
-        #region [Status]
+        #region [StatusCode]
 
-        public const string GLOBAL_EXCEPTION = "An unexpected error occurred while processing your request.";
-        public const string OPERATION_SUCESSS = "Operation completed successfully.";
-        public const string OPERATION_FAILED = "Failed to complete the operation.";
-        public const string OPERATION_REQUEST_NOT_FOUND = "The requested resource was not found.";
-        public const string OPERATION_REQUEST_CONFLICT = "The resource could not be created due to a conflict with the current state of the system.";
-        public const string OPERATION_FORBIDDEN = "Access Denied";
-        public const string OPERATION_UNAUTHORIZED = "Unauthorized Access";
-
+        public const string GLOBAL_EXCEPTION_500 = "An unexpected error occurred while processing your request.";
+        public const string OPERATION_SUCCESS_200 = "Operation completed successfully.";
+        public const string REQUEST_NOT_FOUND_404 = "The requested resource was not found.";
+        public const string REQUEST_CONFLICT_409 = "The resource could not be created due to a conflict with the current state of the system.";
+        public const string ACCESS_DENIED_403 = "Access denied.";
+        public const string UNAUTHORIZED_ACCESS_401 = "Unauthorized access.";
+        public const string VALIDATION_ERRORS_422 = "The operation could not be processed due to validation errors.";
 
         #endregion
 
         #region [Errors]
 
-        public const string OPERATION_VALIDATIONS_ERROS = "The operation could not be processed due to validation errors.";
-        public const string RECORDS_NOT_FOUND_IN_DATABASE = "No records were found in the database.";
-        public const string AUTHENTICATION_ERROR = "Authentication Error.";
+        public const string DATABASE_RECORD_NOT_FOUND = "No records were found in the database.";
+        public const string AUTHENTICATION_FAILED = "Authentication error.";
+        public const string DATABASE_SAVE_FAILED = "A failure occurred while saving in the database.";
 
         #endregion
 
         #region [Validations]
 
-        public const string EMAIL_INVALID = "This email is invalid.";
-        public const string PASSWORD_INCORRECT = "Incorrect password.";
-        public const string ACCOUNT_DISABLED = "Account disabled";
+        public const string INVALID_EMAIL = "The email provided is invalid.";
+        public const string INCORRECT_PASSWORD = "The password provided is incorrect.";
+        public const string ACCOUNT_DISABLED = "This account has been disabled.";
+        public const string NAME_ALREADY_EXISTS = "The name provided already exists.";
+        public const string EMAIL_ALREADY_EXISTS = "The email provided already exists.";
+        public const string NAME_REQUIRED = "A name is required.";
+        public const string NAME_LENGTH_2_TO_100 = "The name must be between 2 and 100 characters.";
+        public const string EMAIL_REQUIRED = "An email is required.";
+        public const string PASSWORD_REQUIRED = "A password is required.";
+        public const string PASSWORD_MIN_LENGTH_6 = "The password must be at least 6 characters long.";
+        public const string MANDATORY_EMAIL = "The user's email is mandatory.";
+        public const string MANDATORY_PASSWORD = "The user's password is mandatory.";
 
         #endregion
 
         #region [Token] 
 
-        public const string TOKEN_REFRESHTOKEN_INVALID = "It seems like your token or refresh token is invalid.";
+        public const string INVALID_TOKEN_OR_REFRESH_TOKEN = "The token or refresh token provided is invalid.";
 
         #endregion
     }

@@ -1,4 +1,5 @@
-﻿using JarvisAuth.Core.Validations;
+﻿using JarvisAuth.Core.Messages;
+using JarvisAuth.Core.Validations;
 
 namespace JarvisAuth.Core.Requests.Application
 {
@@ -10,7 +11,7 @@ namespace JarvisAuth.Core.Requests.Application
         {
             var errors = new List<string>();
 
-            if (GlobalValidations.IsNullOrEmptyCustom(data.Name)) errors.Add("Name is required.");
+            if (GlobalValidations.IsNullOrEmptyCustom(data.Name)) errors.Add(GlobalMessages.NAME_REQUIRED);
 
             return errors;
         }

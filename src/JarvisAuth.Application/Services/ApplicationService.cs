@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using JarvisAuth.Core.Messages;
 using JarvisAuth.Core.Requests.Application;
 using JarvisAuth.Core.Responses.Application;
 using JarvisAuth.Core.Responses.Shared;
@@ -26,7 +27,7 @@ namespace JarvisAuth.Application.Services
 
             if (nameExists)
             {
-                response.Errors.Add("Name already exists");
+                response.Errors.Add(GlobalMessages.NAME_ALREADY_EXISTS);
                 response.StatusCode = 409;
                 return response;
             }
@@ -39,7 +40,7 @@ namespace JarvisAuth.Application.Services
 
             if (!save)
             {
-                response.Errors.Add("A failure occurred while saving the application");
+                response.Errors.Add(GlobalMessages.DATABASE_SAVE_FAILED);
                 response.StatusCode = 500;
                 return response;
             }
