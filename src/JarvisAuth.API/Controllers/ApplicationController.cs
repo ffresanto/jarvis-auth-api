@@ -18,7 +18,7 @@ namespace JarvisAuth.API.Controllers
     {
 
         [HttpPost("create")]
-        [SwaggerOperation(Summary = "The route creates a application for the Jarvis Auth.")]
+        [SwaggerOperation(Summary = "Creates a new application for the Jarvis authentication system.")]
         [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<PostCreateApplicationResponse>))]
         [SwaggerResponse(409, GlobalMessages.REQUEST_CONFLICT_409, typeof(Response<string>))]
         [SwaggerResponse(422, GlobalMessages.VALIDATION_ERRORS_422, typeof(Response<string>))]

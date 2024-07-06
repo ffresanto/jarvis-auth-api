@@ -16,7 +16,7 @@ namespace JarvisAuth.API.Controllers
     public class JarvisController(IJarvisService jarvisService) : BaseController
     {
         [HttpPost("users/create")]
-        [SwaggerOperation(Summary = "The route creates a user for the Jarvis Auth.")]
+        [SwaggerOperation(Summary = "Creates a new user for the Jarvis authentication system.")]
         [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<PostCreateUserJarvisResponse>))]
         [SwaggerResponse(409, GlobalMessages.REQUEST_CONFLICT_409, typeof(Response<string>))]
         [SwaggerResponse(422, GlobalMessages.VALIDATION_ERRORS_422, typeof(Response<string>))]
@@ -27,7 +27,7 @@ namespace JarvisAuth.API.Controllers
         }
 
         [HttpPost("auth/login")]
-        [SwaggerOperation(Summary = "Authenticate using the user login")]
+        [SwaggerOperation(Summary = "Authenticates a user and provides a login token.")]
         [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<PostLoginResponse>))]
         [SwaggerResponse(401, GlobalMessages.UNAUTHORIZED_ACCESS_401, typeof(Response<string>))]
         [SwaggerResponse(403, GlobalMessages.ACCESS_DENIED_403, typeof(Response<string>))]
@@ -40,7 +40,7 @@ namespace JarvisAuth.API.Controllers
         }
 
         [HttpPost("auth/refresh-token")]
-        [SwaggerOperation(Summary = "Generate Refresh Token")]
+        [SwaggerOperation(Summary = "Generates a new refresh token.")]
         [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<PostRefreshTokenResponse>))]
         [SwaggerResponse(403, GlobalMessages.ACCESS_DENIED_403, typeof(Response<string>))]
         [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION_500, typeof(Response<string>))]
