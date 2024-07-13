@@ -11,7 +11,7 @@ namespace JarvisAuth.Domain.Interfaces.Services
         public Task<Response<PostCreateUserJarvisResponse>> PostCreateUserJarvis(PostCreateUserJarvisRequest request);
         public Task<Response<PostUserJarvisLoginResponse>> PostLogin(PostLoginRequest request);
         public Task<Response<PostUserJarvisRefreshTokenResponse>> PostRefreshToken(PostRefreshTokenRequest request);
-
         public Task<Response<PostLinkUserJarvisToApplicationResponse>> PostLinkUserJarvisToApplication(PostLinkUserJarvisToApplicationRequest request);
+        public Task<Response<List<GetUserJarvisResponse>>> GetAllUserJarvis();
     }
 }

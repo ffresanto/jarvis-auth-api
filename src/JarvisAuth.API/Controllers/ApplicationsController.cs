@@ -31,7 +31,7 @@ namespace JarvisAuth.API.Controllers
         [HttpGet()]
         [Authorize]
         [SwaggerOperation(Summary = "Retrieves a list of all applications.")]
-        [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<GetApplicationResponse>))]
+        [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<List<GetApplicationResponse>>))]
         [SwaggerResponse(404, GlobalMessages.REQUEST_NOT_FOUND_404, typeof(Response<string>))]
         [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION_500, typeof(Response<string>))]
         public async Task<ActionResult> GetApplications()

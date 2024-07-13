@@ -1,7 +1,9 @@
 ﻿using JarvisAuth.API.Controllers.Base;
+using JarvisAuth.Application.Services;
 using JarvisAuth.Core.Messages;
 using JarvisAuth.Core.Requests.Jarvis;
 using JarvisAuth.Core.Requests.UserJarvis;
+using JarvisAuth.Core.Responses.Application;
 using JarvisAuth.Core.Responses.Jarvis;
 using JarvisAuth.Core.Responses.Shared;
 using JarvisAuth.Core.Responses.UserJarvis;
@@ -63,5 +65,15 @@ namespace JarvisAuth.API.Controllers
             return CustomResponse(await jarvisService.PostLinkUserJarvisToApplication(request));
         }
 
+        [HttpGet("users")]
+        [Authorize]
+        [SwaggerOperation(Summary = "Retrieves a list of all user jarvis.")]
+        [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<List<GetUserJarvisResponse>>))]
+        [SwaggerResponse(404, GlobalMessages.REQUEST_NOT_FOUND_404, typeof(Response<string>))]
+        [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION_500, typeof(Response<string>))]
+        public async Task<ActionResult> GetApplications()
+        {
+            return CustomResponse(await jarvisService.GetAllUserJarvis());
+        }
     }
 }
