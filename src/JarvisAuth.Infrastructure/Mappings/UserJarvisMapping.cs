@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace JarvisAuth.Infrastructure.Mappings.JarvisMapping
+namespace JarvisAuth.Infrastructure.Mappings
 {
     public class UserJarvisMapping : IEntityTypeConfiguration<UserJarvis>
     {
@@ -38,7 +38,7 @@ namespace JarvisAuth.Infrastructure.Mappings.JarvisMapping
 
             builder.Property(u => u.IsAdmin)
                 .HasColumnName("is_admin")
-                .HasConversion<int>()  
+                .HasConversion<int>()
                 .IsRequired();
 
             builder.Property(u => u.Enabled)

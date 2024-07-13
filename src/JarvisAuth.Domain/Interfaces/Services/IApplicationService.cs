@@ -7,5 +7,7 @@ namespace JarvisAuth.Domain.Interfaces.Services
     public interface IApplicationService
     {
         public Task<Response<PostCreateApplicationResponse>> CreateApplication(PostCreateApplicationRequest request);
+
+        public Task<Response<List<GetApplicationResponse>>> GetApplications();
     }
 }

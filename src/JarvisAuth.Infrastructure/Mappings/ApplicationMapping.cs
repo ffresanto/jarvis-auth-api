@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace JarvisAuth.Infrastructure.Mappings.JarvisMapping
+namespace JarvisAuth.Infrastructure.Mappings
 {
     public class ApplicationMapping : IEntityTypeConfiguration<Application>
     {

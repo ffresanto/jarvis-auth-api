@@ -3,6 +3,7 @@ using JarvisAuth.Core.Messages;
 using JarvisAuth.Core.Requests.Application;
 using JarvisAuth.Core.Responses.Application;
 using JarvisAuth.Core.Responses.Shared;
+using JarvisAuth.Domain.Entities;
 using JarvisAuth.Domain.Interfaces.Repositories;
 using JarvisAuth.Domain.Interfaces.Services;
 
@@ -46,6 +47,26 @@ namespace JarvisAuth.Application.Services
             }
 
             response.Data = new PostCreateApplicationResponse { ApplicationId = application.Id };
+
+            return response;
+        }
+
+        public async Task<Response<List<GetApplicationResponse>>> GetApplications()
+        {
+            var response = new Response<List<GetApplicationResponse>>();
+
+            var data = await applicationRepository.GetApplications();
+
+            if (data == null)
+            {
+                response.Errors.Add(GlobalMessages.DATABASE_RECORD_NOT_FOUND);
+                response.StatusCode = 404;
+                return response;
+            }
+
+            var dataMapper = mapper.Map<List<GetApplicationResponse>>(data);
+
+            response.Data = dataMapper;
 
             return response;
         }

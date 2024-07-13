@@ -46,5 +46,11 @@ namespace JarvisAuth.Core.Messages
         public const string INVALID_TOKEN_OR_REFRESH_TOKEN = "The token or refresh token provided is invalid.";
 
         #endregion
+
+        #region [Success] 
+
+        public const string RECORD_SAVED_SUCCESSFULLY = "Record saved successfully.";
+
+        #endregion
     }
 }

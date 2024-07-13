@@ -13,16 +13,16 @@ namespace JarvisAuth.Tests.JarvisAuth.Application.Tests.Services
     public class JarvisServiceTests
     {
         private readonly Mock<IConfiguration> _configurationMock;
-        private readonly Mock<IJarvisRepository> _jarvisRepositoryMock;
+        private readonly Mock<IUserJarvisRepository> _jarvisRepositoryMock;
         private readonly Mock<IMapper> _mapperMock;
-        private readonly JarvisService _jarvisService;
+        private readonly UserJarvisService _jarvisService;
 
         public JarvisServiceTests()
         {
             _configurationMock = new Mock<IConfiguration>();
-            _jarvisRepositoryMock = new Mock<IJarvisRepository>();
+            _jarvisRepositoryMock = new Mock<IUserJarvisRepository>();
             _mapperMock = new Mock<IMapper>();
-            _jarvisService = new JarvisService(_configurationMock.Object, _jarvisRepositoryMock.Object, _mapperMock.Object);
+            _jarvisService = new UserJarvisService(_configurationMock.Object, _jarvisRepositoryMock.Object, _mapperMock.Object);
         }
 
         [Fact]

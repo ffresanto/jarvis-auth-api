@@ -11,9 +11,9 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace JarvisAuth.API.Controllers
 {
     [ApiController]
-    [Route("api/application")]
+    [Route("api/applications")]
     [Produces("application/json")]
-    public class ApplicationController(IApplicationService applicationService) : BaseController
+    public class ApplicationsController(IApplicationService applicationService) : BaseController
     {
 
         [HttpPost("create")]
@@ -26,6 +26,17 @@ namespace JarvisAuth.API.Controllers
         public async Task<ActionResult> PostCreateApplication(PostCreateApplicationRequest request)
         {
             return CustomResponse(await applicationService.CreateApplication(request));
+        }
+
+        [HttpGet()]
+        [Authorize]
+        [SwaggerOperation(Summary = "Retrieves a list of all applications.")]
+        [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<GetApplicationResponse>))]
+        [SwaggerResponse(404, GlobalMessages.REQUEST_NOT_FOUND_404, typeof(Response<string>))]
+        [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION_500, typeof(Response<string>))]
+        public async Task<ActionResult> GetApplications()
+        {
+            return CustomResponse(await applicationService.GetApplications());
         }
     }
 }
