@@ -3,6 +3,7 @@ using JarvisAuth.Application.Security;
 using JarvisAuth.Core.Messages;
 using JarvisAuth.Core.Requests.Jarvis;
 using JarvisAuth.Core.Requests.UserJarvis;
+using JarvisAuth.Core.Responses.Application;
 using JarvisAuth.Core.Responses.Jarvis;
 using JarvisAuth.Core.Responses.Shared;
 using JarvisAuth.Core.Responses.UserJarvis;
@@ -173,5 +174,24 @@ namespace JarvisAuth.Application.Services
             return response;
         }
 
+        public async Task<Response<List<GetUserJarvisResponse>>> GetAllUserJarvis()
+        {
+            var response = new Response<List<GetUserJarvisResponse>>();
+
+            var data = await userJarvisRepository.GetAllUserJarvis();
+
+            if (data == null)
+            {
+                response.Errors.Add(GlobalMessages.DATABASE_RECORD_NOT_FOUND);
+                response.StatusCode = 404;
+                return response;
+            }
+
+            var dataMapper = mapper.Map<List<GetUserJarvisResponse>>(data);
+
+            response.Data = dataMapper;
+
+            return response;
+        }
     }
 }

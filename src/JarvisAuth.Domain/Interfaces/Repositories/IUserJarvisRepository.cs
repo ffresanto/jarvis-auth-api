@@ -8,5 +8,7 @@ namespace JarvisAuth.Domain.Interfaces.Repositories
     {
         public Task CreateUserJarvis(UserJarvis userJarvis);
         public Task<bool> UserEmailExists(string email);
-        public Task<UserJarvis> FindUserByEmail(string email);    }
+        public Task<UserJarvis> FindUserByEmail(string email);
+        public Task<List<UserJarvis>> GetAllUserJarvis();
+    }
 }
