@@ -11,7 +11,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace JarvisAuth.Application.Services
 {
-    public class JarvisService(IConfiguration configuration, IJarvisRepository jarvisRepository, IMapper mapper) : IJarvisService
+    public class UserJarvisService(IConfiguration configuration, IUserJarvisRepository userJarvisRepository, IMapper mapper) : IUserJarvisService
     {
         public async Task<Response<PostCreateUserJarvisResponse>> PostCreateUserJarvis(PostCreateUserJarvisRequest request)
         {
@@ -25,7 +25,7 @@ namespace JarvisAuth.Application.Services
                 return response;
             }
 
-            var emailExists = await jarvisRepository.UserEmailExists(request.Email);
+            var emailExists = await userJarvisRepository.UserEmailExists(request.Email);
 
             if (emailExists)
             {
@@ -38,9 +38,9 @@ namespace JarvisAuth.Application.Services
 
             userJarvis.Password = EncryptionSecurity.EncryptPassword(userJarvis.Password);
 
-            await jarvisRepository.CreateUserJarvis(userJarvis);
+            await userJarvisRepository.CreateUserJarvis(userJarvis);
 
-            var save = await jarvisRepository.SaveChangesAsync();
+            var save = await userJarvisRepository.SaveChangesAsync();
 
             if (!save)
             {
@@ -54,9 +54,9 @@ namespace JarvisAuth.Application.Services
             return response;
         }
 
-        public async Task<Response<PostLoginResponse>> PostLogin(PostLoginRequest request)
+        public async Task<Response<PostUserJarvisLoginResponse>> PostLogin(PostLoginRequest request)
         {
-            var response = new Response<PostLoginResponse>();
+            var response = new Response<PostUserJarvisLoginResponse>();
             var validate = request.Validate(request);
 
             if (validate.Count > 0)
@@ -66,7 +66,7 @@ namespace JarvisAuth.Application.Services
                 return response;
             }
 
-            var user = await jarvisRepository.FindUserByEmail(request.Email);
+            var user = await userJarvisRepository.FindUserByEmail(request.Email);
 
             if (user == null)
             {
@@ -94,14 +94,14 @@ namespace JarvisAuth.Application.Services
             var accessTokenGenerate = jwtToken.GenerateJwtToken(user);
             var refreshTokenGenerate = jwtToken.GenerateRefreshJwtToken(user);
 
-            response.Data = new PostLoginResponse { Token = accessTokenGenerate, RefreshToken = refreshTokenGenerate };
+            response.Data = new PostUserJarvisLoginResponse { Token = accessTokenGenerate, RefreshToken = refreshTokenGenerate };
 
             return response;
         }
 
-        public async Task<Response<PostRefreshTokenResponse>> PostRefreshToken(PostRefreshTokenRequest request)
+        public async Task<Response<PostUserJarvisRefreshTokenResponse>> PostRefreshToken(PostRefreshTokenRequest request)
         {
-            var response = new Response<PostRefreshTokenResponse>();
+            var response = new Response<PostUserJarvisRefreshTokenResponse>();
 
             var jwtToken = new JwtTokenSecurity(configuration);
 
@@ -120,7 +120,7 @@ namespace JarvisAuth.Application.Services
 
             var emailUserAccessToken = validateAccessToken.Claims.FirstOrDefault(c => c.Type == "userEmail")?.Value;
 
-            var user = await jarvisRepository.FindUserByEmail(emailUserAccessToken);
+            var user = await userJarvisRepository.FindUserByEmail(emailUserAccessToken);
 
             if (user.Enabled == false)
             {
@@ -132,7 +132,7 @@ namespace JarvisAuth.Application.Services
             var newAccessTokenGenerate = jwtToken.GenerateJwtToken(user);
             var newRefreshTokenGenerate = jwtToken.GenerateRefreshJwtToken(user);
 
-            response.Data = new PostRefreshTokenResponse { Token = newAccessTokenGenerate, RefreshToken = newRefreshTokenGenerate };
+            response.Data = new PostUserJarvisRefreshTokenResponse { Token = newAccessTokenGenerate, RefreshToken = newRefreshTokenGenerate };
 
             return response;
         }

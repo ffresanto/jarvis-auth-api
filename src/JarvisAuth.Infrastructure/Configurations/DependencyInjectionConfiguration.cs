@@ -8,7 +8,7 @@ namespace JarvisAuth.Infrastructure.Configurations
     {
         public static IServiceCollection RepositoriesDependencies(this IServiceCollection services)
         {
-            services.AddScoped<IJarvisRepository, JarvisRepository>();
+            services.AddScoped<IUserJarvisRepository, UserJarvisRepository>();
             services.AddScoped<IApplicationRepository, ApplicationRepository>();
 
             return services;

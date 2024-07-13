@@ -4,10 +4,10 @@ using JarvisAuth.Core.Responses.Shared;
 
 namespace JarvisAuth.Domain.Interfaces.Services
 {
-    public interface IJarvisService
+    public interface IUserJarvisService
     {
         public Task<Response<PostCreateUserJarvisResponse>> PostCreateUserJarvis(PostCreateUserJarvisRequest request);
-        public Task<Response<PostLoginResponse>> PostLogin(PostLoginRequest request);
-        public Task<Response<PostRefreshTokenResponse>> PostRefreshToken(PostRefreshTokenRequest request);
+        public Task<Response<PostUserJarvisLoginResponse>> PostLogin(PostLoginRequest request);
+        public Task<Response<PostUserJarvisRefreshTokenResponse>> PostRefreshToken(PostRefreshTokenRequest request);
     }
 }
