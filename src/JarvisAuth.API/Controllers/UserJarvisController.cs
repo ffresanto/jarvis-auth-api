@@ -1,10 +1,13 @@
 ﻿using JarvisAuth.API.Controllers.Base;
 using JarvisAuth.Core.Messages;
 using JarvisAuth.Core.Requests.Jarvis;
+using JarvisAuth.Core.Requests.UserJarvis;
 using JarvisAuth.Core.Responses.Jarvis;
 using JarvisAuth.Core.Responses.Shared;
+using JarvisAuth.Core.Responses.UserJarvis;
 using JarvisAuth.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -47,6 +50,17 @@ namespace JarvisAuth.API.Controllers
         public async Task<ActionResult> PostRefreshToken([FromBody] PostRefreshTokenRequest request)
         {
             return CustomResponse(await jarvisService.PostRefreshToken(request));
+        }
+
+        [HttpPost("link-user-application")]
+        [Authorize]
+        [SwaggerOperation(Summary = "Link a user Jarvis to an application.")]
+        [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<PostLinkUserJarvisToApplicationResponse>))]
+        [SwaggerResponse(422, GlobalMessages.VALIDATION_ERRORS_422, typeof(Response<string>))]
+        [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION_500, typeof(Response<string>))]
+        public async Task<ActionResult> LinkUserJarvisToApplication([FromBody] PostLinkUserJarvisToApplicationRequest request)
+        {
+            return CustomResponse(await jarvisService.PostLinkUserJarvisToApplication(request));
         }
 
     }

@@ -2,16 +2,23 @@
 using JarvisAuth.Application.Security;
 using JarvisAuth.Core.Messages;
 using JarvisAuth.Core.Requests.Jarvis;
+using JarvisAuth.Core.Requests.UserJarvis;
 using JarvisAuth.Core.Responses.Jarvis;
 using JarvisAuth.Core.Responses.Shared;
+using JarvisAuth.Core.Responses.UserJarvis;
 using JarvisAuth.Domain.Entities;
 using JarvisAuth.Domain.Interfaces.Repositories;
 using JarvisAuth.Domain.Interfaces.Services;
+using JarvisAuth.Domain.Models;
 using Microsoft.Extensions.Configuration;
 
 namespace JarvisAuth.Application.Services
 {
-    public class UserJarvisService(IConfiguration configuration, IUserJarvisRepository userJarvisRepository, IMapper mapper) : IUserJarvisService
+    public class UserJarvisService(
+        IConfiguration configuration,
+        IUserJarvisRepository userJarvisRepository,
+        IUserJarvisProfileApplicationRepository userJarvisProfileApplicationRepository,
+        IMapper mapper) : IUserJarvisService
     {
         public async Task<Response<PostCreateUserJarvisResponse>> PostCreateUserJarvis(PostCreateUserJarvisRequest request)
         {
@@ -98,7 +105,6 @@ namespace JarvisAuth.Application.Services
 
             return response;
         }
-
         public async Task<Response<PostUserJarvisRefreshTokenResponse>> PostRefreshToken(PostRefreshTokenRequest request)
         {
             var response = new Response<PostUserJarvisRefreshTokenResponse>();
@@ -136,5 +142,36 @@ namespace JarvisAuth.Application.Services
 
             return response;
         }
+        public async Task<Response<PostLinkUserJarvisToApplicationResponse>> PostLinkUserJarvisToApplication(PostLinkUserJarvisToApplicationRequest request)
+        {
+            var response = new Response<PostLinkUserJarvisToApplicationResponse>();
+
+            var validate = request.Validate(request);
+
+            if (validate.Count > 0)
+            {
+                response.Errors = validate;
+                response.StatusCode = 422;
+                return response;
+            }
+
+            var userJarvisProfileApplication = mapper.Map<UserJarvisProfileApplication>(request);
+
+            await userJarvisProfileApplicationRepository.LinkUserJarvisToApplication(userJarvisProfileApplication);
+            
+            var save = await userJarvisProfileApplicationRepository.SaveChangesAsync();
+
+            if (!save)
+            {
+                response.Errors.Add(GlobalMessages.DATABASE_SAVE_FAILED);
+                response.StatusCode = 500;
+                return response;
+            }
+
+            response.Data = new PostLinkUserJarvisToApplicationResponse { Message= GlobalMessages.RECORD_SAVED_SUCCESSFULLY };
+
+            return response;
+        }
+
     }
 }

@@ -10,6 +10,7 @@ namespace JarvisAuth.Infrastructure.Configurations
         {
             services.AddScoped<IUserJarvisRepository, UserJarvisRepository>();
             services.AddScoped<IApplicationRepository, ApplicationRepository>();
+            services.AddScoped<IUserJarvisProfileApplicationRepository, UserJarvisProfileApplicationRepositoy>();
 
             return services;
         }
