@@ -13,8 +13,8 @@ namespace JarvisAuth.Application.Configurations
     {
         public AutoMapperConfiguration()
         {
-            CreateMap<PostCreateUserJarvisRequest, UserJarvis>();
-            CreateMap<PostCreateApplicationRequest, Domain.Entities.Application>();
+            CreateMap<PostUserJarvisRequest, UserJarvis>();
+            CreateMap<PostApplicationRequest, Domain.Entities.Application>();
             CreateMap<GetApplicationResponse, Domain.Entities.Application>();
             CreateMap<Domain.Entities.Application, GetApplicationResponse>();
             CreateMap<PostLinkUserJarvisToApplicationRequest, UserJarvisProfileApplication>();

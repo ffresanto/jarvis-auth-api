@@ -29,7 +29,7 @@ namespace JarvisAuth.Tests.JarvisAuth.Application.Tests.Services
         public async Task PostCreateUserJarvis_ReturnsError_WhenEmailExists()
         {
             // Arrange
-            var request = new PostCreateUserJarvisRequest
+            var request = new PostUserJarvisRequest
             {
                 Name = "John Doe",
                 Email = "test@example.com",

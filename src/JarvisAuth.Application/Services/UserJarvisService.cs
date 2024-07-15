@@ -20,7 +20,7 @@ namespace JarvisAuth.Application.Services
         IUserJarvisRepository userJarvisRepository,
         IMapper mapper) : IUserJarvisService
     {
-        public async Task<Response<PostCreateUserJarvisResponse>> PostCreateUserJarvis(PostCreateUserJarvisRequest request)
+        public async Task<Response<PostCreateUserJarvisResponse>> PostCreateUserJarvis(PostUserJarvisRequest request)
         {
             var response = new Response<PostCreateUserJarvisResponse>();
             var validate = request.Validate(request);

@@ -17,9 +17,9 @@ namespace JarvisAuth.Application.Services
         IUserJarvisRepository userJarvisRepository,
         IMapper mapper) : IApplicationService
     {
-        public async Task<Response<PostCreateApplicationResponse>> CreateApplication(PostCreateApplicationRequest request)
+        public async Task<Response<PostApplicationResponse>> CreateApplication(PostApplicationRequest request)
         {
-            var response = new Response<PostCreateApplicationResponse>();
+            var response = new Response<PostApplicationResponse>();
 
             var validate = request.Validate(request);
 
@@ -52,7 +52,7 @@ namespace JarvisAuth.Application.Services
                 return response;
             }
 
-            response.Data = new PostCreateApplicationResponse { ApplicationId = application.Id };
+            response.Data = new PostApplicationResponse { ApplicationId = application.Id };
 
             return response;
         }
@@ -130,7 +130,7 @@ namespace JarvisAuth.Application.Services
                 return response;
             }
 
-            response.Data = new PostLinkUserJarvisToApplicationResponse { Message = GlobalMessages.RECORD_SAVED_SUCCESSFULLY };
+            response.Data = new PostLinkUserJarvisToApplicationResponse { Info = GlobalMessages.RECORD_SAVED_SUCCESSFULLY };
 
             return response;
         }

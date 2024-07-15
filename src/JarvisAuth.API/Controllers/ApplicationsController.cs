@@ -21,11 +21,11 @@ namespace JarvisAuth.API.Controllers
         [HttpPost("register")]
         [Authorize]
         [SwaggerOperation(Summary = "Creates a new application for the Jarvis authentication system.")]
-        [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<PostCreateApplicationResponse>))]
+        [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<PostApplicationResponse>))]
         [SwaggerResponse(409, GlobalMessages.REQUEST_CONFLICT_409, typeof(Response<string>))]
         [SwaggerResponse(422, GlobalMessages.VALIDATION_ERRORS_422, typeof(Response<string>))]
         [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION_500, typeof(Response<string>))]
-        public async Task<ActionResult> PostCreateApplication(PostCreateApplicationRequest request)
+        public async Task<ActionResult> PostCreateApplication(PostApplicationRequest request)
         {
             return CustomResponse(await applicationService.CreateApplication(request));
         }

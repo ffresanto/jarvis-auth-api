@@ -2,7 +2,7 @@
 
 namespace JarvisAuth.Core.Responses.Application
 {
-    public class PostCreateApplicationResponse
+    public class PostApplicationResponse
     {
         [JsonProperty("applicationId")]
         public Guid ApplicationId { get; set; }

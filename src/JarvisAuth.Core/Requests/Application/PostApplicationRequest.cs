@@ -3,11 +3,11 @@ using JarvisAuth.Core.Validations;
 
 namespace JarvisAuth.Core.Requests.Application
 {
-    public class PostCreateApplicationRequest
+    public class PostApplicationRequest
     {
         public string? Name { get; set; }
 
-        public List<string> Validate(PostCreateApplicationRequest data)
+        public List<string> Validate(PostApplicationRequest data)
         {
             var errors = new List<string>();
 

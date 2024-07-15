@@ -26,7 +26,7 @@ namespace JarvisAuth.API.Controllers
         [SwaggerResponse(409, GlobalMessages.REQUEST_CONFLICT_409, typeof(Response<string>))]
         [SwaggerResponse(422, GlobalMessages.VALIDATION_ERRORS_422, typeof(Response<string>))]
         [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION_500, typeof(Response<string>))]
-        public async Task<ActionResult> PostCreateUserJarvis(PostCreateUserJarvisRequest request)
+        public async Task<ActionResult> PostCreateUserJarvis(PostUserJarvisRequest request)
         {
             return CustomResponse(await jarvisService.PostCreateUserJarvis(request));
         }
