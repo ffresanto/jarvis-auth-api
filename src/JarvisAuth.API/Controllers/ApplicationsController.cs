@@ -1,8 +1,10 @@
 ﻿using JarvisAuth.API.Controllers.Base;
 using JarvisAuth.Core.Messages;
 using JarvisAuth.Core.Requests.Application;
+using JarvisAuth.Core.Requests.UserJarvis;
 using JarvisAuth.Core.Responses.Application;
 using JarvisAuth.Core.Responses.Shared;
+using JarvisAuth.Core.Responses.UserJarvis;
 using JarvisAuth.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +18,7 @@ namespace JarvisAuth.API.Controllers
     public class ApplicationsController(IApplicationService applicationService) : BaseController
     {
 
-        [HttpPost("create")]
+        [HttpPost("register")]
         [Authorize]
         [SwaggerOperation(Summary = "Creates a new application for the Jarvis authentication system.")]
         [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<PostCreateApplicationResponse>))]
@@ -37,6 +39,17 @@ namespace JarvisAuth.API.Controllers
         public async Task<ActionResult> GetApplications()
         {
             return CustomResponse(await applicationService.GetApplications());
+        }
+
+        [HttpPost("link-user-application")]
+        [Authorize]
+        [SwaggerOperation(Summary = "Link a user Jarvis to an application.")]
+        [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<PostLinkUserJarvisToApplicationResponse>))]
+        [SwaggerResponse(422, GlobalMessages.VALIDATION_ERRORS_422, typeof(Response<string>))]
+        [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION_500, typeof(Response<string>))]
+        public async Task<ActionResult> LinkUserJarvisToApplication([FromBody] PostLinkUserJarvisToApplicationRequest request)
+        {
+            return CustomResponse(await applicationService.PostLinkUserJarvisToApplication(request));
         }
     }
 }

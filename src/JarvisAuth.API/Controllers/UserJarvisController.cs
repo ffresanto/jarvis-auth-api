@@ -54,17 +54,6 @@ namespace JarvisAuth.API.Controllers
             return CustomResponse(await jarvisService.PostRefreshToken(request));
         }
 
-        [HttpPost("link-user-application")]
-        [Authorize]
-        [SwaggerOperation(Summary = "Link a user Jarvis to an application.")]
-        [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<PostLinkUserJarvisToApplicationResponse>))]
-        [SwaggerResponse(422, GlobalMessages.VALIDATION_ERRORS_422, typeof(Response<string>))]
-        [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION_500, typeof(Response<string>))]
-        public async Task<ActionResult> LinkUserJarvisToApplication([FromBody] PostLinkUserJarvisToApplicationRequest request)
-        {
-            return CustomResponse(await jarvisService.PostLinkUserJarvisToApplication(request));
-        }
-
         [HttpGet("users")]
         [Authorize]
         [SwaggerOperation(Summary = "Retrieves a list of all user jarvis.")]
