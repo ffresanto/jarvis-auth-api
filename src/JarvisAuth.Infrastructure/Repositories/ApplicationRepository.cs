@@ -28,5 +28,10 @@ namespace JarvisAuth.Infrastructure.Repositories
         {
             return await _context.Applications.ToListAsync();
         }
+
+        public async Task<bool> ApplicationIdExists(Guid id)
+        {
+            return await _context.Applications.AnyAsync(u => u.Id == id);
+        }
     }
 }
