@@ -2,7 +2,7 @@
 
 namespace JarvisAuth.Core.Responses.Jarvis
 {
-    public class PostUserJarvisLoginResponse
+    public class PostJarvisLoginResponse
     {
         [JsonProperty("token")]
         public string Token { get; set; }

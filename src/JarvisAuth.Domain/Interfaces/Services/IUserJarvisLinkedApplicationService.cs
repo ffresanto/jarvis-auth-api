@@ -4,7 +4,7 @@ using JarvisAuth.Core.Responses.UserJarvis;
 
 namespace JarvisAuth.Domain.Interfaces.Services
 {
-    public interface IUserJarvisProfileApplicationService
+    public interface IUserJarvisLinkedApplicationService
     {
         public Task<Response<PostLinkUserJarvisToApplicationResponse>> LinkUserJarvisToApplication(PostLinkUserJarvisToApplicationRequest request);
 

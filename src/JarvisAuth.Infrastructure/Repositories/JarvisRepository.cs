@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JarvisAuth.Infrastructure.Repositories
 {
-    public class UserJarvisRepository : Repository, IUserJarvisRepository
+    public class JarvisRepository : Repository, IJarvisRepository
     {
         private readonly SqliteDbContext _context;
-        public UserJarvisRepository(SqliteDbContext context) : base(context)
+        public JarvisRepository(SqliteDbContext context) : base(context)
         {
             _context = context;
         }

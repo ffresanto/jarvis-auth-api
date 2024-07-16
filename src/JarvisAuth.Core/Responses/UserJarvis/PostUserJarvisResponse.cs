@@ -2,7 +2,7 @@
 
 namespace JarvisAuth.Core.Responses.Jarvis
 {
-    public class PostCreateUserJarvisResponse
+    public class PostUserJarvisResponse
     {
         [JsonProperty("userId")]
         public Guid UserId { get; set; }

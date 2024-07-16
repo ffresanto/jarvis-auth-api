@@ -17,7 +17,7 @@ namespace JarvisAuth.Application.Configurations
             CreateMap<PostApplicationRequest, Domain.Entities.Application>();
             CreateMap<GetApplicationResponse, Domain.Entities.Application>();
             CreateMap<Domain.Entities.Application, GetApplicationResponse>();
-            CreateMap<PostLinkUserJarvisToApplicationRequest, UserJarvisProfileApplication>();
+            CreateMap<PostLinkUserJarvisToApplicationRequest, UserJarvisLinkedApplication>();
             CreateMap<GetUserJarvisResponse, UserJarvis>();
             CreateMap<UserJarvis, GetUserJarvisResponse>();
         }

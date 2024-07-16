@@ -7,7 +7,7 @@ namespace JarvisAuth.Domain.Interfaces.Repositories
     {
         public Task CreateApplication(Application application);
         public Task<bool> ApplicationNameExists(string name);
-        public Task<List<Application>> GetApplications();
+        public Task<List<Application>> GetAllApplications();
         public Task<bool> ApplicationIdExists(Guid id);
     }
 }

@@ -4,7 +4,7 @@ using JarvisAuth.Domain.Models;
 
 namespace JarvisAuth.Domain.Interfaces.Repositories
 {
-    public interface IUserJarvisRepository : IRepository
+    public interface IJarvisRepository : IRepository
     {
         public Task CreateUserJarvis(UserJarvis userJarvis);
         public Task<bool> UserEmailExists(string email);

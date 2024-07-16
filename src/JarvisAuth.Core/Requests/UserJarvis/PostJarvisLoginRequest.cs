@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace JarvisAuth.Core.Requests.Jarvis
 {
-    public class PostLoginRequest
+    public class PostJarvisLoginRequest
     {
         public string Email {  get; set; }
         public string Password { get; set; }
 
-        public List<string> Validate(PostLoginRequest data)
+        public List<string> Validate(PostJarvisLoginRequest data)
         {
             var errors = new List<string>();
 

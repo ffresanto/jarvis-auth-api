@@ -24,7 +24,7 @@ namespace JarvisAuth.Infrastructure.Repositories
             return await _context.Applications.AnyAsync(u => u.Name == name);
         }
 
-        public async Task<List<Application>> GetApplications()
+        public async Task<List<Application>> GetAllApplications()
         {
             return await _context.Applications.ToListAsync();
         }
