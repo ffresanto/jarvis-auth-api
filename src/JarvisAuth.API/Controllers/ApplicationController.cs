@@ -15,6 +15,16 @@ namespace JarvisAuth.API.Controllers
     [Produces("application/json")]
     public class ApplicationController(IApplicationService applicationService) : BaseController
     {
+        [HttpGet()]
+        [Authorize]
+        [SwaggerOperation(Summary = "Retrieves a list of all applications.")]
+        [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<List<GetApplicationResponse>>))]
+        [SwaggerResponse(404, GlobalMessages.REQUEST_NOT_FOUND_404, typeof(Response<string>))]
+        [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION_500, typeof(Response<string>))]
+        public async Task<ActionResult> GetApplications()
+        {
+            return CustomResponse(await applicationService.GetApplications());
+        }
 
         [HttpPost()]
         [Authorize]
@@ -26,17 +36,6 @@ namespace JarvisAuth.API.Controllers
         public async Task<ActionResult> PostCreateApplication(PostApplicationRequest request)
         {
             return CustomResponse(await applicationService.PostApplication(request));
-        }
-
-        [HttpGet()]
-        [Authorize]
-        [SwaggerOperation(Summary = "Retrieves a list of all applications.")]
-        [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<List<GetApplicationResponse>>))]
-        [SwaggerResponse(404, GlobalMessages.REQUEST_NOT_FOUND_404, typeof(Response<string>))]
-        [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION_500, typeof(Response<string>))]
-        public async Task<ActionResult> GetApplications()
-        {
-            return CustomResponse(await applicationService.GetApplications());
         }
 
         [HttpPost("permission")]

@@ -17,17 +17,6 @@ namespace JarvisAuth.API.Controllers
     [Produces("application/json")]
     public class JarvisController(IJarvisService jarvisService) : BaseController
     {
-        [HttpPost()]
-        [SwaggerOperation(Summary = "Creates a new user for the Jarvis authentication system.")]
-        [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<PostUserJarvisResponse>))]
-        [SwaggerResponse(409, GlobalMessages.REQUEST_CONFLICT_409, typeof(Response<string>))]
-        [SwaggerResponse(422, GlobalMessages.VALIDATION_ERRORS_422, typeof(Response<string>))]
-        [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION_500, typeof(Response<string>))]
-        public async Task<ActionResult> PostUserJarvis(PostUserJarvisRequest request)
-        {
-            return CustomResponse(await jarvisService.PostUserJarvis(request));
-        }
-
         [HttpGet()]
         [Authorize]
         [SwaggerOperation(Summary = "Retrieves a list of all user jarvis.")]
@@ -37,6 +26,17 @@ namespace JarvisAuth.API.Controllers
         public async Task<ActionResult> GetApplications()
         {
             return CustomResponse(await jarvisService.GetAllUserJarvis());
+        }
+
+        [HttpPost()]
+        [SwaggerOperation(Summary = "Creates a new user for the Jarvis authentication system.")]
+        [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<PostUserJarvisResponse>))]
+        [SwaggerResponse(409, GlobalMessages.REQUEST_CONFLICT_409, typeof(Response<string>))]
+        [SwaggerResponse(422, GlobalMessages.VALIDATION_ERRORS_422, typeof(Response<string>))]
+        [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION_500, typeof(Response<string>))]
+        public async Task<ActionResult> PostUserJarvis(PostUserJarvisRequest request)
+        {
+            return CustomResponse(await jarvisService.PostUserJarvis(request));
         }
 
         [HttpPost("login")]
