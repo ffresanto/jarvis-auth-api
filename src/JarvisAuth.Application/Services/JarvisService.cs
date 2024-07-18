@@ -8,21 +8,24 @@ using JarvisAuth.Core.Responses.Jarvis;
 using JarvisAuth.Core.Responses.Shared;
 using JarvisAuth.Core.Responses.UserJarvis;
 using JarvisAuth.Domain.Entities;
-using JarvisAuth.Domain.Interfaces.Repositories;
-using JarvisAuth.Domain.Interfaces.Services;
+using JarvisAuth.Domain.Interfaces.Repositories.Application;
+using JarvisAuth.Domain.Interfaces.Repositories.Jarvis;
+using JarvisAuth.Domain.Interfaces.Services.Jarvis;
 using JarvisAuth.Domain.Models;
 using Microsoft.Extensions.Configuration;
 
 namespace JarvisAuth.Application.Services
 {
-    public class UserJarvisService(
+    public class JarvisService(
         IConfiguration configuration,
-        IUserJarvisRepository userJarvisRepository,
-        IMapper mapper) : IUserJarvisService
+        IJarvisRepository userJarvisRepository,
+        IUserJarvisLinkedApplicationRepository userJarvisProfileApplicationRepository,
+        IApplicationRepository applicationRepository,
+        IMapper mapper) : IJarvisService
     {
-        public async Task<Response<PostCreateUserJarvisResponse>> PostCreateUserJarvis(PostCreateUserJarvisRequest request)
+        public async Task<Response<PostUserJarvisResponse>> PostUserJarvis(PostUserJarvisRequest request)
         {
-            var response = new Response<PostCreateUserJarvisResponse>();
+            var response = new Response<PostUserJarvisResponse>();
             var validate = request.Validate(request);
 
             if (validate.Count > 0)
@@ -56,14 +59,16 @@ namespace JarvisAuth.Application.Services
                 return response;
             }
 
-            response.Data = new PostCreateUserJarvisResponse { UserId = userJarvis.Id };
+            response.Data = new PostUserJarvisResponse { UserId = userJarvis.Id };
+
+            userJarvisRepository.Dispose();
 
             return response;
         }
 
-        public async Task<Response<PostUserJarvisLoginResponse>> PostLogin(PostLoginRequest request)
+        public async Task<Response<PostJarvisLoginResponse>> PostLogin(PostJarvisLoginRequest request)
         {
-            var response = new Response<PostUserJarvisLoginResponse>();
+            var response = new Response<PostJarvisLoginResponse>();
             var validate = request.Validate(request);
 
             if (validate.Count > 0)
@@ -101,13 +106,15 @@ namespace JarvisAuth.Application.Services
             var accessTokenGenerate = jwtToken.GenerateJwtToken(user);
             var refreshTokenGenerate = jwtToken.GenerateRefreshJwtToken(user);
 
-            response.Data = new PostUserJarvisLoginResponse { Token = accessTokenGenerate, RefreshToken = refreshTokenGenerate };
+            response.Data = new PostJarvisLoginResponse { Token = accessTokenGenerate, RefreshToken = refreshTokenGenerate };
+
+            userJarvisRepository.Dispose();
 
             return response;
         }
-        public async Task<Response<PostUserJarvisRefreshTokenResponse>> PostRefreshToken(PostRefreshTokenRequest request)
+        public async Task<Response<PostJarvisRefreshTokenResponse>> PostRefreshToken(PostJarvisRefreshTokenRequest request)
         {
-            var response = new Response<PostUserJarvisRefreshTokenResponse>();
+            var response = new Response<PostJarvisRefreshTokenResponse>();
 
             var jwtToken = new JwtTokenSecurity(configuration);
 
@@ -138,7 +145,9 @@ namespace JarvisAuth.Application.Services
             var newAccessTokenGenerate = jwtToken.GenerateJwtToken(user);
             var newRefreshTokenGenerate = jwtToken.GenerateRefreshJwtToken(user);
 
-            response.Data = new PostUserJarvisRefreshTokenResponse { Token = newAccessTokenGenerate, RefreshToken = newRefreshTokenGenerate };
+            response.Data = new PostJarvisRefreshTokenResponse { Token = newAccessTokenGenerate, RefreshToken = newRefreshTokenGenerate };
+
+            userJarvisRepository.Dispose();
 
             return response;
         }
@@ -159,6 +168,68 @@ namespace JarvisAuth.Application.Services
             var dataMapper = mapper.Map<List<GetUserJarvisResponse>>(data);
 
             response.Data = dataMapper;
+
+            userJarvisRepository.Dispose();
+
+            return response;
+        }
+
+        public async Task<Response<PostLinkUserJarvisToApplicationResponse>> PostLinkApplication(PostLinkUserJarvisToApplicationRequest request)
+        {
+            var response = new Response<PostLinkUserJarvisToApplicationResponse>();
+
+            var validate = request.Validate(request);
+
+            if (validate.Count > 0)
+            {
+                response.Errors = validate;
+                response.StatusCode = 422;
+                return response;
+            }
+
+            var isUserLinkedToApplication = await userJarvisProfileApplicationRepository.IsUserLinkedToApplication(request.ApplicationId, request.UserJarvisId);
+
+            if (isUserLinkedToApplication)
+            {
+                response.Errors.Add(GlobalMessages.USER_IS_LINKED_TO_APPLICATION);
+                response.StatusCode = 409;
+                return response;
+            }
+
+            var userIdJarvisExits = await userJarvisRepository.UserIdExists(request.UserJarvisId);
+
+            if (!userIdJarvisExits)
+            {
+                response.Errors.Add(GlobalMessages.JARVIS_USER_NOT_EXISTS);
+                response.StatusCode = 409;
+                return response;
+            }
+
+            var applicationIdExists = await applicationRepository.ApplicationIdExists(request.ApplicationId);
+
+            if (!applicationIdExists)
+            {
+                response.Errors.Add(GlobalMessages.APPLICATION_NOT_EXISTS);
+                response.StatusCode = 409;
+                return response;
+            }
+
+            var userJarvisProfileApplication = mapper.Map<UserJarvisLinkedApplication>(request);
+
+            await userJarvisProfileApplicationRepository.LinkUserJarvisToApplication(userJarvisProfileApplication);
+
+            var save = await userJarvisProfileApplicationRepository.SaveChangesAsync();
+
+            if (!save)
+            {
+                response.Errors.Add(GlobalMessages.DATABASE_SAVE_FAILED);
+                response.StatusCode = 500;
+                return response;
+            }
+
+            response.Data = new PostLinkUserJarvisToApplicationResponse { Info = GlobalMessages.RECORD_SAVED_SUCCESSFULLY };
+
+            userJarvisRepository.Dispose();
 
             return response;
         }

@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace JarvisAuth.Infrastructure.Mappings
 {
-    public class UserJarvisProfileApplicationMapping : IEntityTypeConfiguration<UserJarvisProfileApplication>
+    public class UserJarvisLinkedApplicationMapping : IEntityTypeConfiguration<UserJarvisLinkedApplication>
     {
-        public void Configure(EntityTypeBuilder<UserJarvisProfileApplication> builder)
+        public void Configure(EntityTypeBuilder<UserJarvisLinkedApplication> builder)
         {
-            builder.ToTable("users_jarvis_profile_applications");
+            builder.ToTable("users_jarvis_linked_applications");
 
             builder.HasKey(u => u.UserJarvisId);
 

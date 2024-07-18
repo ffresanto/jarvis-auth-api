@@ -1,25 +1,23 @@
 ﻿using AutoMapper;
 using JarvisAuth.Core.Messages;
 using JarvisAuth.Core.Requests.Application;
-using JarvisAuth.Core.Requests.UserJarvis;
 using JarvisAuth.Core.Responses.Application;
 using JarvisAuth.Core.Responses.Shared;
-using JarvisAuth.Core.Responses.UserJarvis;
-using JarvisAuth.Domain.Interfaces.Repositories;
-using JarvisAuth.Domain.Interfaces.Services;
-using JarvisAuth.Domain.Models;
+using JarvisAuth.Domain.Entities;
+using JarvisAuth.Domain.Interfaces.Repositories.Application;
+using JarvisAuth.Domain.Interfaces.Services.Application;
+using System.ComponentModel.DataAnnotations;
 
 namespace JarvisAuth.Application.Services
 {
     public class ApplicationService(
         IApplicationRepository applicationRepository,
-        IUserJarvisProfileApplicationRepository userJarvisProfileApplicationRepository,
-        IUserJarvisRepository userJarvisRepository,
+        IApplicationPermissionRepository applicationPermissionRepository,
         IMapper mapper) : IApplicationService
     {
-        public async Task<Response<PostCreateApplicationResponse>> CreateApplication(PostCreateApplicationRequest request)
+        public async Task<Response<PostApplicationResponse>> PostApplication(PostApplicationRequest request)
         {
-            var response = new Response<PostCreateApplicationResponse>();
+            var response = new Response<PostApplicationResponse>();
 
             var validate = request.Validate(request);
 
@@ -52,7 +50,9 @@ namespace JarvisAuth.Application.Services
                 return response;
             }
 
-            response.Data = new PostCreateApplicationResponse { ApplicationId = application.Id };
+            response.Data = new PostApplicationResponse { ApplicationId = application.Id };
+
+            applicationRepository.Dispose();
 
             return response;
         }
@@ -61,7 +61,7 @@ namespace JarvisAuth.Application.Services
         {
             var response = new Response<List<GetApplicationResponse>>();
 
-            var data = await applicationRepository.GetApplications();
+            var data = await applicationRepository.GetAllApplications();
 
             if (data == null)
             {
@@ -77,9 +77,9 @@ namespace JarvisAuth.Application.Services
             return response;
         }
 
-        public async Task<Response<PostLinkUserJarvisToApplicationResponse>> PostLinkUserJarvisToApplication(PostLinkUserJarvisToApplicationRequest request)
+        public async Task<Response<PostApplicationPermissionResponse>> PostApplicationPermission(PostApplicationPermissionRequest request)
         {
-            var response = new Response<PostLinkUserJarvisToApplicationResponse>();
+            var response = new Response<PostApplicationPermissionResponse>();
 
             var validate = request.Validate(request);
 
@@ -90,20 +90,11 @@ namespace JarvisAuth.Application.Services
                 return response;
             }
 
-            var isUserLinkedToApplication = await userJarvisProfileApplicationRepository.IsUserLinkedToApplication(request.ApplicationId, request.UserJarvisId);
+            var nameExists = await applicationPermissionRepository.ApplicationPermissionNameExists(request.Name);
 
-            if (isUserLinkedToApplication)
+            if (nameExists)
             {
-                response.Errors.Add(GlobalMessages.USER_IS_LINKED_TO_APPLICATION);
-                response.StatusCode = 409;
-                return response;
-            }
-
-            var userIdJarvisExits = await userJarvisRepository.UserIdExists(request.UserJarvisId);
-
-            if (!userIdJarvisExits)
-            {
-                response.Errors.Add(GlobalMessages.JARVIS_USER_NOT_EXISTS);
+                response.Errors.Add(GlobalMessages.NAME_ALREADY_EXISTS);
                 response.StatusCode = 409;
                 return response;
             }
@@ -117,11 +108,11 @@ namespace JarvisAuth.Application.Services
                 return response;
             }
 
-            var userJarvisProfileApplication = mapper.Map<UserJarvisProfileApplication>(request);
+            var applicationPermission = mapper.Map<ApplicationPermission>(request);
 
-            await userJarvisProfileApplicationRepository.LinkUserJarvisToApplication(userJarvisProfileApplication);
+            await applicationPermissionRepository.CreateApplicationPermission(applicationPermission);
 
-            var save = await userJarvisProfileApplicationRepository.SaveChangesAsync();
+            var save = await applicationPermissionRepository.SaveChangesAsync();
 
             if (!save)
             {
@@ -130,7 +121,9 @@ namespace JarvisAuth.Application.Services
                 return response;
             }
 
-            response.Data = new PostLinkUserJarvisToApplicationResponse { Message = GlobalMessages.RECORD_SAVED_SUCCESSFULLY };
+            response.Data = new PostApplicationPermissionResponse { ApplicationPermissionId = applicationPermission.Id };
+
+            applicationPermissionRepository.Dispose();
 
             return response;
         }

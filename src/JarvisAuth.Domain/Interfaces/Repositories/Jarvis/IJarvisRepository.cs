@@ -2,15 +2,14 @@
 using JarvisAuth.Domain.Interfaces.Repositories.Base;
 using JarvisAuth.Domain.Models;
 
-namespace JarvisAuth.Domain.Interfaces.Repositories
+namespace JarvisAuth.Domain.Interfaces.Repositories.Jarvis
 {
-    public interface IUserJarvisRepository : IRepository
+    public interface IJarvisRepository : IRepository
     {
         public Task CreateUserJarvis(UserJarvis userJarvis);
         public Task<bool> UserEmailExists(string email);
         public Task<UserJarvis> FindUserByEmail(string email);
         public Task<List<UserJarvis>> GetAllUserJarvis();
-
         public Task<bool> UserIdExists(Guid id);
     }
 }

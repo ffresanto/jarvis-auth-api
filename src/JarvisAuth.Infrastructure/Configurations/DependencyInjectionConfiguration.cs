@@ -1,5 +1,7 @@
-﻿using JarvisAuth.Domain.Interfaces.Repositories;
-using JarvisAuth.Infrastructure.Repositories;
+﻿using JarvisAuth.Domain.Interfaces.Repositories.Application;
+using JarvisAuth.Domain.Interfaces.Repositories.Jarvis;
+using JarvisAuth.Infrastructure.Repositories.Application;
+using JarvisAuth.Infrastructure.Repositories.Jarvis;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace JarvisAuth.Infrastructure.Configurations
@@ -8,9 +10,10 @@ namespace JarvisAuth.Infrastructure.Configurations
     {
         public static IServiceCollection RepositoriesDependencies(this IServiceCollection services)
         {
-            services.AddScoped<IUserJarvisRepository, UserJarvisRepository>();
+            services.AddScoped<IJarvisRepository, JarvisRepository>();
             services.AddScoped<IApplicationRepository, ApplicationRepository>();
-            services.AddScoped<IUserJarvisProfileApplicationRepository, UserJarvisProfileApplicationRepositoy>();
+            services.AddScoped<IUserJarvisLinkedApplicationRepository, UserJarvisLinkedApplicationRepositoy>();
+            services.AddScoped<IApplicationPermissionRepository, ApplicationPermissionRepository>();
 
             return services;
         }

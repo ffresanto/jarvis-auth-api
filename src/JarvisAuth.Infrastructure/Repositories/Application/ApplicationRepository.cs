@@ -1,10 +1,9 @@
-﻿using JarvisAuth.Domain.Entities;
-using JarvisAuth.Domain.Interfaces.Repositories;
+﻿using JarvisAuth.Domain.Interfaces.Repositories.Application;
 using JarvisAuth.Infrastructure.Contexts;
 using JarvisAuth.Infrastructure.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
 
-namespace JarvisAuth.Infrastructure.Repositories
+namespace JarvisAuth.Infrastructure.Repositories.Application
 {
     public class ApplicationRepository : Repository, IApplicationRepository
     {
@@ -14,7 +13,7 @@ namespace JarvisAuth.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task CreateApplication(Application application)
+        public async Task CreateApplication(Domain.Entities.Application application)
         {
             await _context.Applications.AddAsync(application);
         }
@@ -24,7 +23,7 @@ namespace JarvisAuth.Infrastructure.Repositories
             return await _context.Applications.AnyAsync(u => u.Name == name);
         }
 
-        public async Task<List<Application>> GetApplications()
+        public async Task<List<Domain.Entities.Application>> GetAllApplications()
         {
             return await _context.Applications.ToListAsync();
         }

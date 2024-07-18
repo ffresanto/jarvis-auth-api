@@ -1,16 +1,16 @@
 ﻿using JarvisAuth.Domain.Entities;
-using JarvisAuth.Domain.Interfaces.Repositories;
+using JarvisAuth.Domain.Interfaces.Repositories.Jarvis;
 using JarvisAuth.Domain.Models;
 using JarvisAuth.Infrastructure.Contexts;
 using JarvisAuth.Infrastructure.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
 
-namespace JarvisAuth.Infrastructure.Repositories
+namespace JarvisAuth.Infrastructure.Repositories.Jarvis
 {
-    public class UserJarvisRepository : Repository, IUserJarvisRepository
+    public class JarvisRepository : Repository, IJarvisRepository
     {
         private readonly SqliteDbContext _context;
-        public UserJarvisRepository(SqliteDbContext context) : base(context)
+        public JarvisRepository(SqliteDbContext context) : base(context)
         {
             _context = context;
         }
