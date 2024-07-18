@@ -8,8 +8,9 @@ using JarvisAuth.Core.Responses.Jarvis;
 using JarvisAuth.Core.Responses.Shared;
 using JarvisAuth.Core.Responses.UserJarvis;
 using JarvisAuth.Domain.Entities;
-using JarvisAuth.Domain.Interfaces.Repositories;
-using JarvisAuth.Domain.Interfaces.Services;
+using JarvisAuth.Domain.Interfaces.Repositories.Application;
+using JarvisAuth.Domain.Interfaces.Repositories.Jarvis;
+using JarvisAuth.Domain.Interfaces.Services.Jarvis;
 using JarvisAuth.Domain.Models;
 using Microsoft.Extensions.Configuration;
 
@@ -60,6 +61,8 @@ namespace JarvisAuth.Application.Services
 
             response.Data = new PostUserJarvisResponse { UserId = userJarvis.Id };
 
+            userJarvisRepository.Dispose();
+
             return response;
         }
 
@@ -105,6 +108,8 @@ namespace JarvisAuth.Application.Services
 
             response.Data = new PostJarvisLoginResponse { Token = accessTokenGenerate, RefreshToken = refreshTokenGenerate };
 
+            userJarvisRepository.Dispose();
+
             return response;
         }
         public async Task<Response<PostJarvisRefreshTokenResponse>> PostRefreshToken(PostJarvisRefreshTokenRequest request)
@@ -142,6 +147,8 @@ namespace JarvisAuth.Application.Services
 
             response.Data = new PostJarvisRefreshTokenResponse { Token = newAccessTokenGenerate, RefreshToken = newRefreshTokenGenerate };
 
+            userJarvisRepository.Dispose();
+
             return response;
         }
 
@@ -161,6 +168,8 @@ namespace JarvisAuth.Application.Services
             var dataMapper = mapper.Map<List<GetUserJarvisResponse>>(data);
 
             response.Data = dataMapper;
+
+            userJarvisRepository.Dispose();
 
             return response;
         }
@@ -219,6 +228,8 @@ namespace JarvisAuth.Application.Services
             }
 
             response.Data = new PostLinkUserJarvisToApplicationResponse { Info = GlobalMessages.RECORD_SAVED_SUCCESSFULLY };
+
+            userJarvisRepository.Dispose();
 
             return response;
         }

@@ -4,7 +4,8 @@ using JarvisAuth.Core.Messages;
 using JarvisAuth.Core.Requests.Jarvis;
 using JarvisAuth.Core.Responses.Jarvis;
 using JarvisAuth.Core.Responses.Shared;
-using JarvisAuth.Domain.Interfaces.Repositories;
+using JarvisAuth.Domain.Interfaces.Repositories.Application;
+using JarvisAuth.Domain.Interfaces.Repositories.Jarvis;
 using Microsoft.Extensions.Configuration;
 using Moq;
 

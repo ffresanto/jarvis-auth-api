@@ -1,7 +1,7 @@
 ﻿using JarvisAuth.Domain.Interfaces.Repositories.Base;
 using JarvisAuth.Domain.Models;
 
-namespace JarvisAuth.Domain.Interfaces.Repositories
+namespace JarvisAuth.Domain.Interfaces.Repositories.Jarvis
 {
     public interface IUserJarvisLinkedApplicationRepository : IRepository
     {

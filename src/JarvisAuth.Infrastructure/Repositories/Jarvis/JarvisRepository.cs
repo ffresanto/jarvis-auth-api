@@ -1,11 +1,11 @@
 ﻿using JarvisAuth.Domain.Entities;
-using JarvisAuth.Domain.Interfaces.Repositories;
+using JarvisAuth.Domain.Interfaces.Repositories.Jarvis;
 using JarvisAuth.Domain.Models;
 using JarvisAuth.Infrastructure.Contexts;
 using JarvisAuth.Infrastructure.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
 
-namespace JarvisAuth.Infrastructure.Repositories
+namespace JarvisAuth.Infrastructure.Repositories.Jarvis
 {
     public class JarvisRepository : Repository, IJarvisRepository
     {

@@ -1,5 +1,6 @@
 ﻿using JarvisAuth.Application.Services;
-using JarvisAuth.Domain.Interfaces.Services;
+using JarvisAuth.Domain.Interfaces.Services.Application;
+using JarvisAuth.Domain.Interfaces.Services.Jarvis;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace JarvisAuth.Application.Configurations

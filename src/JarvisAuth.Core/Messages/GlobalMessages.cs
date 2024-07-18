@@ -32,6 +32,7 @@ namespace JarvisAuth.Core.Messages
         public const string NAME_ALREADY_EXISTS = "The name provided already exists.";
         public const string EMAIL_ALREADY_EXISTS = "The email provided already exists.";
         public const string NAME_REQUIRED = "A name is required.";
+        public const string APPLICATION_ID_REQUIRED = "A application id is required.";
         public const string NAME_LENGTH_2_TO_100 = "The name must be between 2 and 100 characters.";
         public const string EMAIL_REQUIRED = "An email is required.";
         public const string PASSWORD_REQUIRED = "A password is required.";

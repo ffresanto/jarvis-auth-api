@@ -4,7 +4,7 @@ using JarvisAuth.Core.Responses.Jarvis;
 using JarvisAuth.Core.Responses.Shared;
 using JarvisAuth.Core.Responses.UserJarvis;
 
-namespace JarvisAuth.Domain.Interfaces.Services
+namespace JarvisAuth.Domain.Interfaces.Services.Jarvis
 {
     public interface IJarvisService
     {

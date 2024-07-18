@@ -1,14 +1,11 @@
 ﻿using JarvisAuth.API.Controllers.Base;
-using JarvisAuth.Application.Services;
 using JarvisAuth.Core.Messages;
 using JarvisAuth.Core.Requests.Jarvis;
 using JarvisAuth.Core.Requests.UserJarvis;
-using JarvisAuth.Core.Responses.Application;
 using JarvisAuth.Core.Responses.Jarvis;
 using JarvisAuth.Core.Responses.Shared;
 using JarvisAuth.Core.Responses.UserJarvis;
-using JarvisAuth.Domain.Interfaces.Services;
-using Microsoft.AspNetCore.Authentication;
+using JarvisAuth.Domain.Interfaces.Services.Jarvis;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -20,6 +17,28 @@ namespace JarvisAuth.API.Controllers
     [Produces("application/json")]
     public class JarvisController(IJarvisService jarvisService) : BaseController
     {
+        [HttpPost()]
+        [SwaggerOperation(Summary = "Creates a new user for the Jarvis authentication system.")]
+        [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<PostUserJarvisResponse>))]
+        [SwaggerResponse(409, GlobalMessages.REQUEST_CONFLICT_409, typeof(Response<string>))]
+        [SwaggerResponse(422, GlobalMessages.VALIDATION_ERRORS_422, typeof(Response<string>))]
+        [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION_500, typeof(Response<string>))]
+        public async Task<ActionResult> PostUserJarvis(PostUserJarvisRequest request)
+        {
+            return CustomResponse(await jarvisService.PostUserJarvis(request));
+        }
+
+        [HttpGet()]
+        [Authorize]
+        [SwaggerOperation(Summary = "Retrieves a list of all user jarvis.")]
+        [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<List<GetUserJarvisResponse>>))]
+        [SwaggerResponse(404, GlobalMessages.REQUEST_NOT_FOUND_404, typeof(Response<string>))]
+        [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION_500, typeof(Response<string>))]
+        public async Task<ActionResult> GetApplications()
+        {
+            return CustomResponse(await jarvisService.GetAllUserJarvis());
+        }
+
         [HttpPost("login")]
         [SwaggerOperation(Summary = "Authenticates a user and provides a login token.")]
         [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<PostJarvisLoginResponse>))]
@@ -41,28 +60,6 @@ namespace JarvisAuth.API.Controllers
         public async Task<ActionResult> PostRefreshToken([FromBody] PostJarvisRefreshTokenRequest request)
         {
             return CustomResponse(await jarvisService.PostRefreshToken(request));
-        }
-
-        [HttpPost()]
-        [SwaggerOperation(Summary = "Creates a new user for the Jarvis authentication system.")]
-        [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<PostUserJarvisResponse>))]
-        [SwaggerResponse(409, GlobalMessages.REQUEST_CONFLICT_409, typeof(Response<string>))]
-        [SwaggerResponse(422, GlobalMessages.VALIDATION_ERRORS_422, typeof(Response<string>))]
-        [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION_500, typeof(Response<string>))]
-        public async Task<ActionResult> PostUserJarvis(PostUserJarvisRequest request)
-        {
-            return CustomResponse(await jarvisService.PostUserJarvis(request));
-        }
-
-        [HttpGet()]
-        [Authorize]
-        [SwaggerOperation(Summary = "Retrieves a list of all user jarvis.")]
-        [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<List<GetUserJarvisResponse>>))]
-        [SwaggerResponse(404, GlobalMessages.REQUEST_NOT_FOUND_404, typeof(Response<string>))]
-        [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION_500, typeof(Response<string>))]
-        public async Task<ActionResult> GetApplications()
-        {
-            return CustomResponse(await jarvisService.GetAllUserJarvis());
         }
 
         [HttpPost("link-application")]
