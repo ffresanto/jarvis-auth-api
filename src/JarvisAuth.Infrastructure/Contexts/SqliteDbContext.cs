@@ -14,6 +14,7 @@ namespace JarvisAuth.Infrastructure.Contexts
         public DbSet<Application> Applications { get; set; }
         public DbSet<UserJarvisLinkedApplication> UserJarvisLinkedApplications { get; set; }
         public DbSet<ApplicationPermission> ApplicationPermissions { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -21,6 +22,7 @@ namespace JarvisAuth.Infrastructure.Contexts
             modelBuilder.ApplyConfiguration(new ApplicationMapping());
             modelBuilder.ApplyConfiguration(new UserJarvisLinkedApplicationMapping());
             modelBuilder.ApplyConfiguration(new ApplicationPermissionMapping());
+            modelBuilder.ApplyConfiguration(new UserMapping());
         }
     }
 }
