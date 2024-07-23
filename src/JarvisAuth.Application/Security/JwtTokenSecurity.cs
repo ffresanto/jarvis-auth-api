@@ -13,7 +13,7 @@ namespace JarvisAuth.Application.Security
 
         IConfigurationSection? _jwtSettings = configuration.GetSection("JwtSettings");
 
-        public string GenerateJwtToken(UserJarvis userJarvis)
+        public string GenerateJwtToken(User user)
         {
             var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_jwtSettings["Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -21,9 +21,9 @@ namespace JarvisAuth.Application.Security
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim("userId", userJarvis.Id.ToString()),
-                new Claim("userEmail", userJarvis.Email),
-                new Claim("isAdmin", userJarvis.IsAdmin.ToString())
+                new Claim("userId", user.Id.ToString()),
+                new Claim("userEmail", user.Email),
+                new Claim("isAdmin", user.IsAdmin.ToString())
             };
 
             var token = new JwtSecurityToken(issuer: _jwtSettings["Issuer"],
@@ -35,7 +35,7 @@ namespace JarvisAuth.Application.Security
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public string GenerateRefreshJwtToken(UserJarvis userJarvis)
+        public string GenerateRefreshJwtToken(User userJarvis)
         {
             var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_jwtSettings["Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

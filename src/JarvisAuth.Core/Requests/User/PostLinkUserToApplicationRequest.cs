@@ -1,15 +1,14 @@
 ﻿using JarvisAuth.Core.Messages;
-using JarvisAuth.Core.Requests.Jarvis;
 using JarvisAuth.Core.Validations;
 
-namespace JarvisAuth.Core.Requests.UserJarvis
+namespace JarvisAuth.Core.Requests.User
 {
-    public class PostLinkUserJarvisToApplicationRequest
+    public class PostLinkUserToApplicationRequest
     {
         public Guid UserJarvisId { get; set; }
         public Guid ApplicationId { get; set; }
 
-        public List<string> Validate(PostLinkUserJarvisToApplicationRequest data)
+        public List<string> Validate(PostLinkUserToApplicationRequest data)
         {
             var errors = new List<string>();
 

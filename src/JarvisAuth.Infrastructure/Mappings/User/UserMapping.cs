@@ -1,14 +1,13 @@
-﻿using JarvisAuth.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace JarvisAuth.Infrastructure.Mappings.Jarvis
+namespace JarvisAuth.Infrastructure.Mappings.User
 {
-    public class UserJarvisMapping : IEntityTypeConfiguration<UserJarvis>
+    public class UserMapping : IEntityTypeConfiguration<Domain.Entities.User>
     {
-        public void Configure(EntityTypeBuilder<UserJarvis> builder)
+        public void Configure(EntityTypeBuilder<Domain.Entities.User> builder)
         {
-            builder.ToTable("users_jarvis");
+            builder.ToTable("users");
 
             builder.HasKey(u => u.Id);
 

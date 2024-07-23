@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace JarvisAuth.Core.Responses.UserJarvis
+namespace JarvisAuth.Core.Responses.User
 {
-    public class PostLinkUserJarvisToApplicationResponse
+    public class PostLinkUserToApplicationResponse
     {
         [JsonProperty("message")]
         public string? Info { get; set; }
