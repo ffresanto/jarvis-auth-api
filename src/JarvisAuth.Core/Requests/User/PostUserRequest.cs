@@ -1,15 +1,16 @@
 ﻿using JarvisAuth.Core.Messages;
 using JarvisAuth.Core.Validations;
 
-namespace JarvisAuth.Core.Requests.Jarvis
+namespace JarvisAuth.Core.Requests.User
 {
-    public class PostUserJarvisRequest
+    public class PostUserRequest
     {
         public string Name { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
+        public string Note { get; set; } = string.Empty;
 
-        public List<string> Validate(PostUserJarvisRequest data)
+        public List<string> Validate(PostUserRequest data)
         {
             var errors = new List<string>();
 
@@ -27,6 +28,5 @@ namespace JarvisAuth.Core.Requests.Jarvis
 
             return errors;
         }
-
     }
 }

@@ -1,12 +1,11 @@
-﻿using JarvisAuth.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace JarvisAuth.Infrastructure.Mappings
+namespace JarvisAuth.Infrastructure.Mappings.Application
 {
-    public class ApplicationMapping : IEntityTypeConfiguration<Application>
+    public class ApplicationMapping : IEntityTypeConfiguration<Domain.Entities.Application>
     {
-        public void Configure(EntityTypeBuilder<Application> builder)
+        public void Configure(EntityTypeBuilder<Domain.Entities.Application> builder)
         {
             builder.ToTable("applications");
 

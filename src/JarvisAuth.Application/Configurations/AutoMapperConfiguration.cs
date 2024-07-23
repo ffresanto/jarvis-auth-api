@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using JarvisAuth.Core.Requests.Application;
 using JarvisAuth.Core.Requests.Jarvis;
+using JarvisAuth.Core.Requests.User;
 using JarvisAuth.Core.Requests.UserJarvis;
 using JarvisAuth.Core.Responses.Application;
 using JarvisAuth.Core.Responses.UserJarvis;

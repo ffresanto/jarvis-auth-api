@@ -1,7 +1,8 @@
 ﻿using JarvisAuth.Domain.Entities;
-using JarvisAuth.Infrastructure.Mappings;
-using Microsoft.EntityFrameworkCore;
 using JarvisAuth.Domain.Models;
+using JarvisAuth.Infrastructure.Mappings.Application;
+using JarvisAuth.Infrastructure.Mappings.Jarvis;
+using Microsoft.EntityFrameworkCore;
 
 namespace JarvisAuth.Infrastructure.Contexts
 {
@@ -14,7 +15,6 @@ namespace JarvisAuth.Infrastructure.Contexts
         public DbSet<Application> Applications { get; set; }
         public DbSet<UserJarvisLinkedApplication> UserJarvisLinkedApplications { get; set; }
         public DbSet<ApplicationPermission> ApplicationPermissions { get; set; }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UserJarvisMapping());

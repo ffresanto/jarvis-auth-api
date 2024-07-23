@@ -13,9 +13,9 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace JarvisAuth.API.Controllers
 {
     [ApiController]
-    [Route("api/jarvis")]
+    [Route("api/user")]
     [Produces("application/json")]
-    public class JarvisController(IJarvisService jarvisService) : BaseController
+    public class UserController(IJarvisService jarvisService) : BaseController
     {
         [HttpGet()]
         [Authorize]
@@ -64,7 +64,7 @@ namespace JarvisAuth.API.Controllers
 
         [HttpPost("link-application")]
         [Authorize]
-        [SwaggerOperation(Summary = "Link a user Jarvis to an application.")]
+        [SwaggerOperation(Summary = "Link a user to an application.")]
         [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<PostLinkUserJarvisToApplicationResponse>))]
         [SwaggerResponse(422, GlobalMessages.VALIDATION_ERRORS_422, typeof(Response<string>))]
         [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION_500, typeof(Response<string>))]
