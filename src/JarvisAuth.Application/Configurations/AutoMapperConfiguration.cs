@@ -22,7 +22,6 @@ namespace JarvisAuth.Application.Configurations
             CreateMap<GetUserJarvisResponse, UserJarvis>();
             CreateMap<UserJarvis, GetUserJarvisResponse>();
             CreateMap<PostApplicationPermissionRequest, ApplicationPermission>();
-            CreateMap<PostUserRequest, User>();
         }
     }
 }
