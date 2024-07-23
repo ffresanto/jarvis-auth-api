@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using JarvisAuth.Core.Requests.Application;
 using JarvisAuth.Core.Requests.Jarvis;
+using JarvisAuth.Core.Requests.User;
 using JarvisAuth.Core.Requests.UserJarvis;
 using JarvisAuth.Core.Responses.Application;
 using JarvisAuth.Core.Responses.UserJarvis;
@@ -21,6 +22,7 @@ namespace JarvisAuth.Application.Configurations
             CreateMap<GetUserJarvisResponse, UserJarvis>();
             CreateMap<UserJarvis, GetUserJarvisResponse>();
             CreateMap<PostApplicationPermissionRequest, ApplicationPermission>();
+            CreateMap<PostUserRequest, User>();
         }
     }
 }

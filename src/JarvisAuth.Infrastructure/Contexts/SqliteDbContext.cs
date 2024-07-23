@@ -1,7 +1,9 @@
 ﻿using JarvisAuth.Domain.Entities;
-using JarvisAuth.Infrastructure.Mappings;
 using Microsoft.EntityFrameworkCore;
 using JarvisAuth.Domain.Models;
+using JarvisAuth.Infrastructure.Mappings.Jarvis;
+using JarvisAuth.Infrastructure.Mappings.Application;
+using JarvisAuth.Infrastructure.Mappings.User;
 
 namespace JarvisAuth.Infrastructure.Contexts
 {
