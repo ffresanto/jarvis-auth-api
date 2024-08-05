@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace JarvisAuth.Core.Responses.UserJarvis
+namespace JarvisAuth.Core.Responses.User
 {
-    public class GetUserJarvisResponse
+    public class GetUserResponse
     {
         [JsonProperty("id")]
         public Guid Id { get; set; }

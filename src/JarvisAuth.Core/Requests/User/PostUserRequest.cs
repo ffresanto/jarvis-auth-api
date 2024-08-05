@@ -8,7 +8,6 @@ namespace JarvisAuth.Core.Requests.User
         public string Name { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
-        public string Note { get; set; } = string.Empty;
 
         public List<string> Validate(PostUserRequest data)
         {
@@ -28,5 +27,6 @@ namespace JarvisAuth.Core.Requests.User
 
             return errors;
         }
+
     }
 }

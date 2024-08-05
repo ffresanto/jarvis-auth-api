@@ -1,7 +1,7 @@
 ﻿using JarvisAuth.Domain.Entities;
 using JarvisAuth.Domain.Models;
 using JarvisAuth.Infrastructure.Mappings.Application;
-using JarvisAuth.Infrastructure.Mappings.Jarvis;
+using JarvisAuth.Infrastructure.Mappings.User;
 using Microsoft.EntityFrameworkCore;
 
 namespace JarvisAuth.Infrastructure.Contexts
@@ -11,16 +11,18 @@ namespace JarvisAuth.Infrastructure.Contexts
         public SqliteDbContext(DbContextOptions<SqliteDbContext> options) : base(options)
         {
         }
-        public DbSet<UserJarvis> UserJarvis { get; set; }
+        public DbSet<User> User { get; set; }
         public DbSet<Application> Applications { get; set; }
-        public DbSet<UserJarvisLinkedApplication> UserJarvisLinkedApplications { get; set; }
+        public DbSet<UserLinkedApplication> UserLinkedApplications { get; set; }
         public DbSet<ApplicationPermission> ApplicationPermissions { get; set; }
+        public DbSet<UserPermission> UsersPermissions { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new UserJarvisMapping());
+            modelBuilder.ApplyConfiguration(new UserMapping());
             modelBuilder.ApplyConfiguration(new ApplicationMapping());
-            modelBuilder.ApplyConfiguration(new UserJarvisLinkedApplicationMapping());
+            modelBuilder.ApplyConfiguration(new UserLinkedApplicationMapping());
             modelBuilder.ApplyConfiguration(new ApplicationPermissionMapping());
+            modelBuilder.ApplyConfiguration(new UserPermissionMapping());
         }
     }
 }

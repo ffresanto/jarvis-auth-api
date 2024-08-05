@@ -1,6 +1,6 @@
 ﻿using JarvisAuth.Application.Services;
 using JarvisAuth.Domain.Interfaces.Services.Application;
-using JarvisAuth.Domain.Interfaces.Services.Jarvis;
+using JarvisAuth.Domain.Interfaces.Services.User;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace JarvisAuth.Application.Configurations
@@ -9,8 +9,9 @@ namespace JarvisAuth.Application.Configurations
     {
         public static IServiceCollection ServicesDependencies(this IServiceCollection services)
         {
-            services.AddScoped<IJarvisService, JarvisService>();
+            services.AddScoped<IUserService, UserService>();
             services.AddScoped<IApplicationService, ApplicationService>();
+            services.AddScoped<IUserPermissionService, UserPermissionService>();
 
             return services;
         }

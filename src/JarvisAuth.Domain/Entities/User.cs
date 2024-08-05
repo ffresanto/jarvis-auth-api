@@ -2,7 +2,7 @@
 
 namespace JarvisAuth.Domain.Entities
 {
-    public class UserJarvis : Entity
+    public class User : Entity
     {
         public string? Name { get; set; }
         public string? Email { get; set; }
@@ -12,7 +12,7 @@ namespace JarvisAuth.Domain.Entities
         public bool IsAdmin { get; set; }
         public bool Enabled { get; set; }
 
-        public UserJarvis()
+        public User()
         {
             CreatedAt = DateTime.UtcNow;
             UpdatedAt = DateTime.UtcNow;
