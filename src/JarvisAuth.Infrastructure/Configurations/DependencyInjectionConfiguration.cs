@@ -14,6 +14,7 @@ namespace JarvisAuth.Infrastructure.Configurations
             services.AddScoped<IApplicationRepository, ApplicationRepository>();
             services.AddScoped<IUserLinkedApplicationRepository, UserLinkedApplicationRepositoy>();
             services.AddScoped<IApplicationPermissionRepository, ApplicationPermissionRepository>();
+            services.AddScoped<IUserPermissionRepository, UserPermissionRepositoy>();
 
             return services;
         }

@@ -11,6 +11,7 @@ namespace JarvisAuth.Application.Configurations
         {
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IApplicationService, ApplicationService>();
+            services.AddScoped<IUserPermissionService, UserPermissionService>();
 
             return services;
         }

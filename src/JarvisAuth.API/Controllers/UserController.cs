@@ -13,7 +13,10 @@ namespace JarvisAuth.API.Controllers
     [ApiController]
     [Route("api/user")]
     [Produces("application/json")]
-    public class UserController(IUserService userService) : BaseController
+    public class UserController(
+        IUserService userService,
+        IUserPermissionService userPermissionService
+        ) : BaseController
     {
         [HttpGet()]
         [Authorize]
@@ -60,7 +63,7 @@ namespace JarvisAuth.API.Controllers
             return CustomResponse(await userService.PostRefreshToken(request));
         }
 
-        [HttpPost("link-application")]
+        [HttpPost("link/application")]
         [Authorize]
         [SwaggerOperation(Summary = "Link a user to an application.")]
         [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<PostLinkUserToApplicationResponse>))]
@@ -69,6 +72,17 @@ namespace JarvisAuth.API.Controllers
         public async Task<ActionResult> LinkUserToApplication([FromBody] PostLinkUserToApplicationRequest request)
         {
             return CustomResponse(await userService.PostLinkApplication(request));
+        }
+
+        [HttpPost("link/permission")]
+        [Authorize]
+        [SwaggerOperation(Summary = "Link a permission to an user.")]
+        [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<PostUserPermissionResponse>))]
+        [SwaggerResponse(422, GlobalMessages.VALIDATION_ERRORS_422, typeof(Response<string>))]
+        [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION_500, typeof(Response<string>))]
+        public async Task<ActionResult> LinkUserToApplication([FromBody] PostUserPermissionRequest request)
+        {
+            return CustomResponse(await userPermissionService.PostLinkUserPermission(request));
         }
     }
 }

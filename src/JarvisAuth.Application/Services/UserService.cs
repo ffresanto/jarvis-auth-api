@@ -184,7 +184,7 @@ namespace JarvisAuth.Application.Services
                 return response;
             }
 
-            var isUserLinkedToApplication = await userLinkedApplicationRepository.IsUserLinkedToApplication(request.ApplicationId, request.UserJarvisId);
+            var isUserLinkedToApplication = await userLinkedApplicationRepository.IsUserLinkedToApplication(request.ApplicationId, request.UserId);
 
             if (isUserLinkedToApplication)
             {
@@ -193,7 +193,7 @@ namespace JarvisAuth.Application.Services
                 return response;
             }
 
-            var userIdJarvisExits = await userRepository.UserIdExists(request.UserJarvisId);
+            var userIdJarvisExits = await userRepository.UserIdExists(request.UserId);
 
             if (!userIdJarvisExits)
             {
@@ -211,9 +211,9 @@ namespace JarvisAuth.Application.Services
                 return response;
             }
 
-            var userJarvisProfileApplication = mapper.Map<UserLinkedApplication>(request);
+            var userProfileApplication = mapper.Map<UserLinkedApplication>(request);
 
-            await userLinkedApplicationRepository.LinkUserToApplication(userJarvisProfileApplication);
+            await userLinkedApplicationRepository.LinkUserToApplication(userProfileApplication);
 
             var save = await userLinkedApplicationRepository.SaveChangesAsync();
 
