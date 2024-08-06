@@ -8,7 +8,7 @@ using JarvisAuth.Domain.Interfaces.Repositories.Application;
 using JarvisAuth.Domain.Interfaces.Services.Application;
 using System.ComponentModel.DataAnnotations;
 
-namespace JarvisAuth.Application.Services
+namespace JarvisAuth.Application.Services.Application
 {
     public class ApplicationService(
         IApplicationRepository applicationRepository,

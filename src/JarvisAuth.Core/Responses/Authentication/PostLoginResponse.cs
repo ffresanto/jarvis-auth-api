@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace JarvisAuth.Core.Responses.User
+namespace JarvisAuth.Core.Responses.Authentication
 {
-    public class PostUserLoginResponse
+    public class PostLoginResponse
     {
         [JsonProperty("token")]
         public string Token { get; set; }
