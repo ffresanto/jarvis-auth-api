@@ -6,6 +6,8 @@ using JarvisAuth.Core.Responses.Shared;
 using JarvisAuth.Domain.Entities;
 using JarvisAuth.Domain.Interfaces.Repositories.Application;
 using JarvisAuth.Domain.Interfaces.Services.Application;
+using JarvisAuth.Domain.Models;
+using Microsoft.IdentityModel.Tokens;
 using System.ComponentModel.DataAnnotations;
 
 namespace JarvisAuth.Application.Services.Application
@@ -124,6 +126,33 @@ namespace JarvisAuth.Application.Services.Application
             response.Data = new PostApplicationPermissionResponse { ApplicationPermissionId = applicationPermission.Id };
 
             applicationPermissionRepository.Dispose();
+
+            return response;
+        }
+
+        public async Task<Response<GetApplicationWithPermissionsResponse>> GetFindApplicationWithPermissions(Guid? applicationId, string permissionName)
+        {
+            var response = new Response<GetApplicationWithPermissionsResponse>();
+
+            if (string.IsNullOrEmpty(applicationId.ToString()) && string.IsNullOrEmpty(permissionName))
+            {
+                response.Errors.Add(GlobalMessages.PROVIDER_APPLICATION_AND_PERMISSION);
+                response.StatusCode = 422;
+                return response;
+            }
+
+            var data = await applicationRepository.FindApplicationWithPermissions(applicationId, permissionName);
+
+            if (data == null)
+            {
+                response.Errors.Add(GlobalMessages.DATABASE_RECORD_NOT_FOUND);
+                response.StatusCode = 404;
+                return response;
+            }
+
+            var applicationWithPermission = mapper.Map<GetApplicationWithPermissionsResponse>(data);
+
+            response.Data = applicationWithPermission;
 
             return response;
         }
