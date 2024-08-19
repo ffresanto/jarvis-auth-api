@@ -6,14 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JarvisAuth.Core.Requests.User
+namespace JarvisAuth.Core.Requests.Authentication
 {
-    public class PostUserLoginRequest
+    public class PostLoginRequest
     {
         public string Email { get; set; }
         public string Password { get; set; }
 
-        public List<string> Validate(PostUserLoginRequest data)
+        public List<string> Validate(PostLoginRequest data)
         {
             var errors = new List<string>();
 

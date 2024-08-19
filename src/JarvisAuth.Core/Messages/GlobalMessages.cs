@@ -42,6 +42,7 @@ namespace JarvisAuth.Core.Messages
         public const string JARVIS_USER_NOT_EXISTS = "The User Jarvis provided does not exist.";
         public const string APPLICATION_NOT_EXISTS = "The Application provided does not exist.";
         public const string USER_IS_LINKED_TO_APPLICATION = "User is already linked to the specified application.";
+        public const string PROVIDER_APPLICATION_AND_PERMISSION = "You must provide either an applicationId or a permissionName.";
 
         #endregion
 

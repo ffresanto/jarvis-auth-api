@@ -1,6 +1,6 @@
-﻿namespace JarvisAuth.Core.Responses.User
+﻿namespace JarvisAuth.Core.Requests.Authentication
 {
-    public class PostUserRefreshTokenResponse
+    public class PostRefreshTokenRequest
     {
         public string? Token { get; set; }
         public string? RefreshToken { get; set; }

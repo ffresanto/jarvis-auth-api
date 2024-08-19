@@ -7,7 +7,7 @@ using JarvisAuth.Domain.Interfaces.Repositories.User;
 using JarvisAuth.Domain.Interfaces.Services.User;
 using JarvisAuth.Domain.Models;
 
-namespace JarvisAuth.Application.Services
+namespace JarvisAuth.Application.Services.User
 {
     public class UserPermissionService(
         IUserRepository userRepository,
