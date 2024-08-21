@@ -6,9 +6,6 @@ using JarvisAuth.Core.Responses.Shared;
 using JarvisAuth.Domain.Entities;
 using JarvisAuth.Domain.Interfaces.Repositories.Application;
 using JarvisAuth.Domain.Interfaces.Services.Application;
-using JarvisAuth.Domain.Models;
-using Microsoft.IdentityModel.Tokens;
-using System.ComponentModel.DataAnnotations;
 
 namespace JarvisAuth.Application.Services.Application
 {
@@ -45,6 +42,8 @@ namespace JarvisAuth.Application.Services.Application
 
             var save = await applicationRepository.SaveChangesAsync();
 
+            applicationRepository.Dispose();
+
             if (!save)
             {
                 response.Errors.Add(GlobalMessages.DATABASE_SAVE_FAILED);
@@ -54,8 +53,6 @@ namespace JarvisAuth.Application.Services.Application
 
             response.Data = new PostApplicationResponse { ApplicationId = application.Id };
 
-            applicationRepository.Dispose();
-
             return response;
         }
 
@@ -64,6 +61,8 @@ namespace JarvisAuth.Application.Services.Application
             var response = new Response<List<GetApplicationResponse>>();
 
             var data = await applicationRepository.GetAllApplications();
+
+            applicationRepository.Dispose();
 
             if (data == null)
             {
@@ -116,6 +115,8 @@ namespace JarvisAuth.Application.Services.Application
 
             var save = await applicationPermissionRepository.SaveChangesAsync();
 
+            applicationPermissionRepository.Dispose();
+
             if (!save)
             {
                 response.Errors.Add(GlobalMessages.DATABASE_SAVE_FAILED);
@@ -124,8 +125,6 @@ namespace JarvisAuth.Application.Services.Application
             }
 
             response.Data = new PostApplicationPermissionResponse { ApplicationPermissionId = applicationPermission.Id };
-
-            applicationPermissionRepository.Dispose();
 
             return response;
         }
@@ -142,6 +141,8 @@ namespace JarvisAuth.Application.Services.Application
             }
 
             var data = await applicationRepository.FindApplicationWithPermissions(applicationId, permissionName);
+
+            applicationRepository.Dispose();
 
             if (data == null)
             {

@@ -32,6 +32,7 @@ namespace JarvisAuth.Core.Messages
         public const string NAME_ALREADY_EXISTS = "The name provided already exists.";
         public const string EMAIL_ALREADY_EXISTS = "The email provided already exists.";
         public const string NAME_REQUIRED = "A name is required.";
+        public const string USER_ID_REQUIRED = "A User Id is required.";
         public const string APPLICATION_ID_REQUIRED = "A application id is required.";
         public const string NAME_LENGTH_2_TO_100 = "The name must be between 2 and 100 characters.";
         public const string EMAIL_REQUIRED = "An email is required.";
@@ -55,6 +56,8 @@ namespace JarvisAuth.Core.Messages
         #region [Success] 
 
         public const string RECORD_SAVED_SUCCESSFULLY = "Record saved successfully.";
+        public const string RECORD_UPDATED_SUCCESSFULLY = "Record updated successfully.";
+
 
         #endregion
     }
