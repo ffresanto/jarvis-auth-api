@@ -46,7 +46,7 @@ namespace JarvisAuth.API.Controllers
         [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<PostLinkUserToApplicationResponse>))]
         [SwaggerResponse(422, GlobalMessages.VALIDATION_ERRORS_422, typeof(Response<string>))]
         [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION_500, typeof(Response<string>))]
-        public async Task<ActionResult> LinkUserToApplication([FromBody] PostLinkUserToApplicationRequest request)
+        public async Task<ActionResult> PostLinkUserToApplication([FromBody] PostLinkUserToApplicationRequest request)
         {
             return CustomResponse(await userService.PostLinkApplication(request));
         }
@@ -57,9 +57,21 @@ namespace JarvisAuth.API.Controllers
         [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<PostUserPermissionResponse>))]
         [SwaggerResponse(422, GlobalMessages.VALIDATION_ERRORS_422, typeof(Response<string>))]
         [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION_500, typeof(Response<string>))]
-        public async Task<ActionResult> LinkUserToApplication([FromBody] PostUserPermissionRequest request)
+        public async Task<ActionResult> PostLinkUserToApplication([FromBody] PostUserPermissionRequest request)
         {
             return CustomResponse(await userPermissionService.PostLinkUserPermission(request));
+        }
+
+        [HttpPatch("toggle-enabled")]
+        [Authorize]
+        [SwaggerOperation(Summary = "Enables or disables a user.")]
+        [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<PatchToggleEnabledResponse>))]
+        [SwaggerResponse(409, GlobalMessages.REQUEST_CONFLICT_409, typeof(Response<string>))]
+        [SwaggerResponse(422, GlobalMessages.VALIDATION_ERRORS_422, typeof(Response<string>))]
+        [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION_500, typeof(Response<string>))]
+        public async Task<ActionResult> PatchToggleEnabled([FromBody] PatchToggleEnabledRequest request)
+        {
+            return CustomResponse(await userService.PatchToggleEnabled(request));
         }
     }
 }

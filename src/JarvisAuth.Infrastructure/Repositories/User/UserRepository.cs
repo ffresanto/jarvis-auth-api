@@ -37,5 +37,15 @@ namespace JarvisAuth.Infrastructure.Repositories.User
         {
             return await _context.User.AnyAsync(u => u.Id == id);
         }
+
+        public async Task<Domain.Entities.User> FindUserById(Guid userId)
+        {
+            return await _context.User.FindAsync(userId);
+        }
+
+        public async Task UpdateUser(Domain.Entities.User user)
+        {
+            _context.User.Update(user);
+        }
     }
 }

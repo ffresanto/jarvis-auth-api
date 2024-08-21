@@ -4,10 +4,12 @@ using JarvisAuth.Core.Messages;
 using JarvisAuth.Core.Requests.User;
 using JarvisAuth.Core.Responses.Shared;
 using JarvisAuth.Core.Responses.User;
+using JarvisAuth.Domain.Entities;
 using JarvisAuth.Domain.Interfaces.Repositories.Application;
 using JarvisAuth.Domain.Interfaces.Repositories.User;
 using JarvisAuth.Domain.Interfaces.Services.User;
 using JarvisAuth.Domain.Models;
+using System;
 
 namespace JarvisAuth.Application.Services.User
 {
@@ -138,6 +140,44 @@ namespace JarvisAuth.Application.Services.User
             response.Data = new PostLinkUserToApplicationResponse { Info = GlobalMessages.RECORD_SAVED_SUCCESSFULLY };
 
             userRepository.Dispose();
+
+            return response;
+        }
+
+        public async Task<Response<PatchToggleEnabledResponse>> PatchToggleEnabled(PatchToggleEnabledRequest request)
+        {
+            var response = new Response<PatchToggleEnabledResponse>();
+
+            if (string.IsNullOrEmpty(request.UserId.ToString()))
+            {
+                response.Errors.Add(GlobalMessages.USER_ID_REQUIRED);
+                response.StatusCode = 422;
+                return response;
+            }
+
+            var user = await userRepository.FindUserById(request.UserId);
+
+            if (user == null)
+            {
+                response.Errors.Add(GlobalMessages.JARVIS_USER_NOT_EXISTS);
+                response.StatusCode = 409;
+                return response;
+            }
+
+            user.Enabled = request.Enable;
+
+            await userRepository.UpdateUser(user);
+
+            var save = await userRepository.SaveChangesAsync();
+
+            if (!save)
+            {
+                response.Errors.Add(GlobalMessages.DATABASE_SAVE_FAILED);
+                response.StatusCode = 500;
+                return response;
+            }
+
+            response.Data = new PatchToggleEnabledResponse { Info = GlobalMessages.RECORD_UPDATED_SUCCESSFULLY };
 
             return response;
         }

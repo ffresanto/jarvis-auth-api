@@ -9,5 +9,6 @@ namespace JarvisAuth.Domain.Interfaces.Services.User
         public Task<Response<PostUserResponse>> PostUser(PostUserRequest request);
         public Task<Response<List<GetUserResponse>>> GetAllUser();
         public Task<Response<PostLinkUserToApplicationResponse>> PostLinkApplication(PostLinkUserToApplicationRequest request);
+        public Task<Response<PatchToggleEnabledResponse>> PatchToggleEnabled(PatchToggleEnabledRequest request);
     }
 }
