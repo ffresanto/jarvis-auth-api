@@ -157,5 +157,43 @@ namespace JarvisAuth.Application.Services.Application
 
             return response;
         }
+
+        public async Task<Response<PatchApplicationToggleEnabledResponse>> PatchToggleEnabled(PatchApplicationToggleEnabledRequest request)
+        {
+            var response = new Response<PatchApplicationToggleEnabledResponse>();
+
+            if (string.IsNullOrEmpty(request.ApplicationId.ToString()))
+            {
+                response.Errors.Add(GlobalMessages.APPLICATION_ID_REQUIRED);
+                response.StatusCode = 422;
+                return response;
+            }
+
+            var application = await applicationRepository.FindApplicationById(request.ApplicationId);
+
+            if (application == null)
+            {
+                response.Errors.Add(GlobalMessages.JARVIS_USER_NOT_EXISTS);
+                response.StatusCode = 409;
+                return response;
+            }
+
+            application.Enabled = request.Enable;
+
+            await applicationRepository.UpdateApplication(application);
+
+            var save = await applicationRepository.SaveChangesAsync();
+
+            if (!save)
+            {
+                response.Errors.Add(GlobalMessages.DATABASE_SAVE_FAILED);
+                response.StatusCode = 500;
+                return response;
+            }
+
+            response.Data = new PatchApplicationToggleEnabledResponse { Info = GlobalMessages.RECORD_UPDATED_SUCCESSFULLY };
+
+            return response;
+        }
     }
 }

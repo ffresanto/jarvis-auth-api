@@ -1,6 +1,7 @@
 ﻿using JarvisAuth.API.Controllers.Base;
 using JarvisAuth.Core.Messages;
 using JarvisAuth.Core.Requests.User;
+using JarvisAuth.Core.Responses.Application;
 using JarvisAuth.Core.Responses.Shared;
 using JarvisAuth.Core.Responses.User;
 using JarvisAuth.Domain.Interfaces.Services.User;
@@ -65,11 +66,11 @@ namespace JarvisAuth.API.Controllers
         [HttpPatch("toggle-enabled")]
         [Authorize]
         [SwaggerOperation(Summary = "Enables or disables a user.")]
-        [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<PatchToggleEnabledResponse>))]
+        [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<PatchApplicationToggleEnabledResponse>))]
         [SwaggerResponse(409, GlobalMessages.REQUEST_CONFLICT_409, typeof(Response<string>))]
         [SwaggerResponse(422, GlobalMessages.VALIDATION_ERRORS_422, typeof(Response<string>))]
         [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION_500, typeof(Response<string>))]
-        public async Task<ActionResult> PatchToggleEnabled([FromBody] PatchToggleEnabledRequest request)
+        public async Task<ActionResult> PatchToggleEnabled([FromBody] PatchUserToggleEnabledRequest request)
         {
             return CustomResponse(await userService.PatchToggleEnabled(request));
         }
