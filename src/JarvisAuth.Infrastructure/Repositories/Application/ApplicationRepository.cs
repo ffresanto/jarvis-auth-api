@@ -1,4 +1,5 @@
-﻿using JarvisAuth.Domain.Interfaces.Repositories.Application;
+﻿using JarvisAuth.Domain.Entities;
+using JarvisAuth.Domain.Interfaces.Repositories.Application;
 using JarvisAuth.Domain.Models;
 using JarvisAuth.Infrastructure.Contexts;
 using JarvisAuth.Infrastructure.Repositories.Base;
@@ -45,10 +46,10 @@ namespace JarvisAuth.Infrastructure.Repositories.Application
                         INNER JOIN applications a ON a.id = ap.application_id
                         WHERE a.id = {0} OR a.name = {1}";
 
-            var result = await _context.Database.SqlQueryRaw<ApplicationWithPermissionResult>(sql, applicationId, permissionName).ToListAsync();
+            var result = await _context.Database.SqlQueryRaw<PermissionApplication>(sql, applicationId, permissionName).ToListAsync();
 
             if (result == null || !result.Any()) return null;
-            
+
             var groupedResult = result.GroupBy(r => new { r.Id, r.Application })
                 .Select(g => new ApplicationWithPermissions
                 {
@@ -59,6 +60,30 @@ namespace JarvisAuth.Infrastructure.Repositories.Application
                 .FirstOrDefault();
 
             return groupedResult;
+        }
+
+        public async Task<Domain.Entities.Application> FindApplicationById(Guid applicationId)
+        {
+            return await _context.Applications.FindAsync(applicationId);
+        }
+
+        public async Task UpdateApplication(Domain.Entities.Application application)
+        {
+            _context.Applications.Update(application);
+        }
+
+        public async Task<List<PermissionApplication>> FindApplicationWithListPermissions(Guid? applicationId, string permissionName)
+        {
+            var sql = @"
+                        SELECT 
+                            ap.Id,
+                            a.Name as Application,
+                            ap.Name as Permission
+                        FROM applications_permissions ap
+                        INNER JOIN applications a ON a.id = ap.application_id
+                        WHERE a.id = {0} OR a.name = {1}";
+
+           return await _context.Database.SqlQueryRaw<PermissionApplication>(sql, applicationId, permissionName).ToListAsync();
         }
     }
 }

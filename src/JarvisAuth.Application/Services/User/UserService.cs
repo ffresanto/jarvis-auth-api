@@ -2,14 +2,13 @@
 using JarvisAuth.Application.Security;
 using JarvisAuth.Core.Messages;
 using JarvisAuth.Core.Requests.User;
+using JarvisAuth.Core.Responses.Application;
 using JarvisAuth.Core.Responses.Shared;
 using JarvisAuth.Core.Responses.User;
-using JarvisAuth.Domain.Entities;
 using JarvisAuth.Domain.Interfaces.Repositories.Application;
 using JarvisAuth.Domain.Interfaces.Repositories.User;
 using JarvisAuth.Domain.Interfaces.Services.User;
 using JarvisAuth.Domain.Models;
-using System;
 
 namespace JarvisAuth.Application.Services.User
 {
@@ -144,9 +143,9 @@ namespace JarvisAuth.Application.Services.User
             return response;
         }
 
-        public async Task<Response<PatchToggleEnabledResponse>> PatchToggleEnabled(PatchToggleEnabledRequest request)
+        public async Task<Response<PatchApplicationToggleEnabledResponse>> PatchToggleEnabled(PatchUserToggleEnabledRequest request)
         {
-            var response = new Response<PatchToggleEnabledResponse>();
+            var response = new Response<PatchApplicationToggleEnabledResponse>();
 
             if (string.IsNullOrEmpty(request.UserId.ToString()))
             {
@@ -177,7 +176,7 @@ namespace JarvisAuth.Application.Services.User
                 return response;
             }
 
-            response.Data = new PatchToggleEnabledResponse { Info = GlobalMessages.RECORD_UPDATED_SUCCESSFULLY };
+            response.Data = new PatchApplicationToggleEnabledResponse { Info = GlobalMessages.RECORD_UPDATED_SUCCESSFULLY };
 
             return response;
         }

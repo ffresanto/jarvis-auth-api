@@ -2,7 +2,7 @@
 
 namespace JarvisAuth.Core.Responses.User
 {
-    public class PatchToggleEnabledResponse
+    public class PatchUserToggleEnabledResponse
     {
         [JsonProperty("message")]
         public string? Info { get; set; }

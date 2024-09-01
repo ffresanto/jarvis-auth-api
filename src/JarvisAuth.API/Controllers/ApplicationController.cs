@@ -7,7 +7,6 @@ using JarvisAuth.Domain.Interfaces.Services.Application;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using System.Security;
 
 namespace JarvisAuth.API.Controllers
 {
@@ -30,13 +29,13 @@ namespace JarvisAuth.API.Controllers
         [HttpGet("permission")]
         [Authorize]
         [SwaggerOperation(Summary = "Retrieves the list of permissions linked to the searched application")]
-        [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<GetApplicationWithPermissionsResponse>))]
+        [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<List<GetApplicationWithPermissionsResponse>>))]
         [SwaggerResponse(404, GlobalMessages.VALIDATION_ERRORS_422, typeof(Response<string>))]
         [SwaggerResponse(404, GlobalMessages.REQUEST_NOT_FOUND_404, typeof(Response<string>))]
         [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION_500, typeof(Response<string>))]
-        public async Task<ActionResult> GetApplicationWithPermissions([FromQuery] Guid? applicationId, [FromQuery] string permissionName = "")
+        public async Task<ActionResult> GetApplicationWithPermissions([FromQuery] Guid? applicationId, [FromQuery] string applicationName = "")
         {
-            return CustomResponse(await applicationService.GetFindApplicationWithPermissions(applicationId, permissionName));
+            return CustomResponse(await applicationService.GetFindApplicationWithPermissions(applicationId, applicationName));
         }
 
         [HttpPost()]
@@ -61,6 +60,18 @@ namespace JarvisAuth.API.Controllers
         public async Task<ActionResult> PostApplicationPermission(PostApplicationPermissionRequest request)
         {
             return CustomResponse(await applicationService.PostApplicationPermission(request));
+        }
+
+        [HttpPatch("toggle-enabled")]
+        [Authorize]
+        [SwaggerOperation(Summary = "Enables or disables a application.")]
+        [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<PatchApplicationToggleEnabledResponse>))]
+        [SwaggerResponse(409, GlobalMessages.REQUEST_CONFLICT_409, typeof(Response<string>))]
+        [SwaggerResponse(422, GlobalMessages.VALIDATION_ERRORS_422, typeof(Response<string>))]
+        [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION_500, typeof(Response<string>))]
+        public async Task<ActionResult> PatchToggleEnabled([FromBody] PatchApplicationToggleEnabledRequest request)
+        {
+            return CustomResponse(await applicationService.PatchToggleEnabled(request));
         }
     }
 }

@@ -10,8 +10,9 @@ namespace JarvisAuth.Core.Requests.Authentication
 {
     public class PostLoginRequest
     {
-        public string Email { get; set; }
-        public string Password { get; set; }
+        public string? Email { get; set; }
+        public string? Password { get; set; }
+        public string? ApplicationName { get; set; }
 
         public List<string> Validate(PostLoginRequest data)
         {
@@ -20,6 +21,8 @@ namespace JarvisAuth.Core.Requests.Authentication
             if (GlobalValidations.IsNullOrEmptyCustom(data.Email)) errors.Add(GlobalMessages.MANDATORY_EMAIL);
 
             if (GlobalValidations.IsNullOrEmptyCustom(data.Password)) errors.Add(GlobalMessages.MANDATORY_PASSWORD);
+
+            if (GlobalValidations.IsNullOrEmptyCustom(data.ApplicationName)) errors.Add(GlobalMessages.MANDATORY_APPLICATION_NAME);
 
             if (!GlobalValidations.IsNullOrEmptyCustom(data.Email))
             {

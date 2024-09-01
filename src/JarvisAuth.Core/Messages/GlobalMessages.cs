@@ -39,6 +39,7 @@ namespace JarvisAuth.Core.Messages
         public const string PASSWORD_REQUIRED = "A password is required.";
         public const string PASSWORD_MIN_LENGTH_6 = "The password must be at least 6 characters long.";
         public const string MANDATORY_EMAIL = "The user's email is mandatory.";
+        public const string MANDATORY_APPLICATION_NAME = "The Application Name is mandatory.";
         public const string MANDATORY_PASSWORD = "The user's password is mandatory.";
         public const string JARVIS_USER_NOT_EXISTS = "The User Jarvis provided does not exist.";
         public const string APPLICATION_NOT_EXISTS = "The Application provided does not exist.";
