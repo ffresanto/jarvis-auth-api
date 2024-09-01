@@ -29,7 +29,7 @@ namespace JarvisAuth.API.Controllers
         [HttpGet("permission")]
         [Authorize]
         [SwaggerOperation(Summary = "Retrieves the list of permissions linked to the searched application")]
-        [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<GetApplicationWithPermissionsResponse>))]
+        [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<List<GetApplicationWithPermissionsResponse>>))]
         [SwaggerResponse(404, GlobalMessages.VALIDATION_ERRORS_422, typeof(Response<string>))]
         [SwaggerResponse(404, GlobalMessages.REQUEST_NOT_FOUND_404, typeof(Response<string>))]
         [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION_500, typeof(Response<string>))]

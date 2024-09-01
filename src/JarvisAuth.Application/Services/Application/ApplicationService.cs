@@ -129,9 +129,9 @@ namespace JarvisAuth.Application.Services.Application
             return response;
         }
 
-        public async Task<Response<GetApplicationWithPermissionsResponse>> GetFindApplicationWithPermissions(Guid? applicationId, string permissionName)
+        public async Task<Response<List<GetApplicationWithPermissionsResponse>>> GetFindApplicationWithPermissions(Guid? applicationId, string permissionName)
         {
-            var response = new Response<GetApplicationWithPermissionsResponse>();
+            var response = new Response<List<GetApplicationWithPermissionsResponse>>();
 
             if (string.IsNullOrEmpty(applicationId.ToString()) && string.IsNullOrEmpty(permissionName))
             {
@@ -140,7 +140,7 @@ namespace JarvisAuth.Application.Services.Application
                 return response;
             }
 
-            var data = await applicationRepository.FindApplicationWithPermissions(applicationId, permissionName);
+            var data = await applicationRepository.FindApplicationWithListPermissions(applicationId, permissionName);
 
             applicationRepository.Dispose();
 
@@ -151,7 +151,7 @@ namespace JarvisAuth.Application.Services.Application
                 return response;
             }
 
-            var applicationWithPermission = mapper.Map<GetApplicationWithPermissionsResponse>(data);
+            var applicationWithPermission = mapper.Map<List<GetApplicationWithPermissionsResponse>>(data);
 
             response.Data = applicationWithPermission;
 
