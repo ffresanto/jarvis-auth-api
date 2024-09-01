@@ -3,14 +3,17 @@ using JarvisAuth.Core.Messages;
 using JarvisAuth.Core.Requests.Authentication;
 using JarvisAuth.Core.Responses.Authentication;
 using JarvisAuth.Core.Responses.Shared;
+using JarvisAuth.Domain.Interfaces.Repositories.Application;
 using JarvisAuth.Domain.Interfaces.Repositories.User;
 using JarvisAuth.Domain.Interfaces.Services.Authentication;
 using Microsoft.Extensions.Configuration;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace JarvisAuth.Application.Services.Authentication
 {
     public class AuthenticationService(
         IUserRepository userRepository,
+        IApplicationRepository applicationRepository,
         IConfiguration configuration) : IAuthenticationService
     {
         public async Task<Response<PostLoginResponse>> PostLogin(PostLoginRequest request)
@@ -48,10 +51,19 @@ namespace JarvisAuth.Application.Services.Authentication
                 return response;
             }
 
+            var permissions = await applicationRepository.FindApplicationWithPermissions(null, request.ApplicationName);
+
+            if (permissions == null)
+            {
+                response.Errors.Add(GlobalMessages.APPLICATION_NOT_EXISTS);
+                response.StatusCode = 404;
+                return response;
+            }
+
             var jwtToken = new JwtTokenSecurity(configuration);
 
-            var accessTokenGenerate = jwtToken.GenerateJwtToken(user);
-            var refreshTokenGenerate = jwtToken.GenerateRefreshJwtToken(user);
+            var accessTokenGenerate = jwtToken.GenerateJwtToken(user, permissions);
+            var refreshTokenGenerate = jwtToken.GenerateRefreshJwtToken(user, permissions);
 
             response.Data = new PostLoginResponse { Token = accessTokenGenerate, RefreshToken = refreshTokenGenerate };
 
@@ -89,8 +101,17 @@ namespace JarvisAuth.Application.Services.Authentication
                 return response;
             }
 
-            var newAccessTokenGenerate = jwtToken.GenerateJwtToken(user);
-            var newRefreshTokenGenerate = jwtToken.GenerateRefreshJwtToken(user);
+            var permissions = await applicationRepository.FindApplicationWithPermissions(null, request.ApplicationName);
+
+            if (permissions == null)
+            {
+                response.Errors.Add(GlobalMessages.APPLICATION_NOT_EXISTS);
+                response.StatusCode = 404;
+                return response;
+            }
+
+            var newAccessTokenGenerate = jwtToken.GenerateJwtToken(user, permissions);
+            var newRefreshTokenGenerate = jwtToken.GenerateRefreshJwtToken(user, permissions);
 
             response.Data = new PostRefreshTokenResponse { Token = newAccessTokenGenerate, RefreshToken = newRefreshTokenGenerate };
 
