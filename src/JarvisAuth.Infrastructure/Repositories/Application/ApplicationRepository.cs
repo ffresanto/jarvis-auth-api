@@ -46,7 +46,7 @@ namespace JarvisAuth.Infrastructure.Repositories.Application
                         INNER JOIN applications a ON a.id = ap.application_id
                         WHERE a.id = {0} OR a.name = {1}";
 
-            var result = await _context.Database.SqlQueryRaw<PermissionApplication>(sql, applicationId, permissionName).ToListAsync();
+            var result = await _context.Database.SqlQueryRaw<ApplicationPermissionData>(sql, applicationId, permissionName).ToListAsync();
 
             if (result == null || !result.Any()) return null;
 
@@ -72,7 +72,7 @@ namespace JarvisAuth.Infrastructure.Repositories.Application
             _context.Applications.Update(application);
         }
 
-        public async Task<List<PermissionApplication>> FindApplicationWithListPermissions(Guid? applicationId, string permissionName)
+        public async Task<List<ApplicationPermissionData>> FindApplicationWithListPermissions(Guid? applicationId, string permissionName)
         {
             var sql = @"
                         SELECT 
@@ -83,7 +83,7 @@ namespace JarvisAuth.Infrastructure.Repositories.Application
                         INNER JOIN applications a ON a.id = ap.application_id
                         WHERE a.id = {0} OR a.name = {1}";
 
-           return await _context.Database.SqlQueryRaw<PermissionApplication>(sql, applicationId, permissionName).ToListAsync();
+           return await _context.Database.SqlQueryRaw<ApplicationPermissionData>(sql, applicationId, permissionName).ToListAsync();
         }
     }
 }

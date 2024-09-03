@@ -12,5 +12,6 @@ namespace JarvisAuth.Domain.Interfaces.Services.Application
         public Task<Response<PostApplicationPermissionResponse>> PostApplicationPermission(PostApplicationPermissionRequest request);
         public Task<Response<List<GetApplicationWithPermissionsResponse>>> GetFindApplicationWithPermissions(Guid? applicationId, string permissionName);
         public Task<Response<PatchApplicationToggleEnabledResponse>> PatchToggleEnabled(PatchApplicationToggleEnabledRequest request);
+        public Task<Response<DeleteApplicationPermissionResponse>> DeleteApplicationPermission(DeleteApplicationPermissionRequest request);
     }
 }

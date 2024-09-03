@@ -27,11 +27,20 @@ namespace JarvisAuth.Application.Services.User
                 return response;
             }
 
-            var userIdJarvisExits = await userRepository.UserIdExists(request.UserId);
+            var userIdJarvisExists = await userRepository.UserIdExists(request.UserId);
 
-            if (!userIdJarvisExits)
+            if (!userIdJarvisExists)
             {
-                response.Errors.Add(GlobalMessages.JARVIS_USER_NOT_EXISTS);
+                response.Errors.Add(GlobalMessages.USER_NOT_EXISTS);
+                response.StatusCode = 409;
+                return response;
+            }
+
+            var permissionExists = await userPermissionRepository.UserPermissionExistsById(request.ApplicationPermissionId);
+
+            if (permissionExists)
+            {
+                response.Errors.Add(GlobalMessages.USER_PERMISSION_ALREADY);
                 response.StatusCode = 409;
                 return response;
             }

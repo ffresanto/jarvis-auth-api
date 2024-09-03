@@ -109,7 +109,7 @@ namespace JarvisAuth.Application.Services.User
 
             if (!userIdJarvisExits)
             {
-                response.Errors.Add(GlobalMessages.JARVIS_USER_NOT_EXISTS);
+                response.Errors.Add(GlobalMessages.USER_NOT_EXISTS);
                 response.StatusCode = 409;
                 return response;
             }
@@ -158,7 +158,7 @@ namespace JarvisAuth.Application.Services.User
 
             if (user == null)
             {
-                response.Errors.Add(GlobalMessages.JARVIS_USER_NOT_EXISTS);
+                response.Errors.Add(GlobalMessages.USER_NOT_EXISTS);
                 response.StatusCode = 409;
                 return response;
             }

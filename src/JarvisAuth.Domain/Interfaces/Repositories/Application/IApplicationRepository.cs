@@ -12,6 +12,6 @@ namespace JarvisAuth.Domain.Interfaces.Repositories.Application
         public Task<ApplicationWithPermissions> FindApplicationWithPermissions(Guid? applicationId, string permissionName);
         public Task<Entities.Application> FindApplicationById(Guid applicationId);
         public Task UpdateApplication(Entities.Application application);
-        public Task<List<PermissionApplication>> FindApplicationWithListPermissions(Guid? applicationId, string permissionName);
+        public Task<List<ApplicationPermissionData>> FindApplicationWithListPermissions(Guid? applicationId, string permissionName);
     }
 }

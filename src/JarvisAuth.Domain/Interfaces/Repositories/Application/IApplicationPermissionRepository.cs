@@ -7,5 +7,6 @@ namespace JarvisAuth.Domain.Interfaces.Repositories.Application
     {
         public Task CreateApplicationPermission(ApplicationPermission applicationPermission);
         public Task<bool> ApplicationPermissionNameExists(string? name);
+        public Task<bool> DeleteApplicationPermission(Guid idPermission);
     }
 }
