@@ -7,5 +7,6 @@ namespace JarvisAuth.Domain.Interfaces.Repositories.User
     {
         public Task<bool> UserPermissionExistsById(Guid applicationPermissionId);
         public Task LinkUserPermission(UserPermission userPermission);
+        public Task<bool> DeleteApplicationPermission(Guid userId, Guid applicationPermissionId);
     }
 }

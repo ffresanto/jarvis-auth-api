@@ -28,5 +28,16 @@ namespace JarvisAuth.Infrastructure.Repositories.User
         {
             await _context.UsersPermissions.AddAsync(userPermission);
         }
+
+        public async Task<bool> DeleteApplicationPermission(Guid userId, Guid applicationPermissionId)
+        {
+            var entity = await _context.UsersPermissions.FirstOrDefaultAsync(e => e.UserId == userId && e.ApplicationPermissionId == applicationPermissionId);
+
+            if (entity == null) return false;
+
+            _context.UsersPermissions.Remove(entity);
+
+            return true;
+        }
     }
 }

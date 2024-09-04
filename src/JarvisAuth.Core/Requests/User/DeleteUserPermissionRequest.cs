@@ -1,18 +1,14 @@
 ﻿using JarvisAuth.Core.Messages;
 using JarvisAuth.Core.Validations;
-using Newtonsoft.Json;
 
 namespace JarvisAuth.Core.Requests.User
 {
-    public class PostUserPermissionRequest
+    public class DeleteUserPermissionRequest
     {
-        [JsonProperty("userId")]
         public Guid UserId { get; set; }
-
-        [JsonProperty("applicationPermissionId")]
         public Guid ApplicationPermissionId { get; set; }
 
-        public List<string> Validate(PostUserPermissionRequest data)
+        public List<string> Validate(DeleteUserPermissionRequest data)
         {
             var errors = new List<string>();
 

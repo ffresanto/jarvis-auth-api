@@ -48,6 +48,7 @@ namespace JarvisAuth.Core.Messages
         public const string USER_PERMISSION_ALREADY = "This permission is already registered for the user.";
         public const string PERMISSION_NOT_EXISTS = "The Permission provided does not exist.";
         public const string APPLICATION_NOT_EXISTS = "The Application provided does not exist.";
+        public const string USER_OR_PERMISSION_NOT_EXISTS = "The User or Permission does noet exist.";
         public const string USER_IS_LINKED_TO_APPLICATION = "User is already linked to the specified application.";
         public const string PROVIDER_APPLICATION_AND_PERMISSION = "You must provide either an applicationId or a permissionName.";
         public const string PERMISSION_LINKED_USER = "The permission is linked to a user. To remove this permission, you must first detach it from the associated user.";

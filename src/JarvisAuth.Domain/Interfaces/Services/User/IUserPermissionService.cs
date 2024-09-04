@@ -7,5 +7,6 @@ namespace JarvisAuth.Domain.Interfaces.Services.User
     public interface IUserPermissionService
     {
         public Task<Response<PostUserPermissionResponse>> PostLinkUserPermission(PostUserPermissionRequest request);
+        public Task<Response<DeleteUserPermissionResponse>> DeleteUserPermission(DeleteUserPermissionRequest request);
     }
 }
