@@ -10,7 +10,7 @@ namespace JarvisAuth.Infrastructure.Mappings.User
         {
             builder.ToTable("users_permissions");
 
-            builder.HasKey(u => u.UserId);
+            builder.HasKey(u => new { u.UserId, u.ApplicationPermissionId });
 
             builder.Property(u => u.UserId)
                 .HasColumnName("user_id")

@@ -62,6 +62,18 @@ namespace JarvisAuth.API.Controllers
             return CustomResponse(await applicationService.PostApplicationPermission(request));
         }
 
+        [HttpDelete("permission")]
+        [Authorize]
+        [SwaggerOperation(Summary = "Delete permission for id.")]
+        [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<DeleteApplicationPermissionResponse>))]
+        [SwaggerResponse(409, GlobalMessages.REQUEST_CONFLICT_409, typeof(Response<string>))]
+        [SwaggerResponse(422, GlobalMessages.VALIDATION_ERRORS_422, typeof(Response<string>))]
+        [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION_500, typeof(Response<string>))]
+        public async Task<ActionResult> DeleteApplicationPermission(DeleteApplicationPermissionRequest request)
+        {
+            return CustomResponse(await applicationService.DeleteApplicationPermission(request));
+        }
+
         [HttpPatch("toggle-enabled")]
         [Authorize]
         [SwaggerOperation(Summary = "Enables or disables a application.")]

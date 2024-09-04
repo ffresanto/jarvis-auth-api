@@ -5,6 +5,7 @@ using JarvisAuth.Core.Requests.User;
 using JarvisAuth.Core.Responses.Application;
 using JarvisAuth.Core.Responses.Shared;
 using JarvisAuth.Core.Responses.User;
+using JarvisAuth.Domain.Entities;
 using JarvisAuth.Domain.Interfaces.Repositories.Application;
 using JarvisAuth.Domain.Interfaces.Repositories.User;
 using JarvisAuth.Domain.Interfaces.Services.User;
@@ -21,6 +22,7 @@ namespace JarvisAuth.Application.Services.User
         public async Task<Response<PostUserResponse>> PostUser(PostUserRequest request)
         {
             var response = new Response<PostUserResponse>();
+
             var validate = request.Validate(request);
 
             if (validate.Count > 0)
@@ -57,6 +59,47 @@ namespace JarvisAuth.Application.Services.User
             response.Data = new PostUserResponse { UserId = user.Id };
 
             userRepository.Dispose();
+
+            return response;
+        }
+
+        public async Task<Response<PatchUserResponse>> PatchUser(PatchUserRequest request)
+        {
+            var response = new Response<PatchUserResponse>();
+
+            var validate = request.Validate(request);
+
+            if (validate.Count > 0)
+            {
+                response.Errors = validate;
+                response.StatusCode = 422;
+                return response;
+            }
+
+            var user = await userRepository.FindUserById(request.UserId);
+
+            if (user == null)
+            {
+                response.Errors.Add(GlobalMessages.USER_NOT_EXISTS);
+                response.StatusCode = 409;
+                return response;
+            }
+
+            user.Name = request.Name;
+            user.Email = request.Email;
+
+            await userRepository.UpdateUser(user);
+
+            var save = await userRepository.SaveChangesAsync();
+
+            if (!save)
+            {
+                response.Errors.Add(GlobalMessages.DATABASE_SAVE_FAILED);
+                response.StatusCode = 500;
+                return response;
+            }
+
+            response.Data = new PatchUserResponse { Info = GlobalMessages.RECORD_UPDATED_SUCCESSFULLY };
 
             return response;
         }
@@ -109,7 +152,7 @@ namespace JarvisAuth.Application.Services.User
 
             if (!userIdJarvisExits)
             {
-                response.Errors.Add(GlobalMessages.JARVIS_USER_NOT_EXISTS);
+                response.Errors.Add(GlobalMessages.USER_NOT_EXISTS);
                 response.StatusCode = 409;
                 return response;
             }
@@ -158,7 +201,7 @@ namespace JarvisAuth.Application.Services.User
 
             if (user == null)
             {
-                response.Errors.Add(GlobalMessages.JARVIS_USER_NOT_EXISTS);
+                response.Errors.Add(GlobalMessages.USER_NOT_EXISTS);
                 response.StatusCode = 409;
                 return response;
             }

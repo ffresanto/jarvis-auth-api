@@ -3,7 +3,6 @@ using JarvisAuth.Domain.Interfaces.Repositories.Application;
 using JarvisAuth.Infrastructure.Contexts;
 using JarvisAuth.Infrastructure.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace JarvisAuth.Infrastructure.Repositories.Application
 {
@@ -23,6 +22,17 @@ namespace JarvisAuth.Infrastructure.Repositories.Application
         public async Task<bool> ApplicationPermissionNameExists(string name)
         {
             return await _context.ApplicationPermissions.AnyAsync(u => u.Name == name);
+        }
+
+        public async Task<bool> DeleteApplicationPermission(Guid permissionId)
+        {
+            var entity = await _context.ApplicationPermissions.FirstOrDefaultAsync(e => e.Id == permissionId);
+
+            if (entity == null) return false;
+
+            _context.ApplicationPermissions.Remove(entity);
+
+            return true;
         }
     }
 }

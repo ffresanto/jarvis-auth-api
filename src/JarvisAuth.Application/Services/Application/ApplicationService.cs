@@ -5,6 +5,7 @@ using JarvisAuth.Core.Responses.Application;
 using JarvisAuth.Core.Responses.Shared;
 using JarvisAuth.Domain.Entities;
 using JarvisAuth.Domain.Interfaces.Repositories.Application;
+using JarvisAuth.Domain.Interfaces.Repositories.User;
 using JarvisAuth.Domain.Interfaces.Services.Application;
 
 namespace JarvisAuth.Application.Services.Application
@@ -12,6 +13,7 @@ namespace JarvisAuth.Application.Services.Application
     public class ApplicationService(
         IApplicationRepository applicationRepository,
         IApplicationPermissionRepository applicationPermissionRepository,
+        IUserPermissionRepository userPermissionRepository,
         IMapper mapper) : IApplicationService
     {
         public async Task<Response<PostApplicationResponse>> PostApplication(PostApplicationRequest request)
@@ -173,7 +175,7 @@ namespace JarvisAuth.Application.Services.Application
 
             if (application == null)
             {
-                response.Errors.Add(GlobalMessages.JARVIS_USER_NOT_EXISTS);
+                response.Errors.Add(GlobalMessages.USER_NOT_EXISTS);
                 response.StatusCode = 409;
                 return response;
             }
@@ -184,6 +186,8 @@ namespace JarvisAuth.Application.Services.Application
 
             var save = await applicationRepository.SaveChangesAsync();
 
+            applicationRepository.Dispose();
+
             if (!save)
             {
                 response.Errors.Add(GlobalMessages.DATABASE_SAVE_FAILED);
@@ -192,6 +196,51 @@ namespace JarvisAuth.Application.Services.Application
             }
 
             response.Data = new PatchApplicationToggleEnabledResponse { Info = GlobalMessages.RECORD_UPDATED_SUCCESSFULLY };
+
+            return response;
+        }
+
+        public async Task<Response<DeleteApplicationPermissionResponse>> DeleteApplicationPermission(DeleteApplicationPermissionRequest request)
+        {
+            var response = new Response<DeleteApplicationPermissionResponse>();
+
+            if (string.IsNullOrEmpty(request.PermissionId.ToString()))
+            {
+                response.Errors.Add(GlobalMessages.PERMISSION_ID_REQUIRED);
+                response.StatusCode = 422;
+                return response;
+            }
+
+            var permissionExists = await userPermissionRepository.UserPermissionExistsById(request.PermissionId);
+
+            if (permissionExists)
+            {
+                response.Errors.Add(GlobalMessages.PERMISSION_LINKED_USER);
+                response.StatusCode = 409;
+                return response;
+            }
+
+            var data = await applicationPermissionRepository.DeleteApplicationPermission(request.PermissionId);
+
+            if (!data)
+            {
+                response.Errors.Add(GlobalMessages.PERMISSION_NOT_EXISTS);
+                response.StatusCode = 409;
+                return response;
+            }
+
+            var save = await applicationPermissionRepository.SaveChangesAsync();
+
+            applicationPermissionRepository.Dispose();
+
+            if (!save)
+            {
+                response.Errors.Add(GlobalMessages.DATABASE_DELETE_FAILED);
+                response.StatusCode = 500;
+                return response;
+            }
+
+            response.Data = new DeleteApplicationPermissionResponse { Info = GlobalMessages.RECORD_DELETE_SUCCESSFULLY };
 
             return response;
         }
