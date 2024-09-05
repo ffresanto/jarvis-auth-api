@@ -1,7 +1,6 @@
 ﻿using JarvisAuth.Core.Requests.Application;
 using JarvisAuth.Core.Responses.Application;
 using JarvisAuth.Core.Responses.Shared;
-using JarvisAuth.Core.Responses.User;
 
 namespace JarvisAuth.Domain.Interfaces.Services.Application
 {
@@ -13,5 +12,6 @@ namespace JarvisAuth.Domain.Interfaces.Services.Application
         public Task<Response<List<GetApplicationWithPermissionsResponse>>> GetFindApplicationWithPermissions(Guid? applicationId, string permissionName);
         public Task<Response<PatchApplicationToggleEnabledResponse>> PatchToggleEnabled(PatchApplicationToggleEnabledRequest request);
         public Task<Response<DeleteApplicationPermissionResponse>> DeleteApplicationPermission(DeleteApplicationPermissionRequest request);
+        public Task<Response<PatchApplicationResponse>> PatchApplication(PatchApplicationRequest request);
     }
 }

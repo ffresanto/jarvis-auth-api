@@ -1,8 +1,11 @@
 ﻿using JarvisAuth.API.Controllers.Base;
+using JarvisAuth.Application.Services.User;
 using JarvisAuth.Core.Messages;
 using JarvisAuth.Core.Requests.Application;
+using JarvisAuth.Core.Requests.User;
 using JarvisAuth.Core.Responses.Application;
 using JarvisAuth.Core.Responses.Shared;
+using JarvisAuth.Core.Responses.User;
 using JarvisAuth.Domain.Interfaces.Services.Application;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -48,6 +51,17 @@ namespace JarvisAuth.API.Controllers
         public async Task<ActionResult> PostCreateApplication(PostApplicationRequest request)
         {
             return CustomResponse(await applicationService.PostApplication(request));
+        }
+
+        [HttpPatch()]
+        [SwaggerOperation(Summary = "Updates an existing application.")]
+        [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<PatchApplicationResponse>))]
+        [SwaggerResponse(409, GlobalMessages.REQUEST_CONFLICT_409, typeof(Response<string>))]
+        [SwaggerResponse(422, GlobalMessages.VALIDATION_ERRORS_422, typeof(Response<string>))]
+        [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION_500, typeof(Response<string>))]
+        public async Task<ActionResult> PatchUser(PatchApplicationRequest request)
+        {
+            return CustomResponse(await applicationService.PatchApplication(request));
         }
 
         [HttpPost("permission")]

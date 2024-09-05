@@ -87,6 +87,7 @@ namespace JarvisAuth.Application.Services.User
 
             user.Name = request.Name;
             user.Email = request.Email;
+            user.UpdatedAt = DateTime.UtcNow;
 
             await userRepository.UpdateUser(user);
 

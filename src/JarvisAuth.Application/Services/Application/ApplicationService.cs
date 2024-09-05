@@ -181,6 +181,7 @@ namespace JarvisAuth.Application.Services.Application
             }
 
             application.Enabled = request.Enable;
+            application.UpdatedAt = DateTime.UtcNow;
 
             await applicationRepository.UpdateApplication(application);
 
@@ -241,6 +242,47 @@ namespace JarvisAuth.Application.Services.Application
             }
 
             response.Data = new DeleteApplicationPermissionResponse { Info = GlobalMessages.RECORD_DELETE_SUCCESSFULLY };
+
+            return response;
+        }
+
+        public async Task<Response<PatchApplicationResponse>> PatchApplication(PatchApplicationRequest request)
+        {
+            var response = new Response<PatchApplicationResponse>();
+
+            if (string.IsNullOrEmpty(request.Name))
+            {
+                response.Errors.Add(GlobalMessages.MANDATORY_APPLICATION_NAME);
+                response.StatusCode = 422;
+                return response;
+            }
+
+            var application = await applicationRepository.FindApplicationById(request.ApplicationId);
+
+            if (application == null)
+            {
+                response.Errors.Add(GlobalMessages.APPLICATION_NOT_EXISTS);
+                response.StatusCode = 409;
+                return response;
+            }
+
+            application.Name = request.Name;
+            application.UpdatedAt = DateTime.UtcNow;
+
+            await applicationRepository.UpdateApplication(application);
+
+            var save = await applicationRepository.SaveChangesAsync();
+
+            applicationRepository.Dispose();
+
+            if (!save)
+            {
+                response.Errors.Add(GlobalMessages.DATABASE_SAVE_FAILED);
+                response.StatusCode = 500;
+                return response;
+            }
+
+            response.Data = new PatchApplicationResponse { Info = GlobalMessages.RECORD_UPDATED_SUCCESSFULLY };
 
             return response;
         }
