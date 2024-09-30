@@ -23,6 +23,7 @@ namespace JarvisAuth.Application.Security
             {
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim("userId", user.Id.ToString()),
+                new Claim("IsAdmin", user.IsAdmin.ToString()),
                 new Claim("userEmail", user.Email),
                 new Claim("Application", permissions.Application),
                 new Claim("Permissions", JsonConvert.SerializeObject(permissions.Permissions))
@@ -37,7 +38,7 @@ namespace JarvisAuth.Application.Security
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public string GenerateRefreshJwtToken(User userJarvis, Domain.Models.ApplicationWithPermissions permissions)
+        public string GenerateRefreshJwtToken(User user, Domain.Models.ApplicationWithPermissions permissions)
         {
             var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_jwtSettings["Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -45,8 +46,8 @@ namespace JarvisAuth.Application.Security
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim("userId", userJarvis.Id.ToString()),
-                new Claim("isAdmin", userJarvis.IsAdmin.ToString()),
+                new Claim("userId", user.Id.ToString()),
+                new Claim("isAdmin", user.IsAdmin.ToString()),
                 new Claim("Application", permissions.Application),
                 new Claim("Permissions", JsonConvert.SerializeObject(permissions.Permissions))
             };
