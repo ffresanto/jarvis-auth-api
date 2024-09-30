@@ -1,4 +1,5 @@
 ﻿using JarvisAuth.API.Controllers.Base;
+using JarvisAuth.Application.Security.Attributes;
 using JarvisAuth.Application.Services.User;
 using JarvisAuth.Core.Messages;
 using JarvisAuth.Core.Requests.Application;
@@ -20,8 +21,10 @@ namespace JarvisAuth.API.Controllers
     {
         [HttpGet()]
         [Authorize]
+        [OnlyAdministrator]
         [SwaggerOperation(Summary = "Retrieves a list of all applications.")]
         [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<List<GetApplicationResponse>>))]
+        [SwaggerResponse(403, GlobalMessages.ACCESS_DENIED_403, typeof(Response<List<GetApplicationResponse>>))]
         [SwaggerResponse(404, GlobalMessages.REQUEST_NOT_FOUND_404, typeof(Response<string>))]
         [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION_500, typeof(Response<string>))]
         public async Task<ActionResult> GetApplications()
