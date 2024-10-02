@@ -15,7 +15,7 @@ namespace JarvisAuth.Application.Services.User
         IUserPermissionRepository userPermissionRepository,
         IMapper mapper) : IUserPermissionService
     {
-        public async Task<Response<PostUserPermissionResponse>> PostLinkUserPermission(PostUserPermissionRequest request)
+        public async Task<Response<PostUserPermissionResponse>> PostAssociateUserPermission(PostUserPermissionRequest request)
         {
             var response = new Response<PostUserPermissionResponse>();
 
@@ -48,7 +48,7 @@ namespace JarvisAuth.Application.Services.User
 
             var userPermission = mapper.Map<UserPermission>(request);
 
-            await userPermissionRepository.LinkUserPermission(userPermission);
+            await userPermissionRepository.AssociateUserPermission(userPermission);
 
             var save = await userPermissionRepository.SaveChangesAsync();
 

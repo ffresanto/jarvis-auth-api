@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace JarvisAuth.Infrastructure.Mappings.User
 {
-    public class UserLinkedApplicationMapping : IEntityTypeConfiguration<UserLinkedApplication>
+    public class UserAssociateApplicationMapping : IEntityTypeConfiguration<UserAssociateApplication>
     {
-        public void Configure(EntityTypeBuilder<UserLinkedApplication> builder)
+        public void Configure(EntityTypeBuilder<UserAssociateApplication> builder)
         {
-            builder.ToTable("users_linked_applications");
+            builder.ToTable("users_associate_applications");
 
             builder.HasKey(u => u.UserId);
 
