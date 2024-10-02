@@ -12,7 +12,7 @@ namespace JarvisAuth.Infrastructure.Configurations
         {
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IApplicationRepository, ApplicationRepository>();
-            services.AddScoped<IUserLinkedApplicationRepository, UserLinkedApplicationRepositoy>();
+            services.AddScoped<IUserAssociateApplicationRepository, UserAssociateApplicationRepositoy>();
             services.AddScoped<IApplicationPermissionRepository, ApplicationPermissionRepository>();
             services.AddScoped<IUserPermissionRepository, UserPermissionRepositoy>();
 

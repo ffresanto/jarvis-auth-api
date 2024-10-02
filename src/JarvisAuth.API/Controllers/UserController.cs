@@ -52,31 +52,31 @@ namespace JarvisAuth.API.Controllers
             return CustomResponse(await userService.PatchUser(request));
         }
 
-        [HttpPost("link/application")]
+        [HttpPost("associate/application")]
         [Authorize]
-        [SwaggerOperation(Summary = "Link a user to an application.")]
-        [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<PostLinkUserToApplicationResponse>))]
+        [SwaggerOperation(Summary = "Associate a user to an application.")]
+        [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<PostAssociateUserToApplicationResponse>))]
         [SwaggerResponse(422, GlobalMessages.VALIDATION_ERRORS_422, typeof(Response<string>))]
         [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION_500, typeof(Response<string>))]
-        public async Task<ActionResult> PostLinkUserToApplication([FromBody] PostLinkUserToApplicationRequest request)
+        public async Task<ActionResult> PostAssociateUserToApplication([FromBody] PostAssociateUserToApplicationRequest request)
         {
-            return CustomResponse(await userService.PostLinkApplication(request));
+            return CustomResponse(await userService.PostAssociateApplication(request));
         }
 
-        [HttpPost("link/permission")]
+        [HttpPost("associate/permission")]
         [Authorize]
-        [SwaggerOperation(Summary = "Link a permission to an user.")]
+        [SwaggerOperation(Summary = "Associate a permission to an user.")]
         [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<PostUserPermissionResponse>))]
         [SwaggerResponse(422, GlobalMessages.VALIDATION_ERRORS_422, typeof(Response<string>))]
         [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION_500, typeof(Response<string>))]
-        public async Task<ActionResult> PostLinkUserPermission([FromBody] PostUserPermissionRequest request)
+        public async Task<ActionResult> PostAssociateUserPermission([FromBody] PostUserPermissionRequest request)
         {
-            return CustomResponse(await userPermissionService.PostLinkUserPermission(request));
+            return CustomResponse(await userPermissionService.PostAssociateUserPermission(request));
         }
 
-        [HttpDelete("link/permission")]
+        [HttpDelete("associate/permission")]
         [Authorize]
-        [SwaggerOperation(Summary = "Delete permission linked in user")]
+        [SwaggerOperation(Summary = "Delete permission associated in user")]
         [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<DeleteUserPermissionResponse>))]
         [SwaggerResponse(422, GlobalMessages.VALIDATION_ERRORS_422, typeof(Response<string>))]
         [SwaggerResponse(500, GlobalMessages.GLOBAL_EXCEPTION_500, typeof(Response<string>))]

@@ -15,7 +15,7 @@ namespace JarvisAuth.Application.Services.User
 {
     public class UserService(
         IUserRepository userRepository,
-        IUserLinkedApplicationRepository userLinkedApplicationRepository,
+        IUserAssociateApplicationRepository userAssociateApplicationRepository,
         IApplicationRepository applicationRepository,
         IMapper mapper) : IUserService
     {
@@ -127,9 +127,9 @@ namespace JarvisAuth.Application.Services.User
             return response;
         }
 
-        public async Task<Response<PostLinkUserToApplicationResponse>> PostLinkApplication(PostLinkUserToApplicationRequest request)
+        public async Task<Response<PostAssociateUserToApplicationResponse>> PostAssociateApplication(PostAssociateUserToApplicationRequest request)
         {
-            var response = new Response<PostLinkUserToApplicationResponse>();
+            var response = new Response<PostAssociateUserToApplicationResponse>();
 
             var validate = request.Validate(request);
 
@@ -140,11 +140,11 @@ namespace JarvisAuth.Application.Services.User
                 return response;
             }
 
-            var isUserLinkedToApplication = await userLinkedApplicationRepository.IsUserLinkedToApplication(request.ApplicationId, request.UserId);
+            var isUserAssociatedToApplication = await userAssociateApplicationRepository.IsUserAssociateToApplication(request.ApplicationId, request.UserId);
 
-            if (isUserLinkedToApplication)
+            if (isUserAssociatedToApplication)
             {
-                response.Errors.Add(GlobalMessages.USER_IS_LINKED_TO_APPLICATION);
+                response.Errors.Add(GlobalMessages.USER_IS_ASSOCIATED_TO_APPLICATION);
                 response.StatusCode = 409;
                 return response;
             }
@@ -167,11 +167,11 @@ namespace JarvisAuth.Application.Services.User
                 return response;
             }
 
-            var userProfileApplication = mapper.Map<UserLinkedApplication>(request);
+            var userProfileApplication = mapper.Map<UserAssociateApplication>(request);
 
-            await userLinkedApplicationRepository.LinkUserToApplication(userProfileApplication);
+            await userAssociateApplicationRepository.AssociateUserToApplication(userProfileApplication);
 
-            var save = await userLinkedApplicationRepository.SaveChangesAsync();
+            var save = await userAssociateApplicationRepository.SaveChangesAsync();
 
             if (!save)
             {
@@ -180,7 +180,7 @@ namespace JarvisAuth.Application.Services.User
                 return response;
             }
 
-            response.Data = new PostLinkUserToApplicationResponse { Info = GlobalMessages.RECORD_SAVED_SUCCESSFULLY };
+            response.Data = new PostAssociateUserToApplicationResponse { Info = GlobalMessages.RECORD_SAVED_SUCCESSFULLY };
 
             userRepository.Dispose();
 

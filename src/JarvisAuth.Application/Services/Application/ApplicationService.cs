@@ -216,7 +216,7 @@ namespace JarvisAuth.Application.Services.Application
 
             if (permissionExists)
             {
-                response.Errors.Add(GlobalMessages.PERMISSION_LINKED_USER);
+                response.Errors.Add(GlobalMessages.PERMISSION_ASSOCIATED_USER);
                 response.StatusCode = 409;
                 return response;
             }

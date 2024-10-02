@@ -24,7 +24,7 @@ namespace JarvisAuth.Infrastructure.Repositories.User
             return true;
         }
 
-        public async Task LinkUserPermission(UserPermission userPermission)
+        public async Task AssociateUserPermission(UserPermission userPermission)
         {
             await _context.UsersPermissions.AddAsync(userPermission);
         }
