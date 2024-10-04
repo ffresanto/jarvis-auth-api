@@ -1,12 +1,9 @@
 ﻿using JarvisAuth.API.Controllers.Base;
 using JarvisAuth.Application.Security.Attributes;
-using JarvisAuth.Application.Services.User;
 using JarvisAuth.Core.Messages;
 using JarvisAuth.Core.Requests.Application;
-using JarvisAuth.Core.Requests.User;
 using JarvisAuth.Core.Responses.Application;
 using JarvisAuth.Core.Responses.Shared;
-using JarvisAuth.Core.Responses.User;
 using JarvisAuth.Domain.Interfaces.Services.Application;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +18,6 @@ namespace JarvisAuth.API.Controllers
     {
         [HttpGet()]
         [Authorize]
-        [OnlyAdministrator]
         [SwaggerOperation(Summary = "Retrieves a list of all applications.")]
         [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<List<GetApplicationResponse>>))]
         [SwaggerResponse(403, GlobalMessages.ACCESS_DENIED_403, typeof(Response<List<GetApplicationResponse>>))]
@@ -46,6 +42,7 @@ namespace JarvisAuth.API.Controllers
 
         [HttpPost()]
         [Authorize]
+        [OnlyAdministrator]
         [SwaggerOperation(Summary = "Creates a new application for the Jarvis authentication system.")]
         [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<PostApplicationResponse>))]
         [SwaggerResponse(409, GlobalMessages.REQUEST_CONFLICT_409, typeof(Response<string>))]
@@ -57,6 +54,7 @@ namespace JarvisAuth.API.Controllers
         }
 
         [HttpPatch()]
+        [OnlyAdministrator]
         [SwaggerOperation(Summary = "Updates an existing application.")]
         [SwaggerResponse(200, GlobalMessages.OPERATION_SUCCESS_200, typeof(Response<PatchApplicationResponse>))]
         [SwaggerResponse(409, GlobalMessages.REQUEST_CONFLICT_409, typeof(Response<string>))]
