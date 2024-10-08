@@ -491,7 +491,7 @@ namespace JarvisAuth.Tests.JarvisAuth.Application.Tests.Services.Application
             var request = new PatchApplicationRequest
             {
                 ApplicationId = Guid.NewGuid(),
-                Name = string.Empty // Empty Name
+                Name = string.Empty 
             };
 
             // Act
@@ -514,7 +514,7 @@ namespace JarvisAuth.Tests.JarvisAuth.Application.Tests.Services.Application
 
             _applicationRepositoryMock
                 .Setup(repo => repo.FindApplicationById(request.ApplicationId))
-                .ReturnsAsync((Domain.Entities.Application)null); // Application not found
+                .ReturnsAsync((Domain.Entities.Application)null); 
 
             // Act
             var response = await _applicationService.PatchApplication(request);
@@ -543,11 +543,11 @@ namespace JarvisAuth.Tests.JarvisAuth.Application.Tests.Services.Application
 
             _applicationRepositoryMock
                 .Setup(repo => repo.FindApplicationById(request.ApplicationId))
-                .ReturnsAsync(application); // Application found
+                .ReturnsAsync(application); 
 
             _applicationRepositoryMock
                 .Setup(repo => repo.SaveChangesAsync())
-                .ReturnsAsync(false); // Simulate failure to save changes
+                .ReturnsAsync(false); 
 
             // Act
             var response = await _applicationService.PatchApplication(request);
@@ -576,11 +576,11 @@ namespace JarvisAuth.Tests.JarvisAuth.Application.Tests.Services.Application
 
             _applicationRepositoryMock
                 .Setup(repo => repo.FindApplicationById(request.ApplicationId))
-                .ReturnsAsync(application); // Application found
+                .ReturnsAsync(application); 
 
             _applicationRepositoryMock
                 .Setup(repo => repo.SaveChangesAsync())
-                .ReturnsAsync(true); // Simulate successful save
+                .ReturnsAsync(true); 
 
             // Act
             var response = await _applicationService.PatchApplication(request);
