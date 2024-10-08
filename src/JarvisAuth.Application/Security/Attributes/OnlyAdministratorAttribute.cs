@@ -1,5 +1,4 @@
-﻿using JarvisAuth.Core.Messages;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace JarvisAuth.Application.Security.Attributes
