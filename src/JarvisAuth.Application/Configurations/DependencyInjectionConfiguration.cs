@@ -1,10 +1,10 @@
 ﻿using JarvisAuth.Application.Services.Application;
 using JarvisAuth.Application.Services.Authentication;
-using JarvisAuth.Application.Services.Log;
+using JarvisAuth.Application.Services.Logger;
 using JarvisAuth.Application.Services.User;
 using JarvisAuth.Domain.Interfaces.Services.Application;
 using JarvisAuth.Domain.Interfaces.Services.Authentication;
-using JarvisAuth.Domain.Interfaces.Services.Log;
+using JarvisAuth.Domain.Interfaces.Services.Logger;
 using JarvisAuth.Domain.Interfaces.Services.User;
 using Microsoft.Extensions.DependencyInjection;
 

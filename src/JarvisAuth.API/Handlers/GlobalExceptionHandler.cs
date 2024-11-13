@@ -1,6 +1,6 @@
 ﻿using JarvisAuth.Core.Messages;
 using JarvisAuth.Core.Responses.Shared;
-using JarvisAuth.Domain.Interfaces.Services.Log;
+using JarvisAuth.Domain.Interfaces.Services.Logger;
 using Microsoft.AspNetCore.Diagnostics;
 using System.Text.Json;
 
