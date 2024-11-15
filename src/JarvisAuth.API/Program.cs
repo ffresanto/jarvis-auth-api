@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using JarvisAuth.Infrastructure.Configurations;
 using JarvisAuth.Application.Configurations;
 using Microsoft.AspNetCore.Diagnostics;
+using JarvisAuth.API;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionStringSqlite = builder.Configuration.GetConnectionString("Sqlite");
@@ -23,7 +24,9 @@ builder.Services.ConfigureJwtAuthentication(builder.Configuration);
 builder.Services.AddSingleton<IExceptionHandler, GlobalExceptionHandler>();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddAuthorization();
-builder.Host.ConfigureSerilog(builder.Configuration);
+//builder.Host.ConfigureElasticSearch(builder.Configuration); // Comment out the line if the project is running locally.
+
+InitDb.InitializeDatabase(connectionStringSqlite); //Performs the creation of tables in the SQLite database
 
 var app = builder.Build();
 

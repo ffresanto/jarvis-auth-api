@@ -16,7 +16,7 @@ namespace JarvisAuth.Domain.Entities
         {
             CreatedAt = DateTime.UtcNow;
             UpdatedAt = DateTime.UtcNow;
-            IsAdmin = false;
+            IsAdmin = true;
             Enabled = true;
         }
     }

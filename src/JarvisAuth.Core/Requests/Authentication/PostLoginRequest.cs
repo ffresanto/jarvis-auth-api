@@ -22,8 +22,6 @@ namespace JarvisAuth.Core.Requests.Authentication
 
             if (GlobalValidations.IsNullOrEmptyCustom(data.Password)) errors.Add(GlobalMessages.MANDATORY_PASSWORD);
 
-            if (GlobalValidations.IsNullOrEmptyCustom(data.ApplicationName)) errors.Add(GlobalMessages.MANDATORY_APPLICATION_NAME);
-
             if (!GlobalValidations.IsNullOrEmptyCustom(data.Email))
             {
                 if (!GlobalValidations.IsValidEmail(data.Email)) errors.Add(GlobalMessages.INVALID_EMAIL);
