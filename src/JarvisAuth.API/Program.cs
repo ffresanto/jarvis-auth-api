@@ -5,6 +5,7 @@ using JarvisAuth.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using JarvisAuth.Infrastructure.Configurations;
 using JarvisAuth.Application.Configurations;
+using Microsoft.AspNetCore.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionStringSqlite = builder.Configuration.GetConnectionString("Sqlite");
@@ -19,9 +20,10 @@ builder.Services.RepositoriesDependencies();
 builder.Services.ServicesDependencies();
 builder.Services.ConfigureSwagger();
 builder.Services.ConfigureJwtAuthentication(builder.Configuration);
+builder.Services.AddSingleton<IExceptionHandler, GlobalExceptionHandler>();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
-
 builder.Services.AddAuthorization();
+builder.Host.ConfigureSerilog(builder.Configuration);
 
 var app = builder.Build();
 

@@ -1,8 +1,10 @@
 ﻿using JarvisAuth.Application.Services.Application;
 using JarvisAuth.Application.Services.Authentication;
+using JarvisAuth.Application.Services.Logger;
 using JarvisAuth.Application.Services.User;
 using JarvisAuth.Domain.Interfaces.Services.Application;
 using JarvisAuth.Domain.Interfaces.Services.Authentication;
+using JarvisAuth.Domain.Interfaces.Services.Logger;
 using JarvisAuth.Domain.Interfaces.Services.User;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,6 +18,7 @@ namespace JarvisAuth.Application.Configurations
             services.AddScoped<IApplicationService, ApplicationService>();
             services.AddScoped<IUserPermissionService, UserPermissionService>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
+            services.AddSingleton<ILogService, LogService>();
 
             return services;
         }
