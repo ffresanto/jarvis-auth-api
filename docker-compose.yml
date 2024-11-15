@@ -1,8 +1,8 @@
 version: '3.4'
 
 services:
-  webapi:
-    image: ${DOCKER_REGISTRY-}webapi
+  jarvis_auth_api:
+    image: ${DOCKER_REGISTRY-}jarvis_auth_api
     build:
       context: .
       dockerfile: Dockerfile
@@ -14,7 +14,7 @@ services:
       elasticsearch:
         condition: service_healthy
     networks:
-      - nw
+      - nw_jarvis_auth
  
   elasticsearch:
     container_name: elasticsearch
@@ -28,7 +28,7 @@ services:
     volumes:
       - v01:/usr/share/elasticsearch/data
     networks:
-      - nw
+      - nw_jarvis_auth
     healthcheck: 
       test: ["CMD", "curl", "-f", "http://localhost:9200"]
       interval: 30s
@@ -47,11 +47,11 @@ services:
     ports:
       - 5601:5601
     networks:
-      - nw
+      - nw_jarvis_auth
 
 volumes:
   v01:
     driver: local
 
 networks:
-  nw:
+  nw_jarvis_auth:

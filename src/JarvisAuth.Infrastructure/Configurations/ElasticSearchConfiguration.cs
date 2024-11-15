@@ -7,9 +7,9 @@ using Serilog;
 
 namespace JarvisAuth.Infrastructure.Configurations
 {
-    public static class SerialogConfiguration
+    public static class ElasticSearchConfiguration
     {
-        public static IHostBuilder ConfigureSerilog(this IHostBuilder hostBuilder, IConfiguration configuration)
+        public static IHostBuilder ConfigureElasticSearch(this IHostBuilder hostBuilder, IConfiguration configuration)
         {
             var elasticSearchUrl = configuration["ElasticSearchUrl"];
 
