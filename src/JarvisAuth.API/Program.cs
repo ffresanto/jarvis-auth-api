@@ -24,9 +24,9 @@ builder.Services.ConfigureJwtAuthentication(builder.Configuration);
 builder.Services.AddSingleton<IExceptionHandler, GlobalExceptionHandler>();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddAuthorization();
-builder.Host.ConfigureElasticSearch(builder.Configuration);
+//builder.Host.ConfigureElasticSearch(builder.Configuration); // Comment out the line if the project is running locally.
 
-InitDb.InitializeDatabase(connectionStringSqlite);
+InitDb.InitializeDatabase(connectionStringSqlite); //Performs the creation of tables in the SQLite database
 
 var app = builder.Build();
 

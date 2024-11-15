@@ -4,24 +4,6 @@ namespace JarvisAuth.API
 {
     public static class InitDb
     {
-        public static void InitializeDatabase(string connectionStringSqlite)
-        {
-            using (var connection = new SqliteConnection(connectionStringSqlite))
-            {
-                connection.Open();
-
-                using (var transaction = connection.BeginTransaction())
-                {
-                    using (var command = new SqliteCommand(SCRIPT_SQL, connection, transaction))
-                    {
-                        command.ExecuteNonQuery();
-                    }
-
-                    transaction.Commit();
-                }
-            }
-        }
-
         private const string SCRIPT_SQL = @"
                     CREATE TABLE IF NOT EXISTS [users] (
                       [id] text NOT NULL
@@ -69,9 +51,23 @@ namespace JarvisAuth.API
 
                     CREATE UNIQUE INDEX IF NOT EXISTS [users_sqlite_autoindex_users_2] ON [users] ([email] ASC);
                     CREATE UNIQUE INDEX IF NOT EXISTS [applications_sqlite_autoindex_applications_1] ON [applications] ([name] ASC);
-
-                    CREATE TRIGGER IF NOT EXISTS [fki_users_associate_applications_user_id_users_id] BEFORE Insert ON [users_associate_applications] FOR EACH ROW BEGIN SELECT RAISE(ROLLBACK, 'Insert on table users_associate_applications violates foreign key constraint FK_users_associate_applications_0_0') WHERE (SELECT id FROM users WHERE  id = NEW.user_id) IS NULL; END;
-                    CREATE TRIGGER IF NOT EXISTS [fki_users_associate_applications_application_id_applications_id] BEFORE Insert ON [users_associate_applications] FOR EACH ROW BEGIN SELECT RAISE(ROLLBACK, 'Insert on table users_associate_applications violates foreign key constraint FK_users_associate_applications_1_0') WHERE (SELECT id FROM applications WHERE  id = NEW.application_id) IS NULL; END;
                     ";
+        public static void InitializeDatabase(string connectionStringSqlite)
+        {
+            using (var connection = new SqliteConnection(connectionStringSqlite))
+            {
+                connection.Open();
+
+                using (var transaction = connection.BeginTransaction())
+                {
+                    using (var command = new SqliteCommand(SCRIPT_SQL, connection, transaction))
+                    {
+                        command.ExecuteNonQuery();
+                    }
+
+                    transaction.Commit();
+                }
+            }
+        }
     }
 }

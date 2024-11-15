@@ -6,8 +6,8 @@ using JarvisAuth.Core.Responses.Shared;
 using JarvisAuth.Domain.Interfaces.Repositories.Application;
 using JarvisAuth.Domain.Interfaces.Repositories.User;
 using JarvisAuth.Domain.Interfaces.Services.Authentication;
+using JarvisAuth.Domain.Models;
 using Microsoft.Extensions.Configuration;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace JarvisAuth.Application.Services.Authentication
 {
@@ -53,12 +53,14 @@ namespace JarvisAuth.Application.Services.Authentication
 
             var permissions = await applicationRepository.FindApplicationWithPermissions(null, request.ApplicationName);
 
-            if (permissions == null)
+            if (!string.IsNullOrEmpty(request.ApplicationName) && permissions == null)
             {
                 response.Errors.Add(GlobalMessages.APPLICATION_NOT_EXISTS);
                 response.StatusCode = 404;
                 return response;
             }
+
+            if (permissions == null) permissions = new ApplicationWithPermissions();
 
             var jwtToken = new JwtTokenSecurity(configuration);
 
