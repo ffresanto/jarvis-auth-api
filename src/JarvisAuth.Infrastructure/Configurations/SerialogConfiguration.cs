@@ -1,29 +1,32 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Elastic.Ingest.Elasticsearch;
+using Elastic.Ingest.Elasticsearch.DataStreams;
+using Elastic.Serilog.Sinks;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Serilog;
-using Serilog.Exceptions;
 
 namespace JarvisAuth.Infrastructure.Configurations
 {
-    public class SerialogConfiguration
+    public static class SerialogConfiguration
     {
-        public static void ConfigureSerilog(IHostBuilder hostBuilder, IConfiguration configuration)
+        public static IHostBuilder ConfigureSerilog(this IHostBuilder hostBuilder, IConfiguration configuration)
         {
-            var logstashUrl = configuration["LogstashUrl"];
+            var elasticSearchUrl = configuration["ElasticSearchUrl"];
 
-            hostBuilder.UseSerilog((context, config) =>
+            hostBuilder.UseSerilog((context, configuration) =>
             {
-                config
-                    .ReadFrom.Configuration(configuration)
-                    .Enrich.FromLogContext()
-                    .Enrich.WithExceptionDetails()
-                    .WriteTo.Console();
-
-                if (!string.IsNullOrEmpty(logstashUrl))
+                configuration
+                .WriteTo
+                .Elasticsearch(new[] { new Uri(elasticSearchUrl) }, opts =>
                 {
-                    config.WriteTo.Http(logstashUrl, null);
-                }
+                    opts.DataStream = new DataStreamName("logs-api", "example", "demo");
+                    opts.BootstrapMethod = BootstrapMethod.Failure;
+                })
+                .ReadFrom
+                .Configuration(context.Configuration);
             });
+
+            return hostBuilder;
         }
     }
 }

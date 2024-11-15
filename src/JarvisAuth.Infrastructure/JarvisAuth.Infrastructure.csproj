@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="AspNetCore.HealthChecks.Sqlite" Version="8.0.1" />
+    <PackageReference Include="Elastic.Serilog.Sinks" Version="8.12.2" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.HealthChecks" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.6" />
     <PackageReference Include="Serilog.Exceptions" Version="8.0.0" />

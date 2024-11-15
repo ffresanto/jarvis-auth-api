@@ -10,8 +10,6 @@ using Microsoft.AspNetCore.Diagnostics;
 var builder = WebApplication.CreateBuilder(args);
 var connectionStringSqlite = builder.Configuration.GetConnectionString("Sqlite");
 
-SerialogConfiguration.ConfigureSerilog(builder.Host, builder.Configuration);
-
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddProblemDetails();
@@ -24,8 +22,8 @@ builder.Services.ConfigureSwagger();
 builder.Services.ConfigureJwtAuthentication(builder.Configuration);
 builder.Services.AddSingleton<IExceptionHandler, GlobalExceptionHandler>();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
-
 builder.Services.AddAuthorization();
+builder.Host.ConfigureSerilog(builder.Configuration);
 
 var app = builder.Build();
 
