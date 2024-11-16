@@ -10,6 +10,7 @@ using JarvisAuth.API;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionStringSqlite = builder.Configuration.GetConnectionString("Sqlite");
+var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production";
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -24,7 +25,7 @@ builder.Services.ConfigureJwtAuthentication(builder.Configuration);
 builder.Services.AddSingleton<IExceptionHandler, GlobalExceptionHandler>();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddAuthorization();
-//builder.Host.ConfigureElasticSearch(builder.Configuration); // Comment out the line if the project is running locally.
+builder.Host.ConfigureElasticSearch(builder.Configuration, environment);
 
 InitDb.InitializeDatabase(connectionStringSqlite); //Performs the creation of tables in the SQLite database
 
