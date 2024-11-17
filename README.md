@@ -19,10 +19,6 @@ JarvisAuth is an API designed to simplify the management of users, applications,
 - ElasticSearch
 - Kibana
 
-## Overview of Endpoints in Swagger
-
-![screencapture-localhost-5274-swagger-index-html-2024-11-16-21_05_38](https://github.com/user-attachments/assets/0acd5995-4020-41c5-b27d-b05050f73aab)
-
 ## Architecture Overview
 
 The project is architected in 5 layers:
@@ -36,12 +32,22 @@ The project is architected in 5 layers:
 All following the principles of Clean Architecture and SOLID to ensure better organization, scalability, and best coding practices.
 
 ![image](https://github.com/user-attachments/assets/fa8e1b16-8dfb-41e0-9160-ef1de148ab2e)
-
+  
 ## Database Diagram Overview
 
 I used SQLite as the database to simplify application execution, making it easier for anyone who wants to explore the project in more depth.
 
 ![jarvis_auth](https://github.com/user-attachments/assets/f96056d2-cb60-4a1c-acc9-a15485cf6e2b)
+
+## Overview of Endpoints in Swagger
+
+![screencapture-localhost-5274-swagger-index-html-2024-11-16-21_05_38](https://github.com/user-attachments/assets/0acd5995-4020-41c5-b27d-b05050f73aab)
+
+## Overview of the Kibana Dashboard with ElasticSearch
+
+The Kibana dashboard provides a visual representation of the logs and metrics collected by Elasticsearch. It is configured to help monitor the application's behavior, track requests, and debug issues effectively.
+
+![image](https://github.com/user-attachments/assets/00326a70-5c14-46d4-9ba3-d4d6b3146047)
 
 # Getting Started
 
@@ -54,6 +60,10 @@ Clone the JarvisAuth repository, navigate to the root folder where the **docker-
 ```
 docker-compose up
 ```
+After completing the container creation in Docker, the application will be available at the following addresses:
+
+- **JarvisAuth API:** ```http://localhost:8081/swagger/index.html```
+- **Kibana Dashboard:** ```http://localhost:5601/```
 
 ### If you want to run the JarvisAuth application in Visual Studio:
 
@@ -226,3 +236,57 @@ With the returned token, authenticate using Bearer. If you're using Swagger, sim
   "errors": []
 }
 ```
+
+## appsettings.json Configuration
+
+The `appsettings.json` file contains essential settings for the operation of the API. Below is a detailed explanation of each section and how it affects the application behavior.
+
+### Structure
+
+```json
+{
+    "Logging": {
+        "LogLevel": {
+            "Default": "Information",
+            "Microsoft.AspNetCore": "Warning"
+        }
+    },
+    "ConnectionStrings": {
+        "Sqlite": "Data Source=jarvis.db"
+    },
+    "JwtSettings": {
+        "Key": "fdfb6ab3278754abcd69833ae2d110c0",
+        "Issuer": "JarvisAuth.API",
+        "Audience": "localhost",
+        "ExpiresInMinutes": 60,
+        "RefreshTokenExpiresInDays": 7
+    },
+    "ElasticSearchUrl": "http://elasticsearch:9200"
+}
+```
+
+### Configuration Details
+
+#### Logging
+Defines the log levels used by the application.  
+- **LogLevel**: Specifies the level of detail for logs.  
+  - `Default`: Default logging level for the entire application (`Information` in this case).  
+  - `Microsoft.AspNetCore`: Specific logging level for ASP.NET Core framework logs (`Warning` in this case).
+
+#### ConnectionStrings
+Contains settings for database connections.  
+- **Sqlite**: Defines the connection string for the SQLite database. In this case, the database will be stored in the `jarvis.db` file.
+
+#### JwtSettings
+Settings related to JSON Web Token (JWT) authentication.  
+- **Key**: Secret key used to sign and validate JWT tokens. **Ensure this key is not exposed in public environments**.  
+- **Issuer**: Identifies the issuer of the JWT tokens (in this case, `JarvisAuth.API`).  
+- **Audience**: Specifies the intended audience for the JWT tokens (in this case, `localhost`).  
+- **ExpiresInMinutes**: Access token expiration time in minutes (in this case, 60 minutes).  
+- **RefreshTokenExpiresInDays**: Refresh token expiration time in days (in this case, 7 days).
+
+#### ElasticSearchUrl
+Specifies the URL of the ElasticSearch service used by the application for data indexing and search.  
+- **ElasticSearchUrl**: ElasticSearch service address (in this case, `http://elasticsearch:9200`).
+
+
