@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/dedca220-0ab4-45d8-8332-b712d86c9b03" alt="github_jarvis_auth">
+</p>
+
 # JarvisAuth – User, Application, and Permission Manager in ASP.NET 8
 
 JarvisAuth is an API designed to simplify the management of users, applications, and permissions. I developed this project to study software architecture patterns and other development practices in .NET. In the future, I plan to add new features as I progress in my learning roadmap and explore new technologies and best practices.
@@ -21,6 +25,8 @@ JarvisAuth is an API designed to simplify the management of users, applications,
 
 ## Architecture Overview
 
+![jarvis_auth_overview_arch 1](https://github.com/user-attachments/assets/7f582de5-ffc5-42b0-bdca-314280aa352a)
+
 The project is architected in 5 layers:
 
 - **Presentation**: Interface layer responsible for exposing the Web API and receiving user requests.
@@ -37,7 +43,7 @@ All following the principles of Clean Architecture and SOLID to ensure better or
 
 I used SQLite as the database to simplify application execution, making it easier for anyone who wants to explore the project in more depth.
 
-![jarvis_auth](https://github.com/user-attachments/assets/f96056d2-cb60-4a1c-acc9-a15485cf6e2b)
+![jarvis_auth_database](https://github.com/user-attachments/assets/1812a2f8-ba5e-4a86-84ac-ede5fafef833)
 
 ## Overview of Endpoints in Swagger
 
