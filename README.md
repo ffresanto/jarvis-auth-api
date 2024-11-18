@@ -13,6 +13,8 @@ JarvisAuth is an API designed to simplify the management of users, applications,
 ## Technologies / Components Implemented
 
 - ASP.NET 8 WebApi
+- Standardized API Responses
+- Entity Framework
 - HealthCheck
 - Clean Architecture
 - SQLite
