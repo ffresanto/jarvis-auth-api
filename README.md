@@ -27,7 +27,7 @@ JarvisAuth is an API designed to simplify the management of users, applications,
 
 ## Architecture Overview
 
-![jarvis_auth_overview_arch 1](https://github.com/user-attachments/assets/7f582de5-ffc5-42b0-bdca-314280aa352a)
+![jarvis_auth_overview_arch](https://github.com/user-attachments/assets/f4e798f6-f8e8-4378-bd3d-adf323fd0e95)
 
 The project is architected in 5 layers:
 
